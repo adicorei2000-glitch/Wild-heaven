@@ -17,7 +17,9 @@ import {
 } from "@/components/ui/select";
 import { Star, MapPin, CalendarIcon } from "lucide-react";
 import { villas } from "@/data/villa";
-import { format } from "date-fns";
+import { addDays, format } from "date-fns";
+
+type Message = { type: "error" | "success"; text: string };
 
 function VillaDetails() {
   const { id } = useParams();
@@ -26,6 +28,8 @@ function VillaDetails() {
   const [checkIn, setCheckIn] = useState<Date>();
   const [checkOut, setCheckOut] = useState<Date>();
   const [guests, setGuests] = useState("2");
+  const [message, setMessage] = useState<Message | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   if (!villa) {
     return (
@@ -38,6 +42,9 @@ function VillaDetails() {
     );
   }
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
   const nights =
     checkIn && checkOut
       ? Math.max(
@@ -48,6 +55,78 @@ function VillaDetails() {
         )
       : 0;
   const total = nights * villa.price;
+
+  const handleCheckIn = (date: Date | undefined) => {
+    setCheckIn(date);
+    setMessage(null);
+    // Chiqish sanasi kirish sanasidan oldin qolib ketmasin
+    if (date && checkOut && checkOut <= date) {
+      setCheckOut(undefined);
+    }
+  };
+
+  const handleCheckOut = (date: Date | undefined) => {
+    setCheckOut(date);
+    setMessage(null);
+  };
+
+  const handleBooking = async () => {
+    if (!checkIn || !checkOut || nights < 1) return;
+
+    setMessage(null);
+    setSubmitting(true);
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      setSubmitting(false);
+      setMessage({
+        type: "error",
+        text: "Bron qilish uchun avval tizimga kiring.",
+      });
+      return;
+    }
+
+    const { error } = await supabase.from("bookings").insert({
+      villa_id: villa.id,
+      villa_name: villa.name,
+      check_in: format(checkIn, "yyyy-MM-dd"),
+      check_out: format(checkOut, "yyyy-MM-dd"),
+      guests: Number(guests),
+      total_price: total,
+      user_id: user.id,
+    });
+
+    setSubmitting(false);
+
+    if (error) {
+      setMessage({
+        type: "error",
+        // 23P01 — bazadagi "sanalar kesishmasin" cheklovi (supabase/bookings.sql)
+        text:
+          error.code === "23P01"
+            ? "Bu sanalar allaqachon band. Iltimos, boshqa sanalarni tanlang."
+            : "Xatolik yuz berdi: " + error.message,
+      });
+    } else {
+      setMessage({
+        type: "success",
+        text: "Bron muvaffaqiyatli amalga oshirildi!",
+      });
+      setCheckIn(undefined);
+      setCheckOut(undefined);
+    }
+  };
+
+  const buttonLabel = submitting
+    ? "Yuborilmoqda..."
+    : !checkIn || !checkOut
+      ? "Sanalarni tanlang"
+      : nights < 1
+        ? "Kamida 1 kecha tanlang"
+        : "Bron qilish";
 
   return (
     <div className="container mx-auto px-4 py-10">
@@ -110,7 +189,8 @@ function VillaDetails() {
                   <Calendar
                     mode="single"
                     selected={checkIn}
-                    onSelect={setCheckIn}
+                    onSelect={handleCheckIn}
+                    disabled={{ before: today }}
                   />
                 </PopoverContent>
               </Popover>
@@ -132,7 +212,8 @@ function VillaDetails() {
                   <Calendar
                     mode="single"
                     selected={checkOut}
-                    onSelect={setCheckOut}
+                    onSelect={handleCheckOut}
+                    disabled={{ before: checkIn ? addDays(checkIn, 1) : today }}
                   />
                 </PopoverContent>
               </Popover>
@@ -170,38 +251,31 @@ function VillaDetails() {
             </div>
           )}
 
+          {message && (
+            <p
+              role={message.type === "error" ? "alert" : "status"}
+              className={
+                message.type === "error"
+                  ? "text-sm text-red-500"
+                  : "text-sm text-green-600"
+              }
+            >
+              {message.text}{" "}
+              {message.type === "success" && (
+                <Link to="/my-bookings" className="underline font-medium">
+                  Bronlarimni ko'rish
+                </Link>
+              )}
+            </p>
+          )}
+
           <Button
             className="w-full"
             size="lg"
-            disabled={!checkIn || !checkOut}
-            onClick={async () => {
-              const {
-                data: { user },
-              } = await supabase.auth.getUser();
-
-              if (!user) {
-                alert("Bron qilish uchun avval tizimga kiring");
-                return;
-              }
-
-              const { error } = await supabase.from("bookings").insert({
-                villa_id: villa.id,
-                villa_name: villa.name,
-                check_in: format(checkIn!, "yyyy-MM-dd"),
-                check_out: format(checkOut!, "yyyy-MM-dd"),
-                guests: Number(guests),
-                total_price: total,
-                user_id: user.id,
-              });
-
-              if (error) {
-                alert("Xatolik yuz berdi: " + error.message);
-              } else {
-                alert("Bron muvaffaqiyatli amalga oshirildi!");
-              }
-            }}
+            disabled={!checkIn || !checkOut || nights < 1 || submitting}
+            onClick={handleBooking}
           >
-            {checkIn && checkOut ? "Bron qilish" : "Sanalarni tanlang"}
+            {buttonLabel}
           </Button>
         </div>
       </div>

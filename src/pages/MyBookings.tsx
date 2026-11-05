@@ -50,11 +50,21 @@ function MyBookings() {
     const confirmed = confirm("Bronni bekor qilishni tasdiqlaysizmi?");
     if (!confirmed) return;
 
-    const { error } = await supabase.from("bookings").delete().eq("id", id);
+    if (!user) return;
 
-    if (!error) {
-      setBookings((prev) => prev.filter((b) => b.id !== id));
+    // user_id sharti: faqat o'zining bronini o'chira olsin
+    const { error } = await supabase
+      .from("bookings")
+      .delete()
+      .eq("id", id)
+      .eq("user_id", user.id);
+
+    if (error) {
+      alert("Bronni bekor qilib bo'lmadi: " + error.message);
+      return;
     }
+
+    setBookings((prev) => prev.filter((b) => b.id !== id));
   };
 
   if (loading) {

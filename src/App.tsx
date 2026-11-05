@@ -19,7 +19,6 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/villa/:id" element={<VillaDetails />} />
         <Route path="/my-bookings" element={<MyBookings />} />
-        <Route path="footer" element={<Footer />} />
       </Routes>
       <Footer />
     </>

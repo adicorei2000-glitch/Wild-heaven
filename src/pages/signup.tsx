@@ -12,6 +12,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [info, setInfo] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -25,7 +26,7 @@ function Signup() {
 
     setLoading(true);
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -37,6 +38,11 @@ function Signup() {
 
     if (error) {
       setError(error.message);
+    } else if (!data.session) {
+      // Supabase'da email tasdiqlash yoqilgan: foydalanuvchi hali kirmagan
+      setInfo(
+        "Hisob yaratildi. Emailingizga yuborilgan havola orqali tasdiqlang, so'ng tizimga kiring.",
+      );
     } else {
       navigate("/");
     }
@@ -112,6 +118,7 @@ function Signup() {
             </div>
 
             {error && <p className="text-sm text-red-500">{error}</p>}
+            {info && <p className="text-sm text-green-600">{info}</p>}
 
             <Button
               type="submit"
