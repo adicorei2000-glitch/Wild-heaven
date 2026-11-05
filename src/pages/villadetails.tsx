@@ -1,7 +1,9 @@
-import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import type { Matcher } from "react-day-picker";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import FavoriteButton from "@/components/ui/favorite-button";
 import { supabase } from "@/lib/supabase";
 import {
   Popover,
@@ -15,21 +17,87 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Star, MapPin, CalendarIcon } from "lucide-react";
-import { villas } from "@/data/villa";
+import { Star, MapPin, CalendarIcon, Check, Users } from "lucide-react";
 import { addDays, format } from "date-fns";
+import { fetchBookedRanges, fetchVilla, type BookedRange } from "@/lib/villas";
+import { useFavorites } from "@/lib/useFavorites";
+import { cn } from "@/lib/utils";
+import type { Villa } from "@/data/villa";
 
-type Message = { type: "error" | "success"; text: string };
+type Message = { type: "error" | "success"; text: string; login?: boolean };
 
 function VillaDetails() {
   const { id } = useParams();
-  const villa = villas.find((v) => v.id === Number(id));
+  const navigate = useNavigate();
+  const villaId = Number(id);
+  const { ids: favoriteIds, toggle: toggleFavorite } = useFavorites();
+
+  const [villa, setVilla] = useState<Villa | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
+  const [booked, setBooked] = useState<BookedRange[]>([]);
+  const [activeImage, setActiveImage] = useState(0);
 
   const [checkIn, setCheckIn] = useState<Date>();
   const [checkOut, setCheckOut] = useState<Date>();
   const [guests, setGuests] = useState("2");
   const [message, setMessage] = useState<Message | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setLoadError("");
+    setActiveImage(0);
+
+    if (!Number.isFinite(villaId)) {
+      setVilla(null);
+      setLoading(false);
+      return;
+    }
+
+    Promise.all([
+      fetchVilla(villaId),
+      fetchBookedRanges(villaId).catch(() => [] as BookedRange[]),
+    ])
+      .then(([v, ranges]) => {
+        if (cancelled) return;
+        setVilla(v);
+        setBooked(ranges);
+      })
+      .catch((e: Error) => {
+        if (!cancelled) setLoadError(e.message);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [villaId]);
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-10 animate-pulse space-y-6">
+        <div className="aspect-[16/7] rounded-xl bg-muted" />
+        <div className="h-8 w-1/3 rounded bg-muted" />
+        <div className="h-4 w-1/4 rounded bg-muted" />
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <div className="container mx-auto px-4 py-16 text-center space-y-3">
+        <h1 className="text-2xl font-bold">Villani yuklab bo'lmadi</h1>
+        <p className="text-sm text-muted-foreground">{loadError}</p>
+        <Link to="/" className="text-primary underline inline-block">
+          Bosh sahifaga qaytish
+        </Link>
+      </div>
+    );
+  }
 
   if (!villa) {
     return (
@@ -45,6 +113,29 @@ function VillaDetails() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  const guestCount = Math.min(Number(guests) || 1, villa.maxGuests);
+
+  // Keyingi band bronning kirish sanasi (shu sanagacha chiqib ketish mumkin)
+  const nextBookingAfter = (date: Date): Date | undefined =>
+    booked
+      .map((r) => r.checkIn)
+      .filter((d) => d > date)
+      .sort((a, b) => a.getTime() - b.getTime())[0];
+
+  // Band kechalar: kirishdan chiqishgacha, chiqish kunining o'zi bo'sh
+  const bookedNights: Matcher[] = booked.map((r) => ({
+    from: r.checkIn,
+    to: addDays(r.checkOut, -1),
+  }));
+
+  const checkInDisabled: Matcher[] = [{ before: today }, ...bookedNights];
+
+  const maxCheckOut = checkIn ? nextBookingAfter(checkIn) : undefined;
+  const checkOutDisabled: Matcher[] = [
+    { before: addDays(checkIn ?? today, 1) },
+    ...(maxCheckOut ? [{ after: maxCheckOut }] : []),
+  ];
+
   const nights =
     checkIn && checkOut
       ? Math.max(
@@ -54,20 +145,29 @@ function VillaDetails() {
           ),
         )
       : 0;
+  // Faqat ko'rsatish uchun: haqiqiy narxni bazadagi trigger hisoblaydi
   const total = nights * villa.price;
 
   const handleCheckIn = (date: Date | undefined) => {
     setCheckIn(date);
     setMessage(null);
-    // Chiqish sanasi kirish sanasidan oldin qolib ketmasin
-    if (date && checkOut && checkOut <= date) {
-      setCheckOut(undefined);
+
+    if (date && checkOut) {
+      const limit = nextBookingAfter(date);
+      if (checkOut <= date || (limit && checkOut > limit)) {
+        setCheckOut(undefined);
+      }
     }
   };
 
   const handleCheckOut = (date: Date | undefined) => {
     setCheckOut(date);
     setMessage(null);
+  };
+
+  const handleFavorite = async () => {
+    const result = await toggleFavorite(villa.id);
+    if (result === "login") navigate("/login");
   };
 
   const handleBooking = async () => {
@@ -85,6 +185,7 @@ function VillaDetails() {
       setMessage({
         type: "error",
         text: "Bron qilish uchun avval tizimga kiring.",
+        login: true,
       });
       return;
     }
@@ -94,7 +195,7 @@ function VillaDetails() {
       villa_name: villa.name,
       check_in: format(checkIn, "yyyy-MM-dd"),
       check_out: format(checkOut, "yyyy-MM-dd"),
-      guests: Number(guests),
+      guests: guestCount,
       total_price: total,
       user_id: user.id,
     });
@@ -104,12 +205,14 @@ function VillaDetails() {
     if (error) {
       setMessage({
         type: "error",
-        // 23P01 — bazadagi "sanalar kesishmasin" cheklovi (supabase/bookings.sql)
+        // 23P01 — bazadagi "sanalar kesishmasin" cheklovi
         text:
           error.code === "23P01"
             ? "Bu sanalar allaqachon band. Iltimos, boshqa sanalarni tanlang."
             : "Xatolik yuz berdi: " + error.message,
       });
+      // Kimdir shu orada band qilgan bo'lishi mumkin: kalendarni yangilaymiz
+      fetchBookedRanges(villa.id).then(setBooked).catch(() => {});
     } else {
       setMessage({
         type: "success",
@@ -117,6 +220,7 @@ function VillaDetails() {
       });
       setCheckIn(undefined);
       setCheckOut(undefined);
+      fetchBookedRanges(villa.id).then(setBooked).catch(() => {});
     }
   };
 
@@ -128,14 +232,45 @@ function VillaDetails() {
         ? "Kamida 1 kecha tanlang"
         : "Bron qilish";
 
+  const images = villa.images;
+
   return (
     <div className="container mx-auto px-4 py-10">
-      <div className="aspect-[16/7] overflow-hidden rounded-xl mb-8">
-        <img
-          src={villa.image}
-          alt={villa.name}
-          className="h-full w-full object-cover"
-        />
+      {/* Galereya */}
+      <div className="mb-8 space-y-3">
+        <div className="relative aspect-[16/7] overflow-hidden rounded-xl">
+          <img
+            src={images[activeImage] ?? villa.image}
+            alt={villa.name}
+            className="h-full w-full object-cover"
+          />
+          <FavoriteButton
+            active={favoriteIds.has(villa.id)}
+            onToggle={handleFavorite}
+            className="absolute top-4 right-4"
+          />
+        </div>
+
+        {images.length > 1 && (
+          <div className="flex gap-2 overflow-x-auto">
+            {images.map((src, index) => (
+              <button
+                key={src + index}
+                type="button"
+                aria-label={`Rasm ${index + 1}`}
+                onClick={() => setActiveImage(index)}
+                className={cn(
+                  "h-20 w-28 shrink-0 overflow-hidden rounded-lg border-2 transition-opacity",
+                  index === activeImage
+                    ? "border-primary"
+                    : "border-transparent opacity-70 hover:opacity-100",
+                )}
+              >
+                <img src={src} alt="" className="h-full w-full object-cover" />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -148,19 +283,36 @@ function VillaDetails() {
             </div>
           </div>
 
-          <p className="flex items-center gap-1 text-muted-foreground">
-            <MapPin className="h-4 w-4" />
-            {villa.location}
-          </p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-muted-foreground">
+            <p className="flex items-center gap-1">
+              <MapPin className="h-4 w-4" />
+              {villa.location}
+            </p>
+            <p className="flex items-center gap-1">
+              <Users className="h-4 w-4" />
+              Ko'pi bilan {villa.maxGuests} mehmon
+            </p>
+          </div>
 
           <div className="border-t pt-6">
             <p className="text-muted-foreground leading-relaxed">
-              Bu villa tabiat qo'ynida joylashgan bo'lib, hashamat va tinchlikni
-              birlashtiradi. Zamonaviy interyer, keng hovli va ajoyib manzara
-              sizni kutmoqda. Oilaviy dam olish yoki romantik sayohat uchun
-              ideal joy.
+              {villa.description}
             </p>
           </div>
+
+          {villa.amenities.length > 0 && (
+            <div className="border-t pt-6 space-y-3">
+              <h2 className="text-xl font-semibold">Qulayliklar</h2>
+              <ul className="grid grid-cols-2 gap-y-2 sm:grid-cols-3">
+                {villa.amenities.map((amenity) => (
+                  <li key={amenity} className="flex items-center gap-2 text-sm">
+                    <Check className="h-4 w-4 text-primary" />
+                    {amenity}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         {/* Bron qilish kartasi */}
@@ -190,7 +342,7 @@ function VillaDetails() {
                     mode="single"
                     selected={checkIn}
                     onSelect={handleCheckIn}
-                    disabled={{ before: today }}
+                    disabled={checkInDisabled}
                   />
                 </PopoverContent>
               </Popover>
@@ -213,7 +365,7 @@ function VillaDetails() {
                     mode="single"
                     selected={checkOut}
                     onSelect={handleCheckOut}
-                    disabled={{ before: checkIn ? addDays(checkIn, 1) : today }}
+                    disabled={checkOutDisabled}
                   />
                 </PopoverContent>
               </Popover>
@@ -222,16 +374,18 @@ function VillaDetails() {
 
           <div className="space-y-1">
             <label className="text-xs font-medium">Mehmonlar soni</label>
-            <Select value={guests} onValueChange={setGuests}>
+            <Select value={String(guestCount)} onValueChange={setGuests}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                  <SelectItem key={n} value={String(n)}>
-                    {n} mehmon
-                  </SelectItem>
-                ))}
+                {Array.from({ length: villa.maxGuests }, (_, i) => i + 1).map(
+                  (n) => (
+                    <SelectItem key={n} value={String(n)}>
+                      {n} mehmon
+                    </SelectItem>
+                  ),
+                )}
               </SelectContent>
             </Select>
           </div>
@@ -261,6 +415,11 @@ function VillaDetails() {
               }
             >
               {message.text}{" "}
+              {message.login && (
+                <Link to="/login" className="underline font-medium">
+                  Kirish
+                </Link>
+              )}
               {message.type === "success" && (
                 <Link to="/my-bookings" className="underline font-medium">
                   Bronlarimni ko'rish

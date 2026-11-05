@@ -1,0 +1,37 @@
+import { Heart } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface FavoriteButtonProps {
+  active: boolean;
+  onToggle: () => void;
+  className?: string;
+}
+
+function FavoriteButton({ active, onToggle, className }: FavoriteButtonProps) {
+  return (
+    <button
+      type="button"
+      aria-label={active ? "Sevimlilardan olib tashlash" : "Sevimlilarga qo'shish"}
+      aria-pressed={active}
+      onClick={(e) => {
+        // Kartochka havolasi ichida bo'lsa ham sahifaga o'tib ketmasin
+        e.preventDefault();
+        e.stopPropagation();
+        onToggle();
+      }}
+      className={cn(
+        "rounded-full bg-white/90 p-2 shadow transition-colors hover:bg-white",
+        className,
+      )}
+    >
+      <Heart
+        className={cn(
+          "h-5 w-5",
+          active ? "fill-red-500 text-red-500" : "text-gray-700",
+        )}
+      />
+    </button>
+  );
+}
+
+export default FavoriteButton;
