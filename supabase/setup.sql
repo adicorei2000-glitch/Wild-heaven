@@ -94,6 +94,19 @@ select setval(
 -- ---------------------------------------------------------------------
 -- 2) BOOKINGS: xavfsizlik (RLS)
 -- ---------------------------------------------------------------------
+-- Yangi loyihada jadval bo'lmasligi mumkin (mavjud bo'lsa, o'zgarishsiz qoladi)
+create table if not exists public.bookings (
+  id          bigint generated always as identity primary key,
+  villa_id    bigint,
+  villa_name  text,
+  check_in    date,
+  check_out   date,
+  guests      bigint,
+  total_price numeric,
+  user_id     uuid default auth.uid(),
+  created_at  timestamptz default now()
+);
+
 alter table public.bookings enable row level security;
 
 -- Supabase paneli yaratgan eski nomli (mazmunan bir xil) siyosatlar almashtiriladi
