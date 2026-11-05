@@ -61,6 +61,9 @@ function Header() {
                 <DropdownMenuItem asChild>
                   <Link to="/my-bookings">Mening bronlarim</Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/favorites">Sevimlilar</Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout}>
                   Chiqish
                 </DropdownMenuItem>

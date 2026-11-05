@@ -7,6 +7,9 @@ import Signup from "./pages/signup";
 import VillaDetails from "./pages/villadetails";
 import Footer from "./components/ui/footer";
 import MyBookings from "./pages/MyBookings";
+import Favorites from "./pages/favorites";
+import ForgotPassword from "./pages/forgot-password";
+import ResetPassword from "./pages/reset-password";
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/villa/:id" element={<VillaDetails />} />
         <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
       <Footer />
     </>

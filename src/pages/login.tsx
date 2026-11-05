@@ -69,6 +69,15 @@ function Login() {
               />
             </div>
 
+            <div className="text-right">
+              <Link
+                to="/forgot-password"
+                className="text-sm text-muted-foreground underline"
+              >
+                Parolni unutdingizmi?
+              </Link>
+            </div>
+
             {error && <p className="text-sm text-red-500">{error}</p>}
 
             <Button type="submit" className="w-full" disabled={loading}>
