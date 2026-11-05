@@ -25,7 +25,10 @@ jobs:
           node-version: 24
           cache: npm
 
-      - run: npm ci
+      # `npm ci` bu yerda lock fayl macOS'da yaratilgani sababli yiqiladi (Linux uchun
+      # ixtiyoriy @emnapi/* paketlari yo'q). `npm install` lock'ga amal qilib, kamini to'ldiradi.
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
 
       - name: Build
         run: npm run build
