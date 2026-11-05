@@ -7,6 +7,8 @@ favorites and manage your bookings.
 
 **🔗 Live demo: https://adicorei2000-glitch.github.io/Wild-heaven/**
 
+![Wild Haven villa page](docs/screenshot-villa.jpg)
+
 > The demo runs on a shared Supabase project. Bookings you make are real rows
 > in that database, so please don't enter any sensitive information.
 
