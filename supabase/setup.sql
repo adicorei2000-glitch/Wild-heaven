@@ -15,11 +15,11 @@
 --
 -- OLDINDAN TEKSHIRING:
 --   * bookings.check_in va bookings.check_out ustunlari `date` turida bo'lsin.
---   * bookings jadvalida kesishuvchi eski bronlar bo'lsa, 2-qadam xato beradi:
---     avval ularni qo'lda tuzating.
+--   * Kesishmaslik cheklovi faqat check_in >= 2026-11-01 bo'lgan bronlarga
+--     qo'llanadi, shuning uchun eski (sinov) bronlar xalaqit bermaydi va o'chirilmaydi.
 -- =====================================================================
 
-create extension if not exists btree_gist;
+create extension if not exists btree_gist with schema extensions;
 
 -- ---------------------------------------------------------------------
 -- 1) VILLAS
@@ -96,6 +96,11 @@ select setval(
 -- ---------------------------------------------------------------------
 alter table public.bookings enable row level security;
 
+-- Supabase paneli yaratgan eski nomli (mazmunan bir xil) siyosatlar almashtiriladi
+drop policy if exists "Users can view own bookings" on public.bookings;
+drop policy if exists "Users can insert own bookings" on public.bookings;
+drop policy if exists "Users can delete own bookings" on public.bookings;
+
 drop policy if exists "bookings_select_own" on public.bookings;
 create policy "bookings_select_own" on public.bookings
   for select to authenticated
@@ -121,12 +126,12 @@ alter table public.bookings
   exclude using gist (
     villa_id with =,
     daterange(check_in, check_out, '[)') with &&
-  );
+  ) where (check_in >= date '2026-11-01');
 
 alter table public.bookings drop constraint if exists bookings_dates_valid;
 alter table public.bookings
   add constraint bookings_dates_valid
-  check (check_out > check_in);
+  check (check_out > check_in) not valid;
 
 -- ---------------------------------------------------------------------
 -- 4) BOOKINGS: narx va villa nomi serverda hisoblanadi
@@ -140,6 +145,10 @@ as $$
 declare
   v public.villas%rowtype;
 begin
+  if new.check_in is null or new.check_out is null or new.guests is null then
+    raise exception 'Sana va mehmonlar soni majburiy' using errcode = '23502';
+  end if;
+
   select * into v from public.villas where id = new.villa_id;
 
   if not found then
@@ -166,6 +175,9 @@ drop trigger if exists bookings_before_insert on public.bookings;
 create trigger bookings_before_insert
   before insert on public.bookings
   for each row execute function public.bookings_before_insert();
+
+-- Trigger funksiyasi faqat trigger orqali ishlasin, API (rpc) orqali chaqirilmasin
+revoke execute on function public.bookings_before_insert() from public, anon, authenticated;
 
 -- ---------------------------------------------------------------------
 -- 5) Band sanalar (faqat sanalar, kim bron qilgani ko'rinmaydi)
