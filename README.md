@@ -105,13 +105,17 @@ repository secrets: `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
 access is controlled by Row Level Security. Never use the `service_role` key in
 this project.
 
-## Roadmap
+## Done
 
 - Booking status (pending / confirmed / cancelled) instead of deleting rows
+- Multiple languages (uz / en / ru / ko) with a language switcher
+
+## Roadmap
+
 - Admin panel to manage villas and bookings
 - Reviews and ratings from guests who stayed
 - Payments (Stripe test mode) and booking confirmation emails
-- Multiple languages (uz / en / ru) and dark mode
+- Dark mode
 
 ---
 
