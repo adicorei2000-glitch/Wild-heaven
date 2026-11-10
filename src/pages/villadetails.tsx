@@ -22,6 +22,7 @@ import { addDays, format } from "date-fns";
 import { fetchBookedRanges, fetchVilla, type BookedRange } from "@/lib/villas";
 import { useFavorites } from "@/lib/useFavorites";
 import { notifyBooking } from "@/lib/notify";
+import Reviews from "@/components/ui/reviews";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { villaText, amenityName } from "@/i18n/villa";
@@ -325,6 +326,11 @@ function VillaDetails() {
               </ul>
             </div>
           )}
+
+          <Reviews
+            villaId={villa.id}
+            onChanged={() => fetchVilla(villa.id).then((v) => v && setVilla(v))}
+          />
         </div>
 
         {/* Bron qilish kartasi */}

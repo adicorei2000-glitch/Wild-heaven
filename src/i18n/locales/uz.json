@@ -198,5 +198,17 @@
     "close": "Yopish",
     "invalidNumbers": "Narx, mehmonlar soni va reytingni to'g'ri kiriting.",
     "noAccess": "Bu sahifa faqat adminlar uchun."
+  },
+  "reviews": {
+    "title": "Sharhlar",
+    "empty": "Hali sharhlar yo'q. Yashab ketgan mehmonlar sharh qoldira oladi.",
+    "writeTitle": "Sharh qoldiring",
+    "rating": "Baho",
+    "pickRating": "Iltimos, 1 dan 5 gacha baho bering.",
+    "commentPlaceholder": "Taassurotlaringiz (ixtiyoriy)",
+    "submit": "Sharhni yuborish",
+    "failed": "Sharhni yuborib bo'lmadi: {{message}}",
+    "confirmDelete": "Sharhingizni o'chirmoqchimisiz?",
+    "guest": "Mehmon"
   }
 }

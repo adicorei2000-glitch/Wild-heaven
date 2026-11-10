@@ -250,5 +250,17 @@
     "close": "닫기",
     "invalidNumbers": "가격, 인원, 평점을 올바르게 입력하세요.",
     "noAccess": "관리자 전용 페이지입니다."
+  },
+  "reviews": {
+    "title": "리뷰",
+    "empty": "아직 리뷰가 없습니다. 숙박을 마친 고객이 리뷰를 남길 수 있습니다.",
+    "writeTitle": "리뷰 남기기",
+    "rating": "평점",
+    "pickRating": "1에서 5 사이의 평점을 선택하세요.",
+    "commentPlaceholder": "후기를 남겨주세요 (선택)",
+    "submit": "리뷰 등록",
+    "failed": "리뷰를 등록할 수 없습니다: {{message}}",
+    "confirmDelete": "리뷰를 삭제하시겠습니까?",
+    "guest": "손님"
   }
 }

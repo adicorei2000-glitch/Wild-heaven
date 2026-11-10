@@ -255,5 +255,17 @@
     "close": "Close",
     "invalidNumbers": "Please enter a valid price, guest count and rating.",
     "noAccess": "This page is for admins only."
+  },
+  "reviews": {
+    "title": "Reviews",
+    "empty": "No reviews yet. Guests who have stayed can leave a review.",
+    "writeTitle": "Leave a review",
+    "rating": "Rating",
+    "pickRating": "Please give a rating from 1 to 5.",
+    "commentPlaceholder": "Your experience (optional)",
+    "submit": "Submit review",
+    "failed": "Couldn't submit the review: {{message}}",
+    "confirmDelete": "Delete your review?",
+    "guest": "Guest"
   }
 }
