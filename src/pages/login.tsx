@@ -3,9 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
+import { useTranslation } from "react-i18next";
 import heroImage from "@/assets/hero2.jpg";
 
 function Login() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +27,7 @@ function Login() {
     setLoading(false);
 
     if (error) {
-      setError("Email yoki parol noto'g'ri");
+      setError(t("auth.wrongCreds"));
     } else {
       navigate("/");
     }
@@ -36,19 +38,19 @@ function Login() {
       <div className="flex items-center justify-center px-4 py-16">
         <div className="w-full max-w-sm space-y-6">
           <div className="text-center">
-            <h1 className="text-3xl font-bold">Xush kelibsiz</h1>
-            <p className="text-muted-foreground mt-2">Hisobingizga kiring</p>
+            <h1 className="text-3xl font-bold">{t("auth.welcome")}</h1>
+            <p className="text-muted-foreground mt-2">{t("auth.signInSubtitle")}</p>
           </div>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <label htmlFor="email" className="text-sm font-medium">
-                Email
+                {t("auth.email")}
               </label>
               <Input
                 id="email"
                 type="email"
-                placeholder="email@misol.com"
+                placeholder={t("auth.emailPlaceholder")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -57,7 +59,7 @@ function Login() {
 
             <div className="space-y-2">
               <label htmlFor="password" className="text-sm font-medium">
-                Parol
+                {t("auth.password")}
               </label>
               <Input
                 id="password"
@@ -74,21 +76,21 @@ function Login() {
                 to="/forgot-password"
                 className="text-sm text-muted-foreground underline"
               >
-                Parolni unutdingizmi?
+                {t("auth.forgot")}
               </Link>
             </div>
 
             {error && <p className="text-sm text-red-500">{error}</p>}
 
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Yuklanmoqda..." : "Kirish"}
+              {loading ? t("common.loading") : t("nav.login")}
             </Button>
           </form>
 
           <p className="text-center text-sm text-muted-foreground">
-            Hisobingiz yo'qmi?{" "}
+            {t("auth.noAccount")}{" "}
             <Link to="/signup" className="text-primary font-medium underline">
-              Ro'yxatdan o'ting
+              {t("auth.signUpLink")}
             </Link>
           </p>
         </div>

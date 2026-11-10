@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 import { supabase } from "@/lib/supabase";
+import { fetchVillas } from "@/lib/villas";
+import { villaText } from "@/i18n/villa";
+import type { Villa } from "@/data/villa";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+type Status = "pending" | "confirmed" | "cancelled";
 
 interface Booking {
   id: number;
@@ -11,11 +19,38 @@ interface Booking {
   check_out: string;
   guests: number;
   total_price: number;
+  status: Status;
   created_at: string;
 }
 
+const today = () => format(new Date(), "yyyy-MM-dd");
+
+function getBadge(booking: Booking) {
+  if (booking.status === "cancelled") {
+    return { key: "bookings.statusCancelled", className: "bg-red-100 text-red-700" };
+  }
+  if (booking.check_out < today()) {
+    return {
+      key: "bookings.statusCompleted",
+      className: "bg-muted text-muted-foreground",
+    };
+  }
+  if (booking.status === "pending") {
+    return {
+      key: "bookings.statusPending",
+      className: "bg-yellow-100 text-yellow-800",
+    };
+  }
+  return {
+    key: "bookings.statusConfirmed",
+    className: "bg-green-100 text-green-700",
+  };
+}
+
 function MyBookings() {
+  const { t } = useTranslation();
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [villaById, setVillaById] = useState<Map<number, Villa>>(new Map());
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<{ id: string } | null>(null);
 
@@ -40,6 +75,12 @@ function MyBookings() {
       if (!error && data) {
         setBookings(data);
       }
+
+      // Villa nomi tanlangan tilda chiqishi uchun villalarni ham olamiz
+      fetchVillas()
+        .then((villas) => setVillaById(new Map(villas.map((v) => [v.id, v]))))
+        .catch(() => {});
+
       setLoading(false);
     };
 
@@ -47,30 +88,30 @@ function MyBookings() {
   }, []);
 
   const handleCancel = async (id: number) => {
-    const confirmed = confirm("Bronni bekor qilishni tasdiqlaysizmi?");
+    const confirmed = confirm(t("bookings.confirmCancel"));
     if (!confirmed) return;
 
     if (!user) return;
 
-    // user_id sharti: faqat o'zining bronini o'chira olsin
-    const { error } = await supabase
-      .from("bookings")
-      .delete()
-      .eq("id", id)
-      .eq("user_id", user.id);
+    // Bazadagi cancel_booking() faqat foydalanuvchining o'z bronini bekor qiladi
+    const { error } = await supabase.rpc("cancel_booking", {
+      p_booking_id: id,
+    });
 
     if (error) {
-      alert("Bronni bekor qilib bo'lmadi: " + error.message);
+      alert(t("bookings.cancelFailed", { message: error.message }));
       return;
     }
 
-    setBookings((prev) => prev.filter((b) => b.id !== id));
+    setBookings((prev) =>
+      prev.map((b) => (b.id === id ? { ...b, status: "cancelled" } : b)),
+    );
   };
 
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
-        <p className="text-muted-foreground">Yuklanmoqda...</p>
+        <p className="text-muted-foreground">{t("common.loading")}</p>
       </div>
     );
   }
@@ -78,11 +119,9 @@ function MyBookings() {
   if (!user) {
     return (
       <div className="container mx-auto px-4 py-16 text-center space-y-4">
-        <h1 className="text-2xl font-bold">
-          Bronlaringizni ko'rish uchun kiring
-        </h1>
+        <h1 className="text-2xl font-bold">{t("bookings.loginPrompt")}</h1>
         <Link to="/login">
-          <Button>Kirish</Button>
+          <Button>{t("nav.login")}</Button>
         </Link>
       </div>
     );
@@ -90,37 +129,65 @@ function MyBookings() {
 
   return (
     <div className="container mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-8">Mening bronlarim</h1>
+      <h1 className="text-3xl font-bold mb-8">{t("bookings.title")}</h1>
 
       {bookings.length === 0 ? (
-        <p className="text-muted-foreground">
-          Sizda hali bron qilingan joy yo'q.
-        </p>
+        <p className="text-muted-foreground">{t("bookings.empty")}</p>
       ) : (
         <div className="space-y-4">
-          {bookings.map((booking) => (
-            <div
-              key={booking.id}
-              className="border rounded-xl p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
-            >
-              <div>
-                <h2 className="text-lg font-semibold">{booking.villa_name}</h2>
-                <p className="text-sm text-muted-foreground mt-1">
-                  {booking.check_in} — {booking.check_out} · {booking.guests}{" "}
-                  mehmon
-                </p>
-                <p className="text-sm font-medium mt-1">
-                  ${booking.total_price}
-                </p>
-              </div>
-              <Button
-                variant="outline"
-                onClick={() => handleCancel(booking.id)}
+          {bookings.map((booking) => {
+            const badge = getBadge(booking);
+            const isCancelled = booking.status === "cancelled";
+            const canCancel = !isCancelled && booking.check_out > today();
+            const villa = villaById.get(booking.villa_id);
+            const villaName = villa
+              ? villaText(t, villa).name
+              : booking.villa_name;
+
+            return (
+              <div
+                key={booking.id}
+                className={cn(
+                  "border rounded-xl p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4",
+                  isCancelled && "opacity-60",
+                )}
               >
-                Bekor qilish
-              </Button>
-            </div>
-          ))}
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h2 className="text-lg font-semibold">{villaName}</h2>
+                    <span
+                      className={cn(
+                        "rounded-full px-2.5 py-0.5 text-xs font-medium",
+                        badge.className,
+                      )}
+                    >
+                      {t(badge.key)}
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {booking.check_in} — {booking.check_out} ·{" "}
+                    {t("bookings.guestsLine", { count: booking.guests })}
+                  </p>
+                  <p
+                    className={cn(
+                      "text-sm font-medium mt-1",
+                      isCancelled && "line-through",
+                    )}
+                  >
+                    ${booking.total_price}
+                  </p>
+                </div>
+                {canCancel && (
+                  <Button
+                    variant="outline"
+                    onClick={() => handleCancel(booking.id)}
+                  >
+                    {t("bookings.cancel")}
+                  </Button>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

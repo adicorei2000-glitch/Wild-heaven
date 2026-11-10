@@ -22,13 +22,22 @@ import { addDays, format } from "date-fns";
 import { fetchBookedRanges, fetchVilla, type BookedRange } from "@/lib/villas";
 import { useFavorites } from "@/lib/useFavorites";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
+import { villaText, amenityName } from "@/i18n/villa";
+import { calendarLocale } from "@/i18n/calendar";
 import type { Villa } from "@/data/villa";
 
-type Message = { type: "error" | "success"; text: string; login?: boolean };
+type Message = {
+  type: "error" | "success";
+  key: string;
+  detail?: string;
+  login?: boolean;
+};
 
 function VillaDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const villaId = Number(id);
   const { ids: favoriteIds, toggle: toggleFavorite } = useFavorites();
 
@@ -90,10 +99,10 @@ function VillaDetails() {
   if (loadError) {
     return (
       <div className="container mx-auto px-4 py-16 text-center space-y-3">
-        <h1 className="text-2xl font-bold">Villani yuklab bo'lmadi</h1>
+        <h1 className="text-2xl font-bold">{t("villa.loadFailed")}</h1>
         <p className="text-sm text-muted-foreground">{loadError}</p>
         <Link to="/" className="text-primary underline inline-block">
-          Bosh sahifaga qaytish
+          {t("villa.backHome")}
         </Link>
       </div>
     );
@@ -102,9 +111,9 @@ function VillaDetails() {
   if (!villa) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold">Villa topilmadi</h1>
+        <h1 className="text-2xl font-bold">{t("villa.notFound")}</h1>
         <Link to="/" className="text-primary underline mt-4 inline-block">
-          Bosh sahifaga qaytish
+          {t("villa.backHome")}
         </Link>
       </div>
     );
@@ -184,7 +193,7 @@ function VillaDetails() {
       setSubmitting(false);
       setMessage({
         type: "error",
-        text: "Bron qilish uchun avval tizimga kiring.",
+        key: "villa.loginToBook",
         login: true,
       });
       return;
@@ -206,17 +215,15 @@ function VillaDetails() {
       setMessage({
         type: "error",
         // 23P01 — bazadagi "sanalar kesishmasin" cheklovi
-        text:
-          error.code === "23P01"
-            ? "Bu sanalar allaqachon band. Iltimos, boshqa sanalarni tanlang."
-            : "Xatolik yuz berdi: " + error.message,
+        key: error.code === "23P01" ? "villa.alreadyBooked" : "villa.bookingFailed",
+        detail: error.message,
       });
       // Kimdir shu orada band qilgan bo'lishi mumkin: kalendarni yangilaymiz
       fetchBookedRanges(villa.id).then(setBooked).catch(() => {});
     } else {
       setMessage({
         type: "success",
-        text: "Bron muvaffaqiyatli amalga oshirildi!",
+        key: "villa.bookingSuccess",
       });
       setCheckIn(undefined);
       setCheckOut(undefined);
@@ -225,14 +232,16 @@ function VillaDetails() {
   };
 
   const buttonLabel = submitting
-    ? "Yuborilmoqda..."
+    ? t("villa.btnSubmitting")
     : !checkIn || !checkOut
-      ? "Sanalarni tanlang"
+      ? t("villa.btnPickDates")
       : nights < 1
-        ? "Kamida 1 kecha tanlang"
-        : "Bron qilish";
+        ? t("villa.btnMinNight")
+        : t("villa.btnBook");
 
   const images = villa.images;
+  const text = villaText(t, villa);
+  const calLocale = calendarLocale(i18n.resolvedLanguage ?? "uz");
 
   return (
     <div className="container mx-auto px-4 py-10">
@@ -241,7 +250,7 @@ function VillaDetails() {
         <div className="relative aspect-[16/7] overflow-hidden rounded-xl">
           <img
             src={images[activeImage] ?? villa.image}
-            alt={villa.name}
+            alt={text.name}
             className="h-full w-full object-cover"
           />
           <FavoriteButton
@@ -257,7 +266,7 @@ function VillaDetails() {
               <button
                 key={src + index}
                 type="button"
-                aria-label={`Rasm ${index + 1}`}
+                aria-label={t("villa.imageN", { n: index + 1 })}
                 onClick={() => setActiveImage(index)}
                 className={cn(
                   "h-20 w-28 shrink-0 overflow-hidden rounded-lg border-2 transition-opacity",
@@ -276,7 +285,7 @@ function VillaDetails() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-bold">{villa.name}</h1>
+            <h1 className="text-3xl font-bold">{text.name}</h1>
             <div className="flex items-center gap-1 text-sm">
               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
               {villa.rating}
@@ -286,28 +295,28 @@ function VillaDetails() {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-muted-foreground">
             <p className="flex items-center gap-1">
               <MapPin className="h-4 w-4" />
-              {villa.location}
+              {text.location}
             </p>
             <p className="flex items-center gap-1">
               <Users className="h-4 w-4" />
-              Ko'pi bilan {villa.maxGuests} mehmon
+              {t("villa.maxGuests", { count: villa.maxGuests })}
             </p>
           </div>
 
           <div className="border-t pt-6">
             <p className="text-muted-foreground leading-relaxed">
-              {villa.description}
+              {text.description}
             </p>
           </div>
 
           {villa.amenities.length > 0 && (
             <div className="border-t pt-6 space-y-3">
-              <h2 className="text-xl font-semibold">Qulayliklar</h2>
+              <h2 className="text-xl font-semibold">{t("villa.amenities")}</h2>
               <ul className="grid grid-cols-2 gap-y-2 sm:grid-cols-3">
                 {villa.amenities.map((amenity) => (
                   <li key={amenity} className="flex items-center gap-2 text-sm">
                     <Check className="h-4 w-4 text-primary" />
-                    {amenity}
+                    {amenityName(t, amenity)}
                   </li>
                 ))}
               </ul>
@@ -320,13 +329,13 @@ function VillaDetails() {
           <p className="text-2xl font-bold">
             ${villa.price}{" "}
             <span className="text-muted-foreground text-base font-normal">
-              / kecha
+              {t("common.perNight")}
             </span>
           </p>
 
           <div className="grid grid-cols-2 gap-2">
             <div className="space-y-1">
-              <label className="text-xs font-medium">Kirish</label>
+              <label className="text-xs font-medium">{t("villa.checkIn")}</label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -334,12 +343,13 @@ function VillaDetails() {
                     className="w-full justify-start text-left font-normal"
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {checkIn ? format(checkIn, "dd.MM.yyyy") : "Sana"}
+                    {checkIn ? format(checkIn, "dd.MM.yyyy") : t("villa.date")}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0">
                   <Calendar
                     mode="single"
+                    locale={calLocale}
                     selected={checkIn}
                     onSelect={handleCheckIn}
                     disabled={checkInDisabled}
@@ -349,7 +359,7 @@ function VillaDetails() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs font-medium">Chiqish</label>
+              <label className="text-xs font-medium">{t("villa.checkOut")}</label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -357,12 +367,13 @@ function VillaDetails() {
                     className="w-full justify-start text-left font-normal"
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {checkOut ? format(checkOut, "dd.MM.yyyy") : "Sana"}
+                    {checkOut ? format(checkOut, "dd.MM.yyyy") : t("villa.date")}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0">
                   <Calendar
                     mode="single"
+                    locale={calLocale}
                     selected={checkOut}
                     onSelect={handleCheckOut}
                     disabled={checkOutDisabled}
@@ -373,7 +384,7 @@ function VillaDetails() {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium">Mehmonlar soni</label>
+            <label className="text-xs font-medium">{t("villa.guestsLabel")}</label>
             <Select value={String(guestCount)} onValueChange={setGuests}>
               <SelectTrigger>
                 <SelectValue />
@@ -382,7 +393,7 @@ function VillaDetails() {
                 {Array.from({ length: villa.maxGuests }, (_, i) => i + 1).map(
                   (n) => (
                     <SelectItem key={n} value={String(n)}>
-                      {n} mehmon
+                      {t("villa.guestOption", { count: n })}
                     </SelectItem>
                   ),
                 )}
@@ -394,12 +405,12 @@ function VillaDetails() {
             <div className="border-t pt-4 space-y-2 text-sm">
               <div className="flex justify-between text-muted-foreground">
                 <span>
-                  ${villa.price} x {nights} kecha
+                  ${villa.price} x {t("villa.nights", { count: nights })}
                 </span>
                 <span>${total}</span>
               </div>
               <div className="flex justify-between font-semibold text-base border-t pt-2">
-                <span>Jami</span>
+                <span>{t("villa.total")}</span>
                 <span>${total}</span>
               </div>
             </div>
@@ -414,15 +425,15 @@ function VillaDetails() {
                   : "text-sm text-green-600"
               }
             >
-              {message.text}{" "}
+              {t(message.key, { message: message.detail })}{" "}
               {message.login && (
                 <Link to="/login" className="underline font-medium">
-                  Kirish
+                  {t("nav.login")}
                 </Link>
               )}
               {message.type === "success" && (
                 <Link to="/my-bookings" className="underline font-medium">
-                  Bronlarimni ko'rish
+                  {t("villa.viewBookings")}
                 </Link>
               )}
             </p>

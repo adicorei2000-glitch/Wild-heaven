@@ -1,0 +1,225 @@
+{
+  "lang": {
+    "label": "Language"
+  },
+  "common": {
+    "perNight": "/ night",
+    "loading": "Loading..."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About us",
+    "login": "Log in",
+    "signup": "Sign up",
+    "myBookings": "My bookings",
+    "favorites": "Favorites",
+    "logout": "Log out",
+    "profile": "Profile"
+  },
+  "favorite": {
+    "add": "Add to favorites",
+    "remove": "Remove from favorites"
+  },
+  "home": {
+    "heroTitle": "Find your paradise",
+    "heroSubtitle": "Book wonderful villas in the most beautiful places in the world",
+    "explore": "Explore places",
+    "learnMore": "Learn more",
+    "popular": "Popular villas",
+    "sort": "Sort",
+    "sortDefault": "Recommended",
+    "sortPriceAsc": "Price: low to high",
+    "sortPriceDesc": "Price: high to low",
+    "sortRating": "By rating",
+    "search": "Search",
+    "searchPlaceholder": "Search by name or location",
+    "country": "Country",
+    "allCountries": "All countries",
+    "guests": "Number of guests",
+    "guestsShort": "Guests",
+    "anyGuests": "Any number of guests",
+    "guestsPlus": "{{count}}+ guests",
+    "maxPrice": "Maximum price",
+    "maxPricePlaceholder": "Max. price ($)",
+    "loadError": "Couldn't load the villas",
+    "retry": "Try again",
+    "nothingFound": "Nothing found",
+    "changeFilters": "Try changing the filters.",
+    "clearFilters": "Clear filters",
+    "found_one": "{{count}} villa found",
+    "found_other": "{{count}} villas found"
+  },
+  "footer": {
+    "about": "A platform for booking the most beautiful villas in the heart of nature. Every place gives you an unforgettable experience.",
+    "links": "Links",
+    "help": "Help",
+    "contact": "Contact",
+    "faq": "Frequently asked questions",
+    "faqBookingQ": "How do I book?",
+    "faqBookingA": "Choose the villa you like, select your dates and press the \"Book\" button.",
+    "faqPaymentQ": "How is payment made?",
+    "faqPaymentA": "You can pay securely by bank card.",
+    "cancelPolicy": "Cancellation policy",
+    "cancelPolicyText": "If you cancel at least 48 hours before the booked date, 100% of the payment is refunded. Cancellations after that are not refunded.",
+    "privacy": "Privacy policy",
+    "privacyText": "Your personal data is used only to process your booking and is not shared with third parties. Data is stored on Supabase servers, passwords are kept encrypted (hashed), and each user can only see their own bookings and favorites.",
+    "rights": "© {{year}} Wild Haven. All rights reserved.",
+    "madeWithLove": "Made with love 🌿"
+  },
+  "amenity": {
+    "Basseyn": "Pool",
+    "Wi-Fi": "Wi-Fi",
+    "Konditsioner": "Air conditioning",
+    "Oshxona": "Kitchen",
+    "Avtoturargoh": "Parking",
+    "Manzarali balkon": "Scenic balcony",
+    "Kamin": "Fireplace",
+    "Barbekyu": "Barbecue",
+    "Sauna": "Sauna"
+  },
+  "villa": {
+    "loadFailed": "Couldn't load the villa",
+    "backHome": "Back to home",
+    "notFound": "Villa not found",
+    "maxGuests_one": "Up to {{count}} guest",
+    "maxGuests_other": "Up to {{count}} guests",
+    "amenities": "Amenities",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "date": "Date",
+    "guestsLabel": "Guests",
+    "guestOption_one": "{{count}} guest",
+    "guestOption_other": "{{count}} guests",
+    "nights_one": "{{count}} night",
+    "nights_other": "{{count}} nights",
+    "total": "Total",
+    "loginToBook": "Please log in first to make a booking.",
+    "alreadyBooked": "These dates are already booked. Please choose other dates.",
+    "bookingFailed": "An error occurred: {{message}}",
+    "bookingSuccess": "Your booking was successful!",
+    "viewBookings": "View my bookings",
+    "imageN": "Image {{n}}",
+    "btnSubmitting": "Submitting...",
+    "btnPickDates": "Select dates",
+    "btnMinNight": "Select at least 1 night",
+    "btnBook": "Book"
+  },
+  "bookings": {
+    "title": "My bookings",
+    "empty": "You don't have any bookings yet.",
+    "loginPrompt": "Log in to see your bookings",
+    "statusCancelled": "Cancelled",
+    "statusCompleted": "Completed",
+    "statusPending": "Pending",
+    "statusConfirmed": "Confirmed",
+    "confirmCancel": "Do you want to cancel this booking?",
+    "cancelFailed": "Couldn't cancel: {{message}}",
+    "guestsLine_one": "{{count}} guest",
+    "guestsLine_other": "{{count}} guests",
+    "cancel": "Cancel booking"
+  },
+  "auth": {
+    "welcome": "Welcome back",
+    "signInSubtitle": "Log in to your account",
+    "email": "Email",
+    "emailPlaceholder": "email@example.com",
+    "password": "Password",
+    "forgot": "Forgot your password?",
+    "wrongCreds": "Incorrect email or password",
+    "noAccount": "Don't have an account?",
+    "signUpLink": "Sign up",
+    "signupTitle": "Sign up",
+    "signupSubtitle": "Create an account and start your journey",
+    "fullName": "Full name",
+    "namePlaceholder": "Your name",
+    "confirmPassword": "Confirm password",
+    "passwordMismatch": "Passwords do not match",
+    "signupCreated": "Account created. Please confirm it using the link sent to your email, then log in.",
+    "signUpBtn": "Sign up",
+    "haveAccount": "Already have an account?",
+    "forgotTitle": "Reset password",
+    "forgotSubtitle": "Enter your email and we'll send you a reset link",
+    "sending": "Sending...",
+    "sendLink": "Send link",
+    "forgotSent": "If this email is registered, a password reset link has been sent. Please check your inbox.",
+    "backToLogin": "Back to login",
+    "resetTitle": "New password",
+    "resetSubtitle": "Set a new password for your account",
+    "checking": "Checking...",
+    "linkInvalid": "The link is invalid or has expired.",
+    "requestNew": "Request a new link",
+    "newPassword": "New password",
+    "saving": "Saving...",
+    "savePassword": "Save password",
+    "passwordUpdated": "Password updated. Redirecting to the home page..."
+  },
+  "favorites": {
+    "loginPrompt": "Log in to see your favorites",
+    "loadFailed": "Couldn't load villas",
+    "title": "My favorite villas",
+    "empty": "You haven't added any favorite villas yet. Tap the heart button on a card.",
+    "browse": "Browse villas"
+  },
+  "about": {
+    "heroTitle": "In harmony with nature",
+    "heroSubtitle": "Wild Haven — unique villas in the most beautiful corners of the world",
+    "storyTitle": "Our story",
+    "story1": "Wild Haven was born in 2020 from a simple idea — to help people find places far from the noise of the city, face to face with nature. We choose every villa by hand and personally check its views, comfort and atmosphere.",
+    "story2": "Today we have given more than a thousand guests an unforgettable holiday — from houses in the foothills to luxurious lakeside villas.",
+    "statVillas": "Selected villas",
+    "statCountries": "Countries",
+    "statGuests": "Happy guests"
+  },
+  "country": {
+    "Shveytsariya": "Switzerland",
+    "Italiya": "Italy",
+    "Ispaniya": "Spain",
+    "Fransiya": "France",
+    "Gretsiya": "Greece",
+    "Indoneziya": "Indonesia",
+    "Janubiy Koreya": "South Korea",
+    "O'zbekiston": "Uzbekistan"
+  },
+  "villaData": {
+    "1": {
+      "name": "Lakeside Villa",
+      "location": "Lugano, Switzerland",
+      "description": "A luxurious villa on the shore of Lake Lugano. A private path down to the water, a spacious terrace and mountain views await you."
+    },
+    "2": {
+      "name": "Mountain Retreat",
+      "location": "Como, Italy",
+      "description": "A cozy house at the foot of the mountains near Lake Como. A fireplace, wooden interior and a quiet courtyard make it ideal for a family holiday."
+    },
+    "3": {
+      "name": "Modern Villa",
+      "location": "Marbella, Spain",
+      "description": "A modern seaside villa in Marbella. An infinity pool, a spacious living room and a sunny terrace."
+    },
+    "4": {
+      "name": "Quiet Haven",
+      "location": "Provence, France",
+      "description": "A peaceful house among the fields of Provence. A lavender-scented garden, an open kitchen and calm mornings await you."
+    },
+    "5": {
+      "name": "White Coast Villa",
+      "location": "Santorini, Greece",
+      "description": "A villa in the style of Santorini's famous white houses. A spacious terrace, sunset views and a quiet courtyard await you."
+    },
+    "6": {
+      "name": "Tropical Paradise",
+      "location": "Bali, Indonesia",
+      "description": "A villa with a private pool among the palms on the island of Bali. A tropical garden, calm mornings and a spot close to the sea."
+    },
+    "7": {
+      "name": "Jeju Island House",
+      "location": "Jeju, South Korea",
+      "description": "A modern house with wooden accents on Jeju Island. Close to the sea, with a quiet courtyard and a convenient location."
+    },
+    "8": {
+      "name": "Chimyon Mountain House",
+      "location": "Chimyon, Uzbekistan",
+      "description": "A wooden house in the Chimyon mountains. Fresh air, forest views, a fireplace and a spacious yard for a family holiday."
+    }
+  }
+}

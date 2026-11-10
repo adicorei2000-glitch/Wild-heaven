@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import {
   Dialog,
   DialogContent,
@@ -9,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 
 function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="bg-neutral-900 text-neutral-300 mt-20">
       <div className="container mx-auto px-4 py-16">
@@ -16,17 +18,17 @@ function Footer() {
           <div className="lg:col-span-1">
             <h3 className="text-2xl font-bold text-white mb-3">Wild Haven</h3>
             <p className="text-sm leading-relaxed">
-              Tabiat qo'ynidagi eng go'zal villalarni bron qilish platformasi.
-              Har bir joy sizga unutilmas tajriba taqdim etadi.
+              {t("footer.about")}
+
             </p>
           </div>
 
           <div>
-            <h4 className="font-semibold text-white mb-4">Havolalar</h4>
+            <h4 className="font-semibold text-white mb-4">{t("footer.links")}</h4>
             <ul className="space-y-3 text-sm">
               <li>
                 <Link to="/" className="hover:text-white transition-colors">
-                  Bosh sahifa
+                  {t("nav.home")}
                 </Link>
               </li>
               <li>
@@ -34,7 +36,7 @@ function Footer() {
                   to="/about"
                   className="hover:text-white transition-colors"
                 >
-                  Biz haqimizda
+                  {t("nav.about")}
                 </Link>
               </li>
               <li>
@@ -42,7 +44,7 @@ function Footer() {
                   to="/login"
                   className="hover:text-white transition-colors"
                 >
-                  Kirish
+                  {t("nav.login")}
                 </Link>
               </li>
               <li>
@@ -50,41 +52,41 @@ function Footer() {
                   to="/signup"
                   className="hover:text-white transition-colors"
                 >
-                  Ro'yxatdan o'tish
+                  {t("nav.signup")}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold text-white mb-4">Yordam</h4>
+            <h4 className="font-semibold text-white mb-4">{t("footer.help")}</h4>
             <ul className="space-y-3 text-sm">
               <li>
                 <Dialog>
                   <DialogTrigger className="hover:text-white transition-colors">
-                    Ko'p so'raladigan savollar
+                    {t("footer.faq")}
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Ko'p so'raladigan savollar</DialogTitle>
+                      <DialogTitle>{t("footer.faq")}</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-4 text-sm text-muted-foreground">
                       <div>
                         <p className="font-medium text-foreground mb-1">
-                          Qanday bron qilish mumkin?
+                          {t("footer.faqBookingQ")}
                         </p>
                         <p>
-                          Xohlagan villangizni tanlang, sanalarni belgilang va
-                          "Bron qilish" tugmasini bosing.
+                          {t("footer.faqBookingA")}
+
                         </p>
                       </div>
                       <div>
                         <p className="font-medium text-foreground mb-1">
-                          To'lov qanday amalga oshiriladi?
+                          {t("footer.faqPaymentQ")}
                         </p>
                         <p>
-                          To'lovni bank kartasi orqali xavfsiz tarzda amalga
-                          oshirishingiz mumkin.
+                          {t("footer.faqPaymentA")}
+
                         </p>
                       </div>
                     </div>
@@ -95,16 +97,16 @@ function Footer() {
               <li>
                 <Dialog>
                   <DialogTrigger className="hover:text-white transition-colors">
-                    Bekor qilish siyosati
+                    {t("footer.cancelPolicy")}
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Bekor qilish siyosati</DialogTitle>
+                      <DialogTitle>{t("footer.cancelPolicy")}</DialogTitle>
                     </DialogHeader>
                     <p className="text-sm text-muted-foreground">
-                      Bron qilingan kundan 48 soat oldin bekor qilinsa,
-                      to'lovning 100% qaytariladi. Undan keyin bekor qilinsa,
-                      qaytarish amalga oshirilmaydi.
+                      {t("footer.cancelPolicyText")}
+
+
                     </p>
                   </DialogContent>
                 </Dialog>
@@ -113,16 +115,16 @@ function Footer() {
               <li>
                 <Dialog>
                   <DialogTrigger className="hover:text-white transition-colors">
-                    Maxfiylik siyosati
+                    {t("footer.privacy")}
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Maxfiylik siyosati</DialogTitle>
+                      <DialogTitle>{t("footer.privacy")}</DialogTitle>
                     </DialogHeader>
                     <p className="text-sm text-muted-foreground">
-                      Sizning shaxsiy ma'lumotlaringiz faqat bron qilish
-                      jarayonini amalga oshirish uchun ishlatiladi va uchinchi
-                      shaxslarga berilmaydi.
+                      {t("footer.privacyText")}
+
+
                     </p>
                   </DialogContent>
                 </Dialog>
@@ -131,7 +133,7 @@ function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold text-white mb-4">Aloqa</h4>
+            <h4 className="font-semibold text-white mb-4">{t("footer.contact")}</h4>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 shrink-0" />
@@ -151,10 +153,10 @@ function Footer() {
 
         <div className="border-t border-neutral-800 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-neutral-500">
           <p>
-            © {new Date().getFullYear()} Wild Haven. Barcha huquqlar
-            himoyalangan.
+            {t("footer.rights", { year: new Date().getFullYear() })}
+
           </p>
-          <p>Sevgi bilan yaratilgan 🌿</p>
+          <p>{t("footer.madeWithLove")}</p>
         </div>
       </div>
     </footer>

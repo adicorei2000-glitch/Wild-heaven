@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "@/components/ui/language-switcher";
 import type { User } from "@supabase/supabase-js";
 import {
   DropdownMenu,
@@ -12,6 +14,7 @@ import {
 
 function Header() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -36,7 +39,7 @@ function Header() {
   };
 
   const displayName =
-    user?.user_metadata?.full_name || user?.email?.split("@")[0] || "Profil";
+    user?.user_metadata?.full_name || user?.email?.split("@")[0] || t("nav.profile");
 
   return (
     <header className="border-b">
@@ -46,11 +49,13 @@ function Header() {
         </Link>
         <nav className="flex items-center gap-6">
           <Link to="/" className="text-sm font-medium hover:text-primary">
-            Bosh sahifa
+            {t("nav.home")}
           </Link>
           <Link to="/about" className="text-sm font-medium hover:text-primary">
-            Biz haqimizda
+            {t("nav.about")}
           </Link>
+
+          <LanguageSwitcher />
 
           {user ? (
             <DropdownMenu>
@@ -59,19 +64,19 @@ function Header() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
-                  <Link to="/my-bookings">Mening bronlarim</Link>
+                  <Link to="/my-bookings">{t("nav.myBookings")}</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/favorites">Sevimlilar</Link>
+                  <Link to="/favorites">{t("nav.favorites")}</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout}>
-                  Chiqish
+                  {t("nav.logout")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <Link to="/login">
-              <Button>Kirish</Button>
+              <Button>{t("nav.login")}</Button>
             </Link>
           )}
         </nav>

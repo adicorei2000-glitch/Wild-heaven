@@ -1,5 +1,6 @@
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 interface FavoriteButtonProps {
   active: boolean;
@@ -8,10 +9,11 @@ interface FavoriteButtonProps {
 }
 
 function FavoriteButton({ active, onToggle, className }: FavoriteButtonProps) {
+  const { t } = useTranslation();
   return (
     <button
       type="button"
-      aria-label={active ? "Sevimlilardan olib tashlash" : "Sevimlilarga qo'shish"}
+      aria-label={active ? t("favorite.remove") : t("favorite.add")}
       aria-pressed={active}
       onClick={(e) => {
         // Kartochka havolasi ichida bo'lsa ham sahifaga o'tib ketmasin

@@ -1,0 +1,220 @@
+{
+  "lang": {
+    "label": "언어"
+  },
+  "common": {
+    "perNight": "/ 박",
+    "loading": "불러오는 중..."
+  },
+  "nav": {
+    "home": "홈",
+    "about": "소개",
+    "login": "로그인",
+    "signup": "회원가입",
+    "myBookings": "내 예약",
+    "favorites": "즐겨찾기",
+    "logout": "로그아웃",
+    "profile": "프로필"
+  },
+  "favorite": {
+    "add": "즐겨찾기에 추가",
+    "remove": "즐겨찾기에서 제거"
+  },
+  "home": {
+    "heroTitle": "나만의 낙원을 찾아보세요",
+    "heroSubtitle": "세계에서 가장 아름다운 곳의 멋진 빌라를 예약하세요",
+    "explore": "숙소 둘러보기",
+    "learnMore": "더 알아보기",
+    "popular": "인기 빌라",
+    "found": "빌라 {{count}}개를 찾았습니다",
+    "sort": "정렬",
+    "sortDefault": "추천순",
+    "sortPriceAsc": "가격 낮은 순",
+    "sortPriceDesc": "가격 높은 순",
+    "sortRating": "평점순",
+    "search": "검색",
+    "searchPlaceholder": "이름 또는 위치로 검색",
+    "country": "국가",
+    "allCountries": "모든 국가",
+    "guests": "인원",
+    "guestsShort": "인원",
+    "anyGuests": "인원 무관",
+    "guestsPlus": "{{count}}명 이상",
+    "maxPrice": "최대 가격",
+    "maxPricePlaceholder": "최대 가격 ($)",
+    "loadError": "빌라를 불러올 수 없습니다",
+    "retry": "다시 시도",
+    "nothingFound": "검색 결과가 없습니다",
+    "changeFilters": "필터를 변경해 보세요.",
+    "clearFilters": "필터 초기화"
+  },
+  "footer": {
+    "about": "자연 속 가장 아름다운 빌라를 예약하는 플랫폼입니다. 모든 숙소가 잊지 못할 경험을 선사합니다.",
+    "links": "바로가기",
+    "help": "도움말",
+    "contact": "연락처",
+    "faq": "자주 묻는 질문",
+    "faqBookingQ": "예약은 어떻게 하나요?",
+    "faqBookingA": "원하는 빌라를 선택하고 날짜를 지정한 뒤 \"예약하기\" 버튼을 누르세요.",
+    "faqPaymentQ": "결제는 어떻게 하나요?",
+    "faqPaymentA": "은행 카드로 안전하게 결제할 수 있습니다.",
+    "cancelPolicy": "취소 정책",
+    "cancelPolicyText": "예약일 48시간 전까지 취소하면 결제 금액의 100%가 환불됩니다. 그 이후에 취소하면 환불되지 않습니다.",
+    "privacy": "개인정보 처리방침",
+    "privacyText": "개인정보는 예약 처리에만 사용되며 제3자에게 제공되지 않습니다. 데이터는 Supabase 서버에 저장되며, 비밀번호는 암호화(해시)되어 보관되고, 각 사용자는 본인의 예약과 즐겨찾기만 볼 수 있습니다.",
+    "rights": "© {{year}} Wild Haven. 모든 권리 보유.",
+    "madeWithLove": "사랑을 담아 만들었습니다 🌿"
+  },
+  "amenity": {
+    "Basseyn": "수영장",
+    "Wi-Fi": "Wi-Fi",
+    "Konditsioner": "에어컨",
+    "Oshxona": "주방",
+    "Avtoturargoh": "주차장",
+    "Manzarali balkon": "전망 발코니",
+    "Kamin": "벽난로",
+    "Barbekyu": "바비큐",
+    "Sauna": "사우나"
+  },
+  "villa": {
+    "loadFailed": "빌라를 불러올 수 없습니다",
+    "backHome": "홈으로 돌아가기",
+    "notFound": "빌라를 찾을 수 없습니다",
+    "maxGuests": "최대 {{count}}명",
+    "amenities": "편의시설",
+    "checkIn": "체크인",
+    "checkOut": "체크아웃",
+    "date": "날짜",
+    "guestsLabel": "투숙 인원",
+    "guestOption": "{{count}}명",
+    "nights": "{{count}}박",
+    "total": "합계",
+    "loginToBook": "예약하려면 먼저 로그인해 주세요.",
+    "alreadyBooked": "이미 예약된 날짜입니다. 다른 날짜를 선택해 주세요.",
+    "bookingFailed": "오류가 발생했습니다: {{message}}",
+    "bookingSuccess": "예약이 완료되었습니다!",
+    "viewBookings": "내 예약 보기",
+    "imageN": "사진 {{n}}",
+    "btnSubmitting": "전송 중...",
+    "btnPickDates": "날짜를 선택하세요",
+    "btnMinNight": "최소 1박을 선택하세요",
+    "btnBook": "예약하기"
+  },
+  "bookings": {
+    "title": "내 예약",
+    "empty": "아직 예약이 없습니다.",
+    "loginPrompt": "예약을 보려면 로그인하세요",
+    "statusCancelled": "취소됨",
+    "statusCompleted": "완료됨",
+    "statusPending": "대기 중",
+    "statusConfirmed": "확정됨",
+    "confirmCancel": "이 예약을 취소하시겠습니까?",
+    "cancelFailed": "취소할 수 없습니다: {{message}}",
+    "guestsLine": "{{count}}명",
+    "cancel": "예약 취소"
+  },
+  "auth": {
+    "welcome": "환영합니다",
+    "signInSubtitle": "계정에 로그인하세요",
+    "email": "이메일",
+    "emailPlaceholder": "email@example.com",
+    "password": "비밀번호",
+    "forgot": "비밀번호를 잊으셨나요?",
+    "wrongCreds": "이메일 또는 비밀번호가 올바르지 않습니다",
+    "noAccount": "계정이 없으신가요?",
+    "signUpLink": "회원가입",
+    "signupTitle": "회원가입",
+    "signupSubtitle": "계정을 만들고 여행을 시작하세요",
+    "fullName": "이름",
+    "namePlaceholder": "이름을 입력하세요",
+    "confirmPassword": "비밀번호 확인",
+    "passwordMismatch": "비밀번호가 일치하지 않습니다",
+    "signupCreated": "계정이 생성되었습니다. 이메일로 보낸 링크로 인증한 후 로그인하세요.",
+    "signUpBtn": "회원가입",
+    "haveAccount": "이미 계정이 있으신가요?",
+    "forgotTitle": "비밀번호 재설정",
+    "forgotSubtitle": "이메일을 입력하시면 재설정 링크를 보내드립니다",
+    "sending": "전송 중...",
+    "sendLink": "링크 보내기",
+    "forgotSent": "등록된 이메일이라면 비밀번호 재설정 링크가 발송되었습니다. 메일함을 확인하세요.",
+    "backToLogin": "로그인 페이지로 돌아가기",
+    "resetTitle": "새 비밀번호",
+    "resetSubtitle": "계정의 새 비밀번호를 설정하세요",
+    "checking": "확인 중...",
+    "linkInvalid": "링크가 유효하지 않거나 만료되었습니다.",
+    "requestNew": "새 링크 요청",
+    "newPassword": "새 비밀번호",
+    "saving": "저장 중...",
+    "savePassword": "비밀번호 저장",
+    "passwordUpdated": "비밀번호가 변경되었습니다. 홈으로 이동합니다..."
+  },
+  "favorites": {
+    "loginPrompt": "즐겨찾기를 보려면 로그인하세요",
+    "loadFailed": "빌라를 불러올 수 없습니다",
+    "title": "내 즐겨찾기 빌라",
+    "empty": "아직 즐겨찾기한 빌라가 없습니다. 카드의 하트 버튼을 눌러 보세요.",
+    "browse": "빌라 둘러보기"
+  },
+  "about": {
+    "heroTitle": "자연과 어우러지다",
+    "heroSubtitle": "Wild Haven — 세상에서 가장 아름다운 곳에 자리한 특별한 빌라",
+    "storyTitle": "우리의 이야기",
+    "story1": "Wild Haven은 2020년, 도시의 소음에서 벗어나 자연과 마주할 수 있는 장소를 찾도록 돕겠다는 단순한 아이디어에서 시작되었습니다. 우리는 모든 빌라를 직접 고르고, 전망과 편안함, 분위기를 직접 확인합니다.",
+    "story2": "지금까지 천 명이 넘는 손님께 잊지 못할 휴식을 선사했습니다. 산자락의 집부터 호숫가의 고급 빌라까지.",
+    "statVillas": "엄선된 빌라",
+    "statCountries": "국가",
+    "statGuests": "만족한 고객"
+  },
+  "country": {
+    "Shveytsariya": "스위스",
+    "Italiya": "이탈리아",
+    "Ispaniya": "스페인",
+    "Fransiya": "프랑스",
+    "Gretsiya": "그리스",
+    "Indoneziya": "인도네시아",
+    "Janubiy Koreya": "대한민국",
+    "O'zbekiston": "우즈베키스탄"
+  },
+  "villaData": {
+    "1": {
+      "name": "호숫가 빌라",
+      "location": "스위스 루가노",
+      "description": "루가노 호숫가에 있는 고급 빌라. 호수로 이어지는 전용 산책로, 넓은 테라스, 산의 전망이 기다립니다."
+    },
+    "2": {
+      "name": "산자락의 집",
+      "location": "이탈리아 코모",
+      "description": "코모 호수 근처 산자락의 아늑한 집. 벽난로, 목재 인테리어, 조용한 마당이 가족 휴가에 안성맞춤입니다."
+    },
+    "3": {
+      "name": "모던 빌라",
+      "location": "스페인 마르베야",
+      "description": "마르베야 해안의 모던 빌라. 인피니티 풀, 넓은 거실, 햇살 가득한 테라스."
+    },
+    "4": {
+      "name": "고요한 쉼터",
+      "location": "프랑스 프로방스",
+      "description": "프로방스 들판 한가운데의 평화로운 집. 라벤더 향이 가득한 정원, 오픈 키친, 고요한 아침이 기다립니다."
+    },
+    "5": {
+      "name": "화이트 코스트 빌라",
+      "location": "그리스 산토리니",
+      "description": "산토리니의 유명한 하얀 집 스타일의 빌라. 넓은 테라스, 석양 전망, 조용한 마당이 기다립니다."
+    },
+    "6": {
+      "name": "열대 낙원",
+      "location": "인도네시아 발리",
+      "description": "발리 섬의 야자수 사이에 있는 전용 수영장 빌라. 열대 정원, 고요한 아침, 바다와 가까운 위치."
+    },
+    "7": {
+      "name": "제주도 집",
+      "location": "대한민국 제주",
+      "description": "제주도의 목재 장식이 돋보이는 모던 하우스. 바다와 가깝고 조용한 마당과 편리한 위치."
+    },
+    "8": {
+      "name": "침간 산장",
+      "location": "우즈베키스탄 침간",
+      "description": "침간 산자락의 목조 주택. 맑은 공기, 숲 전망, 벽난로, 가족 휴가를 위한 넓은 마당."
+    }
+  }
+}

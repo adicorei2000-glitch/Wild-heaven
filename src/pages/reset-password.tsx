@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/lib/supabase";
+import { useTranslation } from "react-i18next";
 import heroImage from "@/assets/hero2.jpg";
 
 function ResetPassword() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [checking, setChecking] = useState(true);
   const [ready, setReady] = useState(false);
@@ -39,7 +41,7 @@ function ResetPassword() {
     setError("");
 
     if (password !== confirmPassword) {
-      setError("Parollar mos kelmadi");
+      setError(t("auth.passwordMismatch"));
       return;
     }
 
@@ -52,7 +54,7 @@ function ResetPassword() {
       return;
     }
 
-    setInfo("Parol yangilandi. Bosh sahifaga o'tilmoqda...");
+    setInfo(t("auth.passwordUpdated"));
     setTimeout(() => navigate("/"), 1500);
   };
 
@@ -61,24 +63,24 @@ function ResetPassword() {
       <div className="flex items-center justify-center px-4 py-16">
         <div className="w-full max-w-sm space-y-6">
           <div>
-            <h1 className="text-3xl font-bold">Yangi parol</h1>
+            <h1 className="text-3xl font-bold">{t("auth.resetTitle")}</h1>
             <p className="text-muted-foreground mt-2">
-              Hisobingiz uchun yangi parol o'rnating
+              {t("auth.resetSubtitle")}
             </p>
           </div>
 
-          {checking && <p className="text-muted-foreground">Tekshirilmoqda...</p>}
+          {checking && <p className="text-muted-foreground">{t("auth.checking")}</p>}
 
           {!checking && !ready && (
             <div className="space-y-3">
               <p className="text-sm text-red-500">
-                Havola yaroqsiz yoki muddati o'tgan.
+                {t("auth.linkInvalid")}
               </p>
               <Link
                 to="/forgot-password"
                 className="text-primary font-medium underline"
               >
-                Yangi havola so'rash
+                {t("auth.requestNew")}
               </Link>
             </div>
           )}
@@ -87,7 +89,7 @@ function ResetPassword() {
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <label htmlFor="password" className="text-sm font-medium">
-                  Yangi parol
+                  {t("auth.newPassword")}
                 </label>
                 <Input
                   id="password"
@@ -102,7 +104,7 @@ function ResetPassword() {
 
               <div className="space-y-2">
                 <label htmlFor="confirmPassword" className="text-sm font-medium">
-                  Parolni tasdiqlang
+                  {t("auth.confirmPassword")}
                 </label>
                 <Input
                   id="confirmPassword"
@@ -118,7 +120,7 @@ function ResetPassword() {
               {info && <p className="text-sm text-green-600">{info}</p>}
 
               <Button type="submit" className="w-full" disabled={loading || !!info}>
-                {loading ? "Saqlanmoqda..." : "Parolni saqlash"}
+                {loading ? t("auth.saving") : t("auth.savePassword")}
               </Button>
             </form>
           )}

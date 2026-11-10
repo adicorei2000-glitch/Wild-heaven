@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,12 +15,14 @@ import heroImage from "@/assets/hero2.jpg";
 import VillaCard from "@/components/ui/Villacards";
 import { fetchVillas } from "@/lib/villas";
 import { useFavorites } from "@/lib/useFavorites";
+import { villaText, countryName } from "@/i18n/villa";
 import type { Villa } from "@/data/villa";
 
 type Sort = "default" | "price-asc" | "price-desc" | "rating";
 
 function Home() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { ids: favoriteIds, toggle } = useFavorites();
 
   const [villas, setVillas] = useState<Villa[]>([]);
@@ -68,14 +71,16 @@ function Home() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
+    const text = (v: Villa) => villaText(t, v);
     const max = Number(maxPrice);
     const minGuests = guests === "all" ? 0 : Number(guests);
 
     const list = villas.filter(
       (v) =>
         (!q ||
-          v.name.toLowerCase().includes(q) ||
-          v.location.toLowerCase().includes(q)) &&
+          [v.name, v.location, text(v).name, text(v).location].some((s) =>
+            s.toLowerCase().includes(q),
+          )) &&
         (country === "all" || v.country === country) &&
         v.maxGuests >= minGuests &&
         (!(max > 0) || v.price <= max),
@@ -86,7 +91,7 @@ function Home() {
     if (sort === "rating") list.sort((a, b) => b.rating - a.rating);
 
     return list;
-  }, [villas, query, country, guests, maxPrice, sort]);
+  }, [villas, query, country, guests, maxPrice, sort, t]);
 
   const clearFilters = () => {
     setQuery("");
@@ -112,10 +117,10 @@ function Home() {
 
         <div className="relative z-10 text-center text-white px-4 max-w-2xl">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            O'z jannatingizni toping
+            {t("home.heroTitle")}
           </h1>
           <p className="text-lg md:text-xl mb-8 text-white/90">
-            Dunyoning eng go'zal joylarida ajoyib villalarni bron qiling
+            {t("home.heroSubtitle")}
           </p>
           <div className="flex gap-4 justify-center">
             <Button
@@ -126,7 +131,7 @@ function Home() {
                   ?.scrollIntoView({ behavior: "smooth" })
               }
             >
-              Joylarni ko'rish
+              {t("home.explore")}
             </Button>
             <Link to="/about">
               <Button
@@ -134,7 +139,7 @@ function Home() {
                 variant="outline"
                 className="bg-white/10 text-white border-white hover:bg-white/20"
               >
-                Ko'proq bilish
+                {t("home.learnMore")}
               </Button>
             </Link>
           </div>
@@ -144,24 +149,24 @@ function Home() {
       <section id="villalar" className="container mx-auto px-4 py-16">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between mb-6">
           <div>
-            <h2 className="text-3xl font-bold">Mashhur villalar</h2>
+            <h2 className="text-3xl font-bold">{t("home.popular")}</h2>
             {!loading && !error && (
               <p className="text-sm text-muted-foreground mt-1">
-                {filtered.length} ta villa topildi
+                {t("home.found", { count: filtered.length })}
               </p>
             )}
           </div>
 
           <div className="w-full sm:w-56">
             <Select value={sort} onValueChange={(v) => setSort(v as Sort)}>
-              <SelectTrigger aria-label="Saralash">
+              <SelectTrigger aria-label={t("home.sort")}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="default">Tavsiya etilgan</SelectItem>
-                <SelectItem value="price-asc">Narx: arzondan qimmatga</SelectItem>
-                <SelectItem value="price-desc">Narx: qimmatdan arzonga</SelectItem>
-                <SelectItem value="rating">Reyting bo'yicha</SelectItem>
+                <SelectItem value="default">{t("home.sortDefault")}</SelectItem>
+                <SelectItem value="price-asc">{t("home.sortPriceAsc")}</SelectItem>
+                <SelectItem value="price-desc">{t("home.sortPriceDesc")}</SelectItem>
+                <SelectItem value="rating">{t("home.sortRating")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -172,8 +177,8 @@ function Home() {
           <div className="relative lg:col-span-2">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              aria-label="Qidiruv"
-              placeholder="Nomi yoki joylashuvi bo'yicha qidirish"
+              aria-label={t("home.search")}
+              placeholder={t("home.searchPlaceholder")}
               className="pl-9"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -181,38 +186,38 @@ function Home() {
           </div>
 
           <Select value={country} onValueChange={setCountry}>
-            <SelectTrigger aria-label="Davlat">
-              <SelectValue placeholder="Davlat" />
+            <SelectTrigger aria-label={t("home.country")}>
+              <SelectValue placeholder={t("home.country")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Barcha davlatlar</SelectItem>
+              <SelectItem value="all">{t("home.allCountries")}</SelectItem>
               {countries.map((c) => (
                 <SelectItem key={c} value={c}>
-                  {c}
+                  {countryName(t, c)}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
 
           <Select value={guests} onValueChange={setGuests}>
-            <SelectTrigger aria-label="Mehmonlar soni">
-              <SelectValue placeholder="Mehmonlar" />
+            <SelectTrigger aria-label={t("home.guests")}>
+              <SelectValue placeholder={t("home.guestsShort")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Istalgan mehmon soni</SelectItem>
+              <SelectItem value="all">{t("home.anyGuests")}</SelectItem>
               {[2, 4, 6, 8].map((n) => (
                 <SelectItem key={n} value={String(n)}>
-                  {n}+ mehmon
+                  {t("home.guestsPlus", { count: n })}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
 
           <Input
-            aria-label="Eng yuqori narx"
+            aria-label={t("home.maxPrice")}
             type="number"
             min={0}
-            placeholder="Maks. narx ($)"
+            placeholder={t("home.maxPricePlaceholder")}
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
           />
@@ -232,23 +237,23 @@ function Home() {
 
         {!loading && error && (
           <div className="rounded-xl border p-8 text-center space-y-3">
-            <p className="font-medium">Villalarni yuklab bo'lmadi</p>
+            <p className="font-medium">{t("home.loadError")}</p>
             <p className="text-sm text-muted-foreground">{error}</p>
             <Button variant="outline" onClick={() => setReloadKey((k) => k + 1)}>
-              Qayta urinish
+              {t("home.retry")}
             </Button>
           </div>
         )}
 
         {!loading && !error && filtered.length === 0 && (
           <div className="rounded-xl border p-8 text-center space-y-3">
-            <p className="font-medium">Hech narsa topilmadi</p>
+            <p className="font-medium">{t("home.nothingFound")}</p>
             <p className="text-sm text-muted-foreground">
-              Filtrlarni o'zgartirib ko'ring.
+              {t("home.changeFilters")}
             </p>
             {filtersActive && (
               <Button variant="outline" onClick={clearFilters}>
-                Filtrlarni tozalash
+                {t("home.clearFilters")}
               </Button>
             )}
           </div>
@@ -259,7 +264,7 @@ function Home() {
             {filtersActive && (
               <div className="mb-4">
                 <Button variant="ghost" size="sm" onClick={clearFilters}>
-                  Filtrlarni tozalash
+                  {t("home.clearFilters")}
                 </Button>
               </div>
             )}
