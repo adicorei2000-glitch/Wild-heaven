@@ -10,6 +10,7 @@ import MyBookings from "./pages/MyBookings";
 import Favorites from "./pages/favorites";
 import ForgotPassword from "./pages/forgot-password";
 import ResetPassword from "./pages/reset-password";
+import Admin from "./pages/admin";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer />
     </>

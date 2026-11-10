@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/ui/language-switcher";
+import { useAdmin } from "@/lib/useAdmin";
 import type { User } from "@supabase/supabase-js";
 import {
   DropdownMenu,
@@ -16,6 +17,7 @@ function Header() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [user, setUser] = useState<User | null>(null);
+  const { isAdmin } = useAdmin();
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -69,6 +71,11 @@ function Header() {
                 <DropdownMenuItem asChild>
                   <Link to="/favorites">{t("nav.favorites")}</Link>
                 </DropdownMenuItem>
+                {isAdmin && (
+                  <DropdownMenuItem asChild>
+                    <Link to="/admin">{t("nav.admin")}</Link>
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuItem onClick={handleLogout}>
                   {t("nav.logout")}
                 </DropdownMenuItem>

@@ -14,7 +14,8 @@
     "myBookings": "My bookings",
     "favorites": "Favorites",
     "logout": "Log out",
-    "profile": "Profile"
+    "profile": "Profile",
+    "admin": "Admin panel"
   },
   "favorite": {
     "add": "Add to favorites",
@@ -96,7 +97,7 @@
     "loginToBook": "Please log in first to make a booking.",
     "alreadyBooked": "These dates are already booked. Please choose other dates.",
     "bookingFailed": "An error occurred: {{message}}",
-    "bookingSuccess": "Your booking was successful!",
+    "bookingSuccess": "Booking request received! It will be confirmed shortly.",
     "viewBookings": "View my bookings",
     "imageN": "Image {{n}}",
     "btnSubmitting": "Submitting...",
@@ -221,5 +222,38 @@
       "location": "Chimyon, Uzbekistan",
       "description": "A wooden house in the Chimyon mountains. Fresh air, forest views, a fireplace and a spacious yard for a family holiday."
     }
+  },
+  "admin": {
+    "title": "Admin panel",
+    "bookings": "Bookings",
+    "villas": "Villas",
+    "filter": "Filter by status",
+    "all": "All",
+    "refresh": "Refresh",
+    "noBookings": "No bookings.",
+    "confirm": "Confirm",
+    "reject": "Reject",
+    "restore": "Restore",
+    "confirmCancel": "Cancel this booking?",
+    "actionFailed": "Action failed: {{message}}",
+    "addVilla": "Add villa",
+    "editVilla": "Edit villa",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirmDelete": "Delete the villa “{{name}}”?",
+    "name": "Name",
+    "location": "Location",
+    "country": "Country",
+    "price": "Price per night ($)",
+    "maxGuests": "Max guests",
+    "rating": "Rating (0–5)",
+    "image": "Main image (URL)",
+    "images": "Extra images (URLs, one per line)",
+    "amenities": "Amenities (comma-separated)",
+    "description": "Description",
+    "save": "Save",
+    "close": "Close",
+    "invalidNumbers": "Please enter a valid price, guest count and rating.",
+    "noAccess": "This page is for admins only."
   }
 }

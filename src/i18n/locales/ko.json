@@ -14,7 +14,8 @@
     "myBookings": "내 예약",
     "favorites": "즐겨찾기",
     "logout": "로그아웃",
-    "profile": "프로필"
+    "profile": "프로필",
+    "admin": "관리자 패널"
   },
   "favorite": {
     "add": "즐겨찾기에 추가",
@@ -92,7 +93,7 @@
     "loginToBook": "예약하려면 먼저 로그인해 주세요.",
     "alreadyBooked": "이미 예약된 날짜입니다. 다른 날짜를 선택해 주세요.",
     "bookingFailed": "오류가 발생했습니다: {{message}}",
-    "bookingSuccess": "예약이 완료되었습니다!",
+    "bookingSuccess": "예약 요청이 접수되었습니다! 곧 확정됩니다.",
     "viewBookings": "내 예약 보기",
     "imageN": "사진 {{n}}",
     "btnSubmitting": "전송 중...",
@@ -216,5 +217,38 @@
       "location": "우즈베키스탄 침간",
       "description": "침간 산자락의 목조 주택. 맑은 공기, 숲 전망, 벽난로, 가족 휴가를 위한 넓은 마당."
     }
+  },
+  "admin": {
+    "title": "관리자 패널",
+    "bookings": "예약",
+    "villas": "빌라",
+    "filter": "상태별 필터",
+    "all": "전체",
+    "refresh": "새로고침",
+    "noBookings": "예약이 없습니다.",
+    "confirm": "확정",
+    "reject": "거절",
+    "restore": "복원",
+    "confirmCancel": "이 예약을 취소하시겠습니까?",
+    "actionFailed": "작업에 실패했습니다: {{message}}",
+    "addVilla": "빌라 추가",
+    "editVilla": "빌라 수정",
+    "edit": "수정",
+    "delete": "삭제",
+    "confirmDelete": "“{{name}}” 빌라를 삭제하시겠습니까?",
+    "name": "이름",
+    "location": "위치",
+    "country": "국가",
+    "price": "1박 가격 ($)",
+    "maxGuests": "최대 인원",
+    "rating": "평점 (0–5)",
+    "image": "대표 사진 (URL)",
+    "images": "추가 사진 (URL, 한 줄에 하나)",
+    "amenities": "편의시설 (쉼표로 구분)",
+    "description": "설명",
+    "save": "저장",
+    "close": "닫기",
+    "invalidNumbers": "가격, 인원, 평점을 올바르게 입력하세요.",
+    "noAccess": "관리자 전용 페이지입니다."
   }
 }
