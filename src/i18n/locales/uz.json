@@ -14,7 +14,8 @@
     "myBookings": "Mening bronlarim",
     "favorites": "Sevimlilar",
     "logout": "Chiqish",
-    "profile": "Profil"
+    "profile": "Profil",
+    "admin": "Admin panel"
   },
   "favorite": {
     "add": "Sevimlilarga qo'shish",
@@ -92,7 +93,7 @@
     "loginToBook": "Bron qilish uchun avval tizimga kiring.",
     "alreadyBooked": "Bu sanalar allaqachon band. Iltimos, boshqa sanalarni tanlang.",
     "bookingFailed": "Xatolik yuz berdi: {{message}}",
-    "bookingSuccess": "Bron muvaffaqiyatli amalga oshirildi!",
+    "bookingSuccess": "Bron so'rovi qabul qilindi! Tez orada tasdiqlanadi.",
     "viewBookings": "Bronlarimni ko'rish",
     "imageN": "Rasm {{n}}",
     "btnSubmitting": "Yuborilmoqda...",
@@ -164,5 +165,38 @@
     "statVillas": "Tanlangan villalar",
     "statCountries": "Mamlakatlar",
     "statGuests": "Mamnun mehmonlar"
+  },
+  "admin": {
+    "title": "Admin panel",
+    "bookings": "Bronlar",
+    "villas": "Villalar",
+    "filter": "Status bo'yicha filtr",
+    "all": "Hammasi",
+    "refresh": "Yangilash",
+    "noBookings": "Bronlar yo'q.",
+    "confirm": "Tasdiqlash",
+    "reject": "Rad etish",
+    "restore": "Qayta tiklash",
+    "confirmCancel": "Bronni bekor qilmoqchimisiz?",
+    "actionFailed": "Amalni bajarib bo'lmadi: {{message}}",
+    "addVilla": "Villa qo'shish",
+    "editVilla": "Villani tahrirlash",
+    "edit": "Tahrirlash",
+    "delete": "O'chirish",
+    "confirmDelete": "“{{name}}” villasini o'chirmoqchimisiz?",
+    "name": "Nomi",
+    "location": "Joylashuvi",
+    "country": "Mamlakat",
+    "price": "Narxi (kechasiga, $)",
+    "maxGuests": "Maks. mehmon",
+    "rating": "Reyting (0–5)",
+    "image": "Asosiy rasm (URL)",
+    "images": "Qo'shimcha rasmlar (URL, har biri yangi qatorda)",
+    "amenities": "Qulayliklar (vergul bilan)",
+    "description": "Tavsif",
+    "save": "Saqlash",
+    "close": "Yopish",
+    "invalidNumbers": "Narx, mehmonlar soni va reytingni to'g'ri kiriting.",
+    "noAccess": "Bu sahifa faqat adminlar uchun."
   }
 }
