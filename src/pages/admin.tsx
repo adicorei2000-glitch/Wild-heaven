@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { supabase } from "@/lib/supabase";
 import { fetchVillas } from "@/lib/villas";
 import { useAdmin } from "@/lib/useAdmin";
+import { notifyBooking } from "@/lib/notify";
 import type { Villa } from "@/data/villa";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -75,6 +76,7 @@ function BookingsTab() {
       return;
     }
     setRows((prev) => prev.map((r) => (r.id === b.id ? { ...r, status } : r)));
+    notifyBooking(b.id, "status");
   };
 
   const shown = rows.filter((r) => filter === "all" || r.status === filter);

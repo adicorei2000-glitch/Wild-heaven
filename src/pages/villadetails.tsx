@@ -21,6 +21,7 @@ import { Star, MapPin, CalendarIcon, Check, Users } from "lucide-react";
 import { addDays, format } from "date-fns";
 import { fetchBookedRanges, fetchVilla, type BookedRange } from "@/lib/villas";
 import { useFavorites } from "@/lib/useFavorites";
+import { notifyBooking } from "@/lib/notify";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { villaText, amenityName } from "@/i18n/villa";
@@ -199,7 +200,7 @@ function VillaDetails() {
       return;
     }
 
-    const { error } = await supabase.from("bookings").insert({
+    const { data: created, error } = await supabase.from("bookings").insert({
       villa_id: villa.id,
       villa_name: villa.name,
       check_in: format(checkIn, "yyyy-MM-dd"),
@@ -207,7 +208,8 @@ function VillaDetails() {
       guests: guestCount,
       total_price: total,
       user_id: user.id,
-    });
+      lang: i18n.resolvedLanguage ?? "uz",
+    }).select("id").single();
 
     setSubmitting(false);
 
@@ -221,6 +223,7 @@ function VillaDetails() {
       // Kimdir shu orada band qilgan bo'lishi mumkin: kalendarni yangilaymiz
       fetchBookedRanges(villa.id).then(setBooked).catch(() => {});
     } else {
+      if (created) notifyBooking(created.id, "created");
       setMessage({
         type: "success",
         key: "villa.bookingSuccess",
