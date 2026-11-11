@@ -1,7 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Search } from "lucide-react";
+import { CalendarIcon, Search } from "lucide-react";
+import { format } from "date-fns";
+import type { DateRange } from "react-day-picker";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { supabase } from "@/lib/supabase";
+import { calendarLocale } from "@/i18n/calendar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -22,7 +28,7 @@ type Sort = "default" | "price-asc" | "price-desc" | "rating";
 
 function Home() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { ids: favoriteIds, toggle } = useFavorites();
 
   const [villas, setVillas] = useState<Villa[]>([]);
@@ -34,6 +40,8 @@ function Home() {
   const [country, setCountry] = useState("all");
   const [guests, setGuests] = useState("all");
   const [maxPrice, setMaxPrice] = useState("");
+  const [range, setRange] = useState<DateRange | undefined>();
+  const [availableIds, setAvailableIds] = useState<Set<number> | null>(null);
   const [sort, setSort] = useState<Sort>("default");
 
   useEffect(() => {
@@ -57,6 +65,27 @@ function Home() {
     };
   }, [reloadKey]);
 
+  // Tanlangan sanalarda bo'sh villalar (bazadagi get_available_villa_ids)
+  useEffect(() => {
+    if (!range?.from || !range?.to) {
+      setAvailableIds(null);
+      return;
+    }
+    let cancelled = false;
+    supabase
+      .rpc("get_available_villa_ids", {
+        p_check_in: format(range.from, "yyyy-MM-dd"),
+        p_check_out: format(range.to, "yyyy-MM-dd"),
+      })
+      .then(({ data, error }) => {
+        if (cancelled) return;
+        setAvailableIds(error ? null : new Set((data ?? []) as number[]));
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [range]);
+
   const countries = useMemo(
     () =>
       Array.from(new Set(villas.map((v) => v.country).filter(Boolean))).sort(),
@@ -67,7 +96,8 @@ function Home() {
     query.trim() !== "" ||
     country !== "all" ||
     guests !== "all" ||
-    maxPrice !== "";
+    maxPrice !== "" ||
+    availableIds !== null;
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -82,6 +112,7 @@ function Home() {
             s.toLowerCase().includes(q),
           )) &&
         (country === "all" || v.country === country) &&
+        (!availableIds || availableIds.has(v.id)) &&
         v.maxGuests >= minGuests &&
         (!(max > 0) || v.price <= max),
     );
@@ -91,13 +122,14 @@ function Home() {
     if (sort === "rating") list.sort((a, b) => b.rating - a.rating);
 
     return list;
-  }, [villas, query, country, guests, maxPrice, sort, t]);
+  }, [villas, query, country, guests, maxPrice, sort, availableIds, t]);
 
   const clearFilters = () => {
     setQuery("");
     setCountry("all");
     setGuests("all");
     setMaxPrice("");
+    setRange(undefined);
   };
 
   const handleToggleFavorite = async (villaId: number) => {
@@ -173,7 +205,7 @@ function Home() {
         </div>
 
         {/* Qidiruv va filtrlar */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5 mb-8">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-6 mb-8">
           <div className="relative lg:col-span-2">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
@@ -221,6 +253,34 @@ function Home() {
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
           />
+
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                aria-label={t("home.dates")}
+                className="w-full justify-start font-normal"
+              >
+                <CalendarIcon className="mr-2 h-4 w-4 shrink-0" />
+                <span className="truncate">
+                  {range?.from
+                    ? range.to
+                      ? `${format(range.from, "dd.MM")} – ${format(range.to, "dd.MM")}`
+                      : format(range.from, "dd.MM.yyyy")
+                    : t("home.dates")}
+                </span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="end">
+              <Calendar
+                mode="range"
+                selected={range}
+                onSelect={setRange}
+                locale={calendarLocale(i18n.resolvedLanguage ?? "uz")}
+                disabled={{ before: new Date() }}
+              />
+            </PopoverContent>
+          </Popover>
         </div>
 
         {loading && (

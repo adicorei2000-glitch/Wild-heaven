@@ -48,7 +48,8 @@
     "changeFilters": "Try changing the filters.",
     "clearFilters": "Clear filters",
     "found_one": "{{count}} villa found",
-    "found_other": "{{count}} villas found"
+    "found_other": "{{count}} villas found",
+    "dates": "Dates"
   },
   "footer": {
     "about": "A platform for booking the most beautiful villas in the heart of nature. Every place gives you an unforgettable experience.",
@@ -257,7 +258,11 @@
     "noAccess": "This page is for admins only.",
     "lat": "Latitude",
     "lng": "Longitude",
-    "coordsHint": "Map coordinates (optional)"
+    "coordsHint": "Map coordinates (optional)",
+    "upload": "Upload image",
+    "uploading": "Uploading...",
+    "uploadFailed": "Couldn't upload the image: {{message}}",
+    "uploadHint": "JPG, PNG or WebP, up to 5 MB"
   },
   "reviews": {
     "title": "Reviews",

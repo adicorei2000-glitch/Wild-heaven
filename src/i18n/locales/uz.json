@@ -47,7 +47,8 @@
     "retry": "Qayta urinish",
     "nothingFound": "Hech narsa topilmadi",
     "changeFilters": "Filtrlarni o'zgartirib ko'ring.",
-    "clearFilters": "Filtrlarni tozalash"
+    "clearFilters": "Filtrlarni tozalash",
+    "dates": "Sanalar"
   },
   "footer": {
     "about": "Tabiat qo'ynidagi eng go'zal villalarni bron qilish platformasi. Har bir joy sizga unutilmas tajriba taqdim etadi.",
@@ -200,7 +201,11 @@
     "noAccess": "Bu sahifa faqat adminlar uchun.",
     "lat": "Kenglik (lat)",
     "lng": "Uzunlik (lng)",
-    "coordsHint": "Xarita uchun koordinatalar (ixtiyoriy)"
+    "coordsHint": "Xarita uchun koordinatalar (ixtiyoriy)",
+    "upload": "Rasm yuklash",
+    "uploading": "Yuklanmoqda...",
+    "uploadFailed": "Rasmni yuklab bo'lmadi: {{message}}",
+    "uploadHint": "JPG, PNG yoki WebP, 5 MB gacha"
   },
   "reviews": {
     "title": "Sharhlar",

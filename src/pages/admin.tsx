@@ -208,6 +208,7 @@ function VillasTab() {
   const [form, setForm] = useState<VillaForm>(EMPTY);
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const load = useCallback(() => {
     setLoading(true);
@@ -248,6 +249,40 @@ function VillasTab() {
 
   const set = (k: keyof VillaForm) => (e: { target: { value: string } }) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  // Rasmni Supabase Storage'ga yuklaydi va ochiq URL qaytaradi
+  const uploadImage = async (file: File): Promise<string> => {
+    const ext = (file.name.split(".").pop() ?? "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const path = `${crypto.randomUUID()}.${ext || "jpg"}`;
+    const { error } = await supabase.storage
+      .from("villa-images")
+      .upload(path, file, { contentType: file.type, upsert: false });
+    if (error) throw new Error(error.message);
+    return supabase.storage.from("villa-images").getPublicUrl(path).data.publicUrl;
+  };
+
+  const handleUpload =
+    (target: "image" | "images") => async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const files = Array.from(e.target.files ?? []);
+      e.target.value = "";
+      if (files.length === 0) return;
+      setFormError("");
+      setUploading(true);
+      try {
+        const urls: string[] = [];
+        for (const f of target === "image" ? files.slice(0, 1) : files) {
+          urls.push(await uploadImage(f));
+        }
+        setForm((f) =>
+          target === "image"
+            ? { ...f, image: urls[0] }
+            : { ...f, images: [f.images.trim(), ...urls].filter(Boolean).join("\n") },
+        );
+      } catch (err) {
+        setFormError(t("admin.uploadFailed", { message: (err as Error).message }));
+      }
+      setUploading(false);
+    };
 
   const save = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -359,6 +394,19 @@ function VillasTab() {
             </div>
             {field("image", t("admin.image"), { type: "url", required: true })}
             <div className="space-y-1">
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                disabled={uploading}
+                onChange={handleUpload("image")}
+                aria-label={t("admin.upload")}
+                className="text-sm"
+              />
+              <p className="text-xs text-muted-foreground">
+                {uploading ? t("admin.uploading") : t("admin.uploadHint")}
+              </p>
+            </div>
+            <div className="space-y-1">
               <label htmlFor="f-images" className="text-sm font-medium">
                 {t("admin.images")}
               </label>
@@ -368,6 +416,15 @@ function VillasTab() {
                 value={form.images}
                 onChange={set("images")}
                 className="w-full rounded-md border bg-transparent px-3 py-2 text-sm"
+              />
+              <input
+                type="file"
+                multiple
+                accept="image/jpeg,image/png,image/webp"
+                disabled={uploading}
+                onChange={handleUpload("images")}
+                aria-label={t("admin.upload")}
+                className="text-sm"
               />
             </div>
             {field("amenities", t("admin.amenities"))}
@@ -393,7 +450,7 @@ function VillasTab() {
               <Button type="button" variant="outline" onClick={() => setEditing(null)}>
                 {t("admin.close")}
               </Button>
-              <Button type="submit" disabled={saving}>
+              <Button type="submit" disabled={saving || uploading}>
                 {saving ? t("auth.saving") : t("admin.save")}
               </Button>
             </DialogFooter>

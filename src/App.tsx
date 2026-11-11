@@ -1,22 +1,24 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/ui/header";
 import Home from "./pages/Home";
-import About from "./pages/About";
-import Login from "./pages/login";
-import Signup from "./pages/signup";
-import VillaDetails from "./pages/villadetails";
+const About = lazy(() => import("./pages/About"));
+const Login = lazy(() => import("./pages/login"));
+const Signup = lazy(() => import("./pages/signup"));
+const VillaDetails = lazy(() => import("./pages/villadetails"));
 import Footer from "./components/ui/footer";
-import MyBookings from "./pages/MyBookings";
-import Favorites from "./pages/favorites";
-import ForgotPassword from "./pages/forgot-password";
-import ResetPassword from "./pages/reset-password";
-import Admin from "./pages/admin";
-import Profile from "./pages/profile";
+const MyBookings = lazy(() => import("./pages/MyBookings"));
+const Favorites = lazy(() => import("./pages/favorites"));
+const ForgotPassword = lazy(() => import("./pages/forgot-password"));
+const ResetPassword = lazy(() => import("./pages/reset-password"));
+const Admin = lazy(() => import("./pages/admin"));
+const Profile = lazy(() => import("./pages/profile"));
 
 function App() {
   return (
     <>
       <Header />
+      <Suspense fallback={<div className="min-h-[60vh]" />}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -30,6 +32,7 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
+      </Suspense>
       <Footer />
     </>
   );

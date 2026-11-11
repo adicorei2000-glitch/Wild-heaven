@@ -47,7 +47,8 @@
     "retry": "다시 시도",
     "nothingFound": "검색 결과가 없습니다",
     "changeFilters": "필터를 변경해 보세요.",
-    "clearFilters": "필터 초기화"
+    "clearFilters": "필터 초기화",
+    "dates": "날짜"
   },
   "footer": {
     "about": "자연 속 가장 아름다운 빌라를 예약하는 플랫폼입니다. 모든 숙소가 잊지 못할 경험을 선사합니다.",
@@ -252,7 +253,11 @@
     "noAccess": "관리자 전용 페이지입니다.",
     "lat": "위도",
     "lng": "경도",
-    "coordsHint": "지도 좌표 (선택)"
+    "coordsHint": "지도 좌표 (선택)",
+    "upload": "이미지 업로드",
+    "uploading": "업로드 중...",
+    "uploadFailed": "이미지를 업로드할 수 없습니다: {{message}}",
+    "uploadHint": "JPG, PNG, WebP, 최대 5MB"
   },
   "reviews": {
     "title": "리뷰",
