@@ -153,7 +153,9 @@
     "newPassword": "New password",
     "saving": "Saving...",
     "savePassword": "Save password",
-    "passwordUpdated": "Password updated. Redirecting to the home page..."
+    "passwordUpdated": "Password updated. Redirecting to the home page...",
+    "or": "or",
+    "google": "Continue with Google"
   },
   "favorites": {
     "loginPrompt": "Log in to see your favorites",

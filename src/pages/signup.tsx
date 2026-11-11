@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { useTranslation } from "react-i18next";
+import GoogleButton from "@/components/ui/google-button";
 import heroImage from "@/assets/hero2.jpg";
 
 function Signup() {
@@ -131,6 +132,8 @@ function Signup() {
               {loading ? t("common.loading") : t("auth.signUpBtn")}
             </Button>
           </form>
+
+          <GoogleButton />
 
           <p className="text-center text-sm text-muted-foreground">
             {t("auth.haveAccount")}{" "}

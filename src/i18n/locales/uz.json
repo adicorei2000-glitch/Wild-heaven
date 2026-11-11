@@ -148,7 +148,9 @@
     "newPassword": "Yangi parol",
     "saving": "Saqlanmoqda...",
     "savePassword": "Parolni saqlash",
-    "passwordUpdated": "Parol yangilandi. Bosh sahifaga o'tilmoqda..."
+    "passwordUpdated": "Parol yangilandi. Bosh sahifaga o'tilmoqda...",
+    "or": "yoki",
+    "google": "Google bilan davom etish"
   },
   "favorites": {
     "loginPrompt": "Sevimlilarni ko'rish uchun kiring",
