@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/lib/supabase";
 import { fetchVillas } from "@/lib/villas";
+import { startCheckout } from "@/lib/payments";
 import { villaText } from "@/i18n/villa";
 import type { Villa } from "@/data/villa";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,7 @@ interface Booking {
   total_price: number;
   status: Status;
   created_at: string;
+  paid_at: string | null;
 }
 
 const today = () => format(new Date(), "yyyy-MM-dd");
@@ -49,6 +51,7 @@ function getBadge(booking: Booking) {
 
 function MyBookings() {
   const { t } = useTranslation();
+  const [params] = useSearchParams();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [villaById, setVillaById] = useState<Map<number, Villa>>(new Map());
   const [loading, setLoading] = useState(true);
@@ -86,6 +89,27 @@ function MyBookings() {
 
     load();
   }, []);
+
+  // To'lovdan qaytgach webhook kechikishi mumkin: statusni qayta o'qiymiz
+  useEffect(() => {
+    if (params.get("paid") !== "1" || !user) return;
+    const refresh = async () => {
+      const { data } = await supabase
+        .from("bookings")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
+      if (data) setBookings(data);
+    };
+    const timers = [3000, 8000].map((ms) => setTimeout(refresh, ms));
+    return () => timers.forEach(clearTimeout);
+  }, [params, user]);
+
+  const handlePay = async (id: number) => {
+    const url = await startCheckout(id);
+    if (url) window.location.href = url;
+    else alert(t("pay.unavailable"));
+  };
 
   const handleCancel = async (id: number) => {
     const confirmed = confirm(t("bookings.confirmCancel"));
@@ -131,6 +155,17 @@ function MyBookings() {
     <div className="container mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold mb-8">{t("bookings.title")}</h1>
 
+      {params.get("paid") === "1" && (
+        <p role="status" className="mb-6 rounded-lg bg-green-100 px-4 py-3 text-sm text-green-800">
+          {t("pay.successBanner")}
+        </p>
+      )}
+      {params.get("cancelled") === "1" && (
+        <p role="status" className="mb-6 rounded-lg bg-yellow-100 px-4 py-3 text-sm text-yellow-800">
+          {t("pay.cancelledBanner")}
+        </p>
+      )}
+
       {bookings.length === 0 ? (
         <p className="text-muted-foreground">{t("bookings.empty")}</p>
       ) : (
@@ -175,8 +210,12 @@ function MyBookings() {
                     )}
                   >
                     ${booking.total_price}
+                    {booking.paid_at && <span className="ml-2 no-underline text-green-700">· {t("pay.paid")}</span>}
                   </p>
                 </div>
+                {booking.status === "pending" && !booking.paid_at && (
+                  <Button onClick={() => handlePay(booking.id)}>{t("pay.payNow")}</Button>
+                )}
                 {canCancel && (
                   <Button
                     variant="outline"

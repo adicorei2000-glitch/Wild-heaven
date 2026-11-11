@@ -37,6 +37,7 @@ interface AdminBooking {
   total_price: number;
   status: Status;
   created_at: string;
+  paid_at: string | null;
 }
 
 const BADGE: Record<Status, string> = {
@@ -137,6 +138,7 @@ function BookingsTab() {
               <p className="text-sm text-muted-foreground">
                 {b.user_email ?? "—"} · {b.check_in} — {b.check_out} ·{" "}
                 {t("bookings.guestsLine", { count: b.guests })} · ${b.total_price}
+                {b.paid_at && <> · {t("pay.paid")}</>}
               </p>
             </div>
             <div className="flex gap-2">

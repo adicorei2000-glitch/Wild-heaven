@@ -234,5 +234,12 @@
     "saved": "Saqlandi",
     "changePassword": "Parolni o'zgartirish",
     "passwordSaved": "Parol yangilandi"
+  },
+  "pay": {
+    "payNow": "To'lash",
+    "paid": "To'langan",
+    "unavailable": "To'lov hozir mavjud emas. Broningiz admin tasdiqlashini kutadi.",
+    "successBanner": "To'lov qabul qilindi! Broningiz bir zumda tasdiqlanadi.",
+    "cancelledBanner": "To'lov bekor qilindi. Broningiz saqlab turilibdi, istalgan vaqtda to'lashingiz mumkin."
   }
 }

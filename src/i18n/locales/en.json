@@ -291,5 +291,12 @@
     "saved": "Saved",
     "changePassword": "Change password",
     "passwordSaved": "Password updated"
+  },
+  "pay": {
+    "payNow": "Pay now",
+    "paid": "Paid",
+    "unavailable": "Payment is not available right now. Your booking will wait for admin confirmation.",
+    "successBanner": "Payment received! Your booking will be confirmed in a moment.",
+    "cancelledBanner": "Payment was cancelled. Your booking is on hold, you can pay at any time."
   }
 }

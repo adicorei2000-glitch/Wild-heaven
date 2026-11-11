@@ -22,6 +22,7 @@ import { addDays, format } from "date-fns";
 import { fetchBookedRanges, fetchVilla, type BookedRange } from "@/lib/villas";
 import { useFavorites } from "@/lib/useFavorites";
 import { notifyBooking } from "@/lib/notify";
+import { startCheckout } from "@/lib/payments";
 import Reviews from "@/components/ui/reviews";
 import VillaMap from "@/components/ui/villa-map";
 import { cn } from "@/lib/utils";
@@ -225,7 +226,17 @@ function VillaDetails() {
       // Kimdir shu orada band qilgan bo'lishi mumkin: kalendarni yangilaymiz
       fetchBookedRanges(villa.id).then(setBooked).catch(() => {});
     } else {
-      if (created) notifyBooking(created.id, "created");
+      if (created) {
+        notifyBooking(created.id, "created");
+        // To'lov sahifasiga o'tamiz; sozlanmagan bo'lsa bron admin tasdiqlashini kutadi
+        setSubmitting(true);
+        const url = await startCheckout(created.id);
+        if (url) {
+          window.location.href = url;
+          return;
+        }
+        setSubmitting(false);
+      }
       setMessage({
         type: "success",
         key: "villa.bookingSuccess",
