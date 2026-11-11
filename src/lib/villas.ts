@@ -14,6 +14,8 @@ interface VillaRow {
   images: string[] | null;
   description: string;
   amenities: string[] | null;
+  lat: number | null;
+  lng: number | null;
 }
 
 function toVilla(row: VillaRow): Villa {
@@ -29,6 +31,8 @@ function toVilla(row: VillaRow): Villa {
     images: row.images && row.images.length > 0 ? row.images : [row.image],
     description: row.description,
     amenities: row.amenities ?? [],
+    lat: row.lat,
+    lng: row.lng,
   };
 }
 

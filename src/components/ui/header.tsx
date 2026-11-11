@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/ui/language-switcher";
+import ThemeToggle from "@/components/ui/theme-toggle";
 import { useAdmin } from "@/lib/useAdmin";
 import type { User } from "@supabase/supabase-js";
 import {
@@ -58,6 +59,7 @@ function Header() {
           </Link>
 
           <LanguageSwitcher />
+          <ThemeToggle />
 
           {user ? (
             <DropdownMenu>
@@ -65,6 +67,9 @@ function Header() {
                 <Button variant="outline">{displayName}</Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                  <Link to="/profile">{t("nav.profile")}</Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/my-bookings">{t("nav.myBookings")}</Link>
                 </DropdownMenuItem>

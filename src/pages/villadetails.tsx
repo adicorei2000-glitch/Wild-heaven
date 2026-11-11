@@ -23,6 +23,7 @@ import { fetchBookedRanges, fetchVilla, type BookedRange } from "@/lib/villas";
 import { useFavorites } from "@/lib/useFavorites";
 import { notifyBooking } from "@/lib/notify";
 import Reviews from "@/components/ui/reviews";
+import VillaMap from "@/components/ui/villa-map";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { villaText, amenityName } from "@/i18n/villa";
@@ -325,6 +326,10 @@ function VillaDetails() {
                 ))}
               </ul>
             </div>
+          )}
+
+          {villa.lat !== null && villa.lng !== null && (
+            <VillaMap lat={villa.lat} lng={villa.lng} title={text.name} />
           )}
 
           <Reviews

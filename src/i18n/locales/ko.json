@@ -249,7 +249,10 @@
     "save": "저장",
     "close": "닫기",
     "invalidNumbers": "가격, 인원, 평점을 올바르게 입력하세요.",
-    "noAccess": "관리자 전용 페이지입니다."
+    "noAccess": "관리자 전용 페이지입니다.",
+    "lat": "위도",
+    "lng": "경도",
+    "coordsHint": "지도 좌표 (선택)"
   },
   "reviews": {
     "title": "리뷰",
@@ -262,5 +265,21 @@
     "failed": "리뷰를 등록할 수 없습니다: {{message}}",
     "confirmDelete": "리뷰를 삭제하시겠습니까?",
     "guest": "손님"
+  },
+  "theme": {
+    "light": "라이트 모드",
+    "dark": "다크 모드"
+  },
+  "map": {
+    "title": "위치",
+    "approx": "대략적인 위치입니다",
+    "open": "큰 지도에서 열기"
+  },
+  "profile": {
+    "title": "프로필",
+    "loginPrompt": "프로필을 보려면 로그인하세요",
+    "saved": "저장되었습니다",
+    "changePassword": "비밀번호 변경",
+    "passwordSaved": "비밀번호가 변경되었습니다"
   }
 }

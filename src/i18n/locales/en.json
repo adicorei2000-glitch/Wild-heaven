@@ -254,7 +254,10 @@
     "save": "Save",
     "close": "Close",
     "invalidNumbers": "Please enter a valid price, guest count and rating.",
-    "noAccess": "This page is for admins only."
+    "noAccess": "This page is for admins only.",
+    "lat": "Latitude",
+    "lng": "Longitude",
+    "coordsHint": "Map coordinates (optional)"
   },
   "reviews": {
     "title": "Reviews",
@@ -267,5 +270,21 @@
     "failed": "Couldn't submit the review: {{message}}",
     "confirmDelete": "Delete your review?",
     "guest": "Guest"
+  },
+  "theme": {
+    "light": "Light mode",
+    "dark": "Dark mode"
+  },
+  "map": {
+    "title": "Location",
+    "approx": "Location is approximate",
+    "open": "Open in larger map"
+  },
+  "profile": {
+    "title": "Profile",
+    "loginPrompt": "Log in to see your profile",
+    "saved": "Saved",
+    "changePassword": "Change password",
+    "passwordSaved": "Password updated"
   }
 }

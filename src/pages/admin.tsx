@@ -174,6 +174,8 @@ interface VillaForm {
   images: string;
   amenities: string;
   description: string;
+  lat: string;
+  lng: string;
 }
 
 const EMPTY: VillaForm = {
@@ -187,6 +189,8 @@ const EMPTY: VillaForm = {
   images: "",
   amenities: "",
   description: "",
+  lat: "",
+  lng: "",
 };
 
 const splitList = (s: string) =>
@@ -235,6 +239,8 @@ function VillasTab() {
       images: v.images.join("\n"),
       amenities: v.amenities.join(", "),
       description: v.description,
+      lat: v.lat === null ? "" : String(v.lat),
+      lng: v.lng === null ? "" : String(v.lng),
     });
     setFormError("");
     setEditing(v);
@@ -249,7 +255,8 @@ function VillasTab() {
     const price = Number(form.price);
     const maxGuests = Number(form.max_guests);
     const rating = Number(form.rating);
-    if (!(price > 0) || !(maxGuests >= 1) || !(rating >= 0 && rating <= 5)) {
+    const bothOrNone = (form.lat.trim() === "") === (form.lng.trim() === "");
+    if (!bothOrNone || !(price > 0) || !(maxGuests >= 1) || !(rating >= 0 && rating <= 5)) {
       setFormError(t("admin.invalidNumbers"));
       return;
     }
@@ -264,6 +271,8 @@ function VillasTab() {
       images: splitList(form.images),
       amenities: splitList(form.amenities),
       description: form.description.trim(),
+      lat: form.lat.trim() === "" ? null : Number(form.lat),
+      lng: form.lng.trim() === "" ? null : Number(form.lng),
     };
     setSaving(true);
     const { error } =
@@ -362,6 +371,11 @@ function VillasTab() {
               />
             </div>
             {field("amenities", t("admin.amenities"))}
+            <div className="grid grid-cols-2 gap-2">
+              {field("lat", t("admin.lat"), { type: "number", step: "any", min: -90, max: 90 })}
+              {field("lng", t("admin.lng"), { type: "number", step: "any", min: -180, max: 180 })}
+            </div>
+            <p className="text-xs text-muted-foreground">{t("admin.coordsHint")}</p>
             <div className="space-y-1">
               <label htmlFor="f-description" className="text-sm font-medium">
                 {t("admin.description")}

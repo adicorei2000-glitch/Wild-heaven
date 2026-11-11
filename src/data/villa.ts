@@ -11,4 +11,6 @@ export interface Villa {
   images: string[];
   description: string;
   amenities: string[];
+  lat: number | null;
+  lng: number | null;
 }

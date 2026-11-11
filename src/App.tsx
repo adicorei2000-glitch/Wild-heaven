@@ -11,6 +11,7 @@ import Favorites from "./pages/favorites";
 import ForgotPassword from "./pages/forgot-password";
 import ResetPassword from "./pages/reset-password";
 import Admin from "./pages/admin";
+import Profile from "./pages/profile";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
       <Footer />
     </>
