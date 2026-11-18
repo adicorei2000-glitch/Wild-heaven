@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/lib/supabase";
 import { fetchVillas } from "@/lib/villas";
-import { startCheckout } from "@/lib/payments";
+import { startCheckout, verifyPayment } from "@/lib/payments";
 import { villaText } from "@/i18n/villa";
 import type { Villa } from "@/data/villa";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,7 @@ interface Booking {
   status: Status;
   created_at: string;
   paid_at: string | null;
+  stripe_session_id: string | null;
 }
 
 const today = () => format(new Date(), "yyyy-MM-dd");
@@ -77,6 +78,21 @@ function MyBookings() {
 
       if (!error && data) {
         setBookings(data);
+        // To'lov boshlangan, lekin tasdiqlanmagan bronlarni Stripe'dan tekshiramiz
+        const toCheck = (data as Booking[]).filter(
+          (b) => b.status === "pending" && !b.paid_at && b.stripe_session_id,
+        );
+        if (toCheck.length > 0) {
+          const results = await Promise.all(toCheck.map((b) => verifyPayment(b.id)));
+          if (results.some(Boolean)) {
+            const { data: fresh } = await supabase
+              .from("bookings")
+              .select("*")
+              .eq("user_id", user.id)
+              .order("created_at", { ascending: false });
+            if (fresh) setBookings(fresh);
+          }
+        }
       }
 
       // Villa nomi tanlangan tilda chiqishi uchun villalarni ham olamiz
@@ -89,21 +105,6 @@ function MyBookings() {
 
     load();
   }, []);
-
-  // To'lovdan qaytgach webhook kechikishi mumkin: statusni qayta o'qiymiz
-  useEffect(() => {
-    if (params.get("paid") !== "1" || !user) return;
-    const refresh = async () => {
-      const { data } = await supabase
-        .from("bookings")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false });
-      if (data) setBookings(data);
-    };
-    const timers = [3000, 8000].map((ms) => setTimeout(refresh, ms));
-    return () => timers.forEach(clearTimeout);
-  }, [params, user]);
 
   const handlePay = async (id: number) => {
     const url = await startCheckout(id);

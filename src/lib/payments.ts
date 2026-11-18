@@ -11,3 +11,11 @@ export async function startCheckout(bookingId: number): Promise<string | null> {
   if (error || !data?.url) return null;
   return data.url as string;
 }
+
+// Bron to'langanmi, Stripe'dan tekshiradi (to'langan bo'lsa bron tasdiqlanadi)
+export async function verifyPayment(bookingId: number): Promise<boolean> {
+  const { data, error } = await supabase.functions.invoke("verify-payment", {
+    body: { booking_id: bookingId },
+  });
+  return !error && data?.paid === true;
+}

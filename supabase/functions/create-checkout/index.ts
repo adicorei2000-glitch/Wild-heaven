@@ -76,5 +76,8 @@ Deno.serve(async (req) => {
   });
   const session = await res.json();
   if (!res.ok || !session.url) return json({ error: "stripe_error", detail: session?.error?.message ?? "" }, 502);
+  // Sessiya raqamini bronga yozamiz: keyin verify-payment to'lovni shu orqali tekshiradi
+  const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+  await admin.from("bookings").update({ stripe_session_id: session.id }).eq("id", b.id);
   return json({ url: session.url });
 });
