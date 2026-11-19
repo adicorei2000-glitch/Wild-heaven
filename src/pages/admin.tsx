@@ -141,7 +141,7 @@ function BookingsTab() {
                 {b.paid_at && <> · {t("pay.paid")}</>}
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {b.status === "pending" && (
                 <Button size="sm" onClick={() => setStatus(b, "confirmed")}>
                   {t("admin.confirm")}
@@ -355,7 +355,7 @@ function VillasTab() {
         {villas.map((v) => (
           <div
             key={v.id}
-            className="border rounded-xl p-4 flex items-center justify-between gap-3"
+            className="border rounded-xl p-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
           >
             <div className="flex items-center gap-3 min-w-0">
               <img src={v.image} alt="" className="h-14 w-20 rounded-md object-cover shrink-0" />
@@ -490,7 +490,7 @@ function Admin() {
   return (
     <div className="container mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold mb-6">{t("admin.title")}</h1>
-      <div className="flex gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-6">
         <Button variant={tab === "bookings" ? "default" : "outline"} onClick={() => setTab("bookings")}>
           {t("admin.bookings")}
         </Button>

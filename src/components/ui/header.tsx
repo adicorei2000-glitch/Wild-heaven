@@ -46,11 +46,11 @@ function Header() {
 
   return (
     <header className="border-b">
-      <div className="container mx-auto flex items-center justify-between px-4 py-4">
-        <Link to="/" className="text-2xl font-bold">
+      <div className="container mx-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 py-3 sm:py-4">
+        <Link to="/" className="text-xl font-bold sm:text-2xl">
           Wild Haven
         </Link>
-        <nav className="flex items-center gap-6">
+        <nav className="flex flex-wrap items-center gap-x-3 gap-y-2 sm:gap-6">
           <Link to="/" className="text-sm font-medium hover:text-primary">
             {t("nav.home")}
           </Link>

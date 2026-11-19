@@ -148,13 +148,13 @@ function Home() {
         <div className="absolute inset-0 bg-black/40" />
 
         <div className="relative z-10 text-center text-white px-4 max-w-2xl">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
             {t("home.heroTitle")}
           </h1>
           <p className="text-lg md:text-xl mb-8 text-white/90">
             {t("home.heroSubtitle")}
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex flex-wrap gap-4 justify-center">
             <Button
               size="lg"
               onClick={() =>

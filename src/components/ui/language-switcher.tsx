@@ -16,7 +16,7 @@ function LanguageSwitcher() {
 
   return (
     <Select value={current} onValueChange={(code) => i18n.changeLanguage(code)}>
-      <SelectTrigger aria-label={t("lang.label")} className="w-[140px] gap-2">
+      <SelectTrigger aria-label={t("lang.label")} className="w-[116px] gap-2 sm:w-[140px]">
         <Globe className="h-4 w-4 shrink-0" />
         <SelectValue />
       </SelectTrigger>
