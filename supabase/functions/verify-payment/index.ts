@@ -40,7 +40,7 @@ async function send(to: string, subject: string, html: string) {
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
       body: JSON.stringify({ from, to, subject, html }),
     });
-  } catch (_) {
+  } catch {
     // email xatosi to'lovni buzmasligi kerak
   }
 }

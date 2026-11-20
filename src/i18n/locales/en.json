@@ -315,5 +315,12 @@
     "successBanner": "Payment received! Your booking will be confirmed in a moment.",
     "cancelledBanner": "Payment cancelled. Your booking is held for 12 hours, you can still pay within that time.",
     "expiresIn": "About {{hours}} h left to pay, otherwise the booking is cancelled."
+  },
+  "errors": {
+    "notFoundTitle": "Page not found",
+    "notFoundText": "The page you are looking for does not exist or has been moved.",
+    "crashTitle": "Something went wrong",
+    "crashText": "An unexpected error occurred. Try reloading the page.",
+    "reload": "Reload"
   }
 }

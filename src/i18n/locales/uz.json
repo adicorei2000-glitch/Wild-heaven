@@ -258,5 +258,12 @@
     "successBanner": "To'lov qabul qilindi! Broningiz bir zumda tasdiqlanadi.",
     "cancelledBanner": "To'lov bekor qilindi. Broningiz 12 soat saqlanadi, shu vaqt ichida to'lashingiz mumkin.",
     "expiresIn": "To'lash uchun taxminan {{hours}} soat qoldi, aks holda bron bekor bo'ladi."
+  },
+  "errors": {
+    "notFoundTitle": "Sahifa topilmadi",
+    "notFoundText": "Siz izlagan sahifa mavjud emas yoki ko'chirilgan.",
+    "crashTitle": "Nimadir xato ketdi",
+    "crashText": "Kutilmagan xatolik yuz berdi. Sahifani qayta yuklab ko'ring.",
+    "reload": "Qayta yuklash"
   }
 }
