@@ -50,7 +50,10 @@
     "clearFilters": "Clear filters",
     "found_one": "{{count}} villa found",
     "found_other": "{{count}} villas found",
-    "dates": "Dates"
+    "dates": "Dates",
+    "view": "View",
+    "viewList": "List",
+    "viewMap": "Map"
   },
   "footer": {
     "about": "A platform for booking the most beautiful villas in the heart of nature. Every place gives you an unforgettable experience.",
@@ -305,7 +308,9 @@
   "map": {
     "title": "Location",
     "approx": "Location is approximate",
-    "open": "Open in larger map"
+    "open": "Open in larger map",
+    "noCoords": "No villas have a location set, so there is nothing to show on the map.",
+    "viewVilla": "View villa"
   },
   "profile": {
     "title": "Profile",

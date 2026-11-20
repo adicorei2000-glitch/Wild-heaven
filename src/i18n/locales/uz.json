@@ -49,7 +49,10 @@
     "nothingFound": "Hech narsa topilmadi",
     "changeFilters": "Filtrlarni o'zgartirib ko'ring.",
     "clearFilters": "Filtrlarni tozalash",
-    "dates": "Sanalar"
+    "dates": "Sanalar",
+    "view": "Ko'rinish",
+    "viewList": "Ro'yxat",
+    "viewMap": "Xarita"
   },
   "footer": {
     "about": "Tabiat qo'ynidagi eng go'zal villalarni bron qilish platformasi. Har bir joy sizga unutilmas tajriba taqdim etadi.",
@@ -248,7 +251,9 @@
   "map": {
     "title": "Joylashuvi",
     "approx": "Joylashuv taxminiy",
-    "open": "Katta xaritada ochish"
+    "open": "Katta xaritada ochish",
+    "noCoords": "Xaritada ko'rsatish uchun villalarda joylashuv belgilanmagan.",
+    "viewVilla": "Villani ko'rish"
   },
   "profile": {
     "title": "Profil",

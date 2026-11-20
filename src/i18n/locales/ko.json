@@ -49,7 +49,10 @@
     "nothingFound": "검색 결과가 없습니다",
     "changeFilters": "필터를 변경해 보세요.",
     "clearFilters": "필터 초기화",
-    "dates": "날짜"
+    "dates": "날짜",
+    "view": "보기",
+    "viewList": "목록",
+    "viewMap": "지도"
   },
   "footer": {
     "about": "자연 속 가장 아름다운 빌라를 예약하는 플랫폼입니다. 모든 숙소가 잊지 못할 경험을 선사합니다.",
@@ -299,7 +302,9 @@
   "map": {
     "title": "위치",
     "approx": "대략적인 위치입니다",
-    "open": "큰 지도에서 열기"
+    "open": "큰 지도에서 열기",
+    "noCoords": "위치가 설정된 빌라가 없어 지도에 표시할 수 없습니다.",
+    "viewVilla": "빌라 보기"
   },
   "profile": {
     "title": "프로필",

@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { CalendarIcon, Search } from "lucide-react";
+import { CalendarIcon, LayoutGrid, Map as MapIcon, Search } from "lucide-react";
 import { format } from "date-fns";
 import type { DateRange } from "react-day-picker";
 import { Calendar } from "@/components/ui/calendar";
@@ -24,6 +24,8 @@ import { useFavorites } from "@/lib/useFavorites";
 import { villaText, countryName } from "@/i18n/villa";
 import type { Villa } from "@/data/villa";
 
+const VillasMap = lazy(() => import("@/components/ui/villas-map"));
+
 type Sort = "default" | "price-asc" | "price-desc" | "rating";
 
 function Home() {
@@ -43,6 +45,7 @@ function Home() {
   const [range, setRange] = useState<DateRange | undefined>();
   const [availableIds, setAvailableIds] = useState<Set<number> | null>(null);
   const [sort, setSort] = useState<Sort>("default");
+  const [view, setView] = useState<"list" | "map">("list");
 
   useEffect(() => {
     let cancelled = false;
@@ -123,6 +126,8 @@ function Home() {
 
     return list;
   }, [villas, query, country, guests, maxPrice, sort, availableIds, t]);
+
+  const openVilla = useCallback((id: number) => navigate(`/villa/${id}`), [navigate]);
 
   const clearFilters = () => {
     setQuery("");
@@ -321,23 +326,50 @@ function Home() {
 
         {!loading && !error && filtered.length > 0 && (
           <>
-            {filtersActive && (
-              <div className="mb-4">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+              <div className="inline-flex rounded-lg border p-0.5" role="group" aria-label={t("home.view")}>
+                <Button
+                  size="sm"
+                  variant={view === "list" ? "default" : "ghost"}
+                  aria-pressed={view === "list"}
+                  onClick={() => setView("list")}
+                >
+                  <LayoutGrid className="mr-1.5 h-4 w-4" />
+                  {t("home.viewList")}
+                </Button>
+                <Button
+                  size="sm"
+                  variant={view === "map" ? "default" : "ghost"}
+                  aria-pressed={view === "map"}
+                  onClick={() => setView("map")}
+                >
+                  <MapIcon className="mr-1.5 h-4 w-4" />
+                  {t("home.viewMap")}
+                </Button>
+              </div>
+              {filtersActive && (
                 <Button variant="ghost" size="sm" onClick={clearFilters}>
                   {t("home.clearFilters")}
                 </Button>
+              )}
+            </div>
+
+            {view === "map" ? (
+              <Suspense fallback={<div className="h-[70vh] animate-pulse rounded-xl bg-muted" />}>
+                <VillasMap villas={filtered} onOpen={openVilla} />
+              </Suspense>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {filtered.map((villa) => (
+                  <VillaCard
+                    key={villa.id}
+                    villa={villa}
+                    favorite={favoriteIds.has(villa.id)}
+                    onToggleFavorite={handleToggleFavorite}
+                  />
+                ))}
               </div>
             )}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {filtered.map((villa) => (
-                <VillaCard
-                  key={villa.id}
-                  villa={villa}
-                  favorite={favoriteIds.has(villa.id)}
-                  onToggleFavorite={handleToggleFavorite}
-                />
-              ))}
-            </div>
           </>
         )}
       </section>
