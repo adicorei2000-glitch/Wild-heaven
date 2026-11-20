@@ -298,6 +298,7 @@
     "paid": "Paid",
     "unavailable": "Payment is not available right now. Your booking will wait for admin confirmation.",
     "successBanner": "Payment received! Your booking will be confirmed in a moment.",
-    "cancelledBanner": "Payment was cancelled. Your booking is on hold, you can pay at any time."
+    "cancelledBanner": "Payment cancelled. Your booking is held for 12 hours, you can still pay within that time.",
+    "expiresIn": "About {{hours}} h left to pay, otherwise the booking is cancelled."
   }
 }

@@ -241,6 +241,7 @@
     "paid": "To'langan",
     "unavailable": "To'lov hozir mavjud emas. Broningiz admin tasdiqlashini kutadi.",
     "successBanner": "To'lov qabul qilindi! Broningiz bir zumda tasdiqlanadi.",
-    "cancelledBanner": "To'lov bekor qilindi. Broningiz saqlab turilibdi, istalgan vaqtda to'lashingiz mumkin."
+    "cancelledBanner": "To'lov bekor qilindi. Broningiz 12 soat saqlanadi, shu vaqt ichida to'lashingiz mumkin.",
+    "expiresIn": "To'lash uchun taxminan {{hours}} soat qoldi, aks holda bron bekor bo'ladi."
   }
 }

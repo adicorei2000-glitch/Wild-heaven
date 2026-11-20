@@ -213,6 +213,18 @@ function MyBookings() {
                     ${booking.total_price}
                     {booking.paid_at && <span className="ml-2 no-underline text-green-700">· {t("pay.paid")}</span>}
                   </p>
+                  {booking.status === "pending" && !booking.paid_at && (
+                    <p className="text-xs text-amber-700 dark:text-amber-400 mt-1">
+                      {t("pay.expiresIn", {
+                        hours: Math.max(
+                          1,
+                          Math.ceil(
+                            (new Date(booking.created_at).getTime() + 12 * 3600 * 1000 - Date.now()) / 3600000,
+                          ),
+                        ),
+                      })}
+                    </p>
+                  )}
                 </div>
                 {booking.status === "pending" && !booking.paid_at && (
                   <Button onClick={() => handlePay(booking.id)}>{t("pay.payNow")}</Button>
