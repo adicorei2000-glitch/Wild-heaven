@@ -288,6 +288,20 @@
       "top": "Most booked villas",
       "bookingsCount_one": "{{count}} booking",
       "bookingsCount_other": "{{count}} bookings"
+    },
+    "blocks": {
+      "tab": "Block dates",
+      "title": "Blocked dates",
+      "help": "Close a villa to bookings for maintenance or personal use. The selected days show as unavailable in the calendar. Dates that already have bookings cannot be blocked.",
+      "villa": "Villa",
+      "pick": "Pick a villa and dates.",
+      "reason": "Reason",
+      "reasonPlaceholder": "Reason (optional, not shown to guests)",
+      "submit": "Block",
+      "empty": "No blocked dates.",
+      "remove": "Unblock",
+      "confirmRemove": "Open these dates for booking again?",
+      "conflict": "There are bookings or other blocked days in this period."
     }
   },
   "reviews": {

@@ -1,0 +1,5 @@
+-- 15: admin villani ma'lum kunlarga bron uchun yopadi. Jadval: blocked_dates (end_date — check_out kabi, shu kun band emas).
+-- Yozish faqat admin_block_dates()/admin_unblock_dates() RPC orqali; o'qish faqat admin (RLS).
+-- get_booked_ranges() va get_available_villa_ids() yopiq kunlarni ham hisobga oladi;
+-- bookings_before_insert() yopiq sanaga bronni 23P01 xatosi bilan rad etadi.
+-- To'liq matn: Supabase migration "blocked_dates".

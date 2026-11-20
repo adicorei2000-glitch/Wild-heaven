@@ -231,6 +231,20 @@
       "top": "Eng ko'p bron qilingan villalar",
       "bookingsCount_one": "{{count}} bron",
       "bookingsCount_other": "{{count}} bron"
+    },
+    "blocks": {
+      "tab": "Sanalarni yopish",
+      "title": "Yopilgan sanalar",
+      "help": "Villani ta'mir yoki shaxsiy foydalanish uchun bron qilishga yopasiz. Tanlangan kunlar kalendarda band ko'rinadi. Bron bor sanalarni yopib bo'lmaydi.",
+      "villa": "Villa",
+      "pick": "Villa va sanalarni tanlang.",
+      "reason": "Sabab",
+      "reasonPlaceholder": "Sabab (ixtiyoriy, mehmonlarga ko'rinmaydi)",
+      "submit": "Yopish",
+      "empty": "Yopilgan sanalar yo'q.",
+      "remove": "Ochish",
+      "confirmRemove": "Bu sanalarni yana bron uchun ochasizmi?",
+      "conflict": "Bu sanalarda bron yoki boshqa yopiq kunlar bor."
     }
   },
   "reviews": {
