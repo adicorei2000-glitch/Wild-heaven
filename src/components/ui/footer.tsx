@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { CONTACT_EMAIL } from "@/lib/site";
 import {
   Dialog,
   DialogContent,
@@ -113,21 +114,14 @@ function Footer() {
               </li>
 
               <li>
-                <Dialog>
-                  <DialogTrigger className="hover:text-white transition-colors">
-                    {t("footer.privacy")}
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>{t("footer.privacy")}</DialogTitle>
-                    </DialogHeader>
-                    <p className="text-sm text-muted-foreground">
-                      {t("footer.privacyText")}
-
-
-                    </p>
-                  </DialogContent>
-                </Dialog>
+                <Link to="/privacy" className="hover:text-white transition-colors">
+                  {t("footer.privacy")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="hover:text-white transition-colors">
+                  {t("footer.terms")}
+                </Link>
               </li>
             </ul>
           </div>
@@ -137,7 +131,7 @@ function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 shrink-0" />
-                info@wildhaven.uz
+                {CONTACT_EMAIL}
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 shrink-0" />

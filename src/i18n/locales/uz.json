@@ -69,7 +69,8 @@
     "privacy": "Maxfiylik siyosati",
     "privacyText": "Sizning shaxsiy ma'lumotlaringiz faqat bron qilish jarayonini amalga oshirish uchun ishlatiladi va uchinchi shaxslarga berilmaydi. Ma'lumotlar Supabase serverlarida saqlanadi, parollar shifrlangan (xesh) ko'rinishda turadi va har bir foydalanuvchi faqat o'z bronlari hamda sevimlilarini ko'ra oladi.",
     "rights": "© {{year}} Wild Haven. Barcha huquqlar himoyalangan.",
-    "madeWithLove": "Sevgi bilan yaratilgan 🌿"
+    "madeWithLove": "Sevgi bilan yaratilgan 🌿",
+    "terms": "Foydalanish shartlari"
   },
   "amenity": {
     "Basseyn": "Basseyn",
@@ -279,5 +280,85 @@
     "crashTitle": "Nimadir xato ketdi",
     "crashText": "Kutilmagan xatolik yuz berdi. Sahifani qayta yuklab ko'ring.",
     "reload": "Qayta yuklash"
+  },
+  "legal": {
+    "updated": "Oxirgi yangilanish: {{date}}",
+    "contact": "Bu sahifa yoki ma'lumotlaringiz haqida savolingiz bormi? Bizga yozing:",
+    "privacy": {
+      "title": "Maxfiylik siyosati",
+      "intro": "Bu siyosat Wild Haven saytidan foydalanganingizda qanday shaxsiy ma'lumotlar yig'ilishi, nima uchun kerakligi va ularni kimlar qayta ishlashini tushuntiradi.",
+      "sections": [
+        {
+          "title": "Nimalarni yig'amiz",
+          "body": "Hisob ma'lumotlari (email, ism va faqat shifrlangan ko'rinishda saqlanadigan parol), bronlaringiz (villa, sanalar, mehmonlar soni, narx, to'lov holati), sevimlilaringiz va yozgan sharhlaringiz, ular bilan birga qo'shgan rasmlaringiz. Til va rejim tanlovingiz brauzeringizda saqlanadi."
+        },
+        {
+          "title": "Nima uchun ishlatamiz",
+          "body": "Hisobingizni yaratish va yuritish, bronlarni qabul qilish va tasdiqlash, to'lovni olish, bron haqida email yuborish, sharhlarni boshqa mehmonlarga ko'rsatish va xizmat xavfsizligini ta'minlash uchun. Ma'lumotlaringizni sotmaymiz va reklama uchun ishlatmaymiz."
+        },
+        {
+          "title": "Kimlar qayta ishlaydi",
+          "body": "Supabase ma'lumotlar bazasi, kirish tizimi va fayllarni saqlashni ta'minlaydi (serverlar Tokioda, Yaponiya). Stripe karta to'lovlarini qayta ishlaydi: karta ma'lumotlaringiz to'g'ridan-to'g'ri Stripe'ga boradi, biz ularni ko'rmaymiz va saqlamaymiz. Resend bron emaillarini yetkazadi. Xarita rasmlari OpenStreetMap'dan yuklanadi, xaritani ochganingizda IP manzilingiz unga yetib borishi mumkin."
+        },
+        {
+          "title": "Boshqa foydalanuvchilar nimani ko'radi",
+          "body": "Sharhda bahoyingiz, matni, rasmlari, sanasi va ismingizning faqat birinchi so'zi ko'rinadi. Emailingiz, bronlaringiz va sevimlilaringiz boshqalarga hech qachon ko'rsatilmaydi."
+        },
+        {
+          "title": "Saqlash va xavfsizlik",
+          "body": "Bazadagi kirish qoidalari har bir foydalanuvchiga faqat o'z bronlari va sevimlilarini ko'rishga ruxsat beradi. Ma'lumotlar hisobingiz mavjud ekan va bron hamda to'lov yozuvlari uchun zarur muddat saqlanadi."
+        },
+        {
+          "title": "Sizning huquqlaringiz",
+          "body": "Bronlaringiz va sharhlaringizni hisobingizda ko'rishingiz va o'z sharhlaringizni o'chirishingiz mumkin. Hisobingiz va shaxsiy ma'lumotlaringizni tuzatish yoki o'chirishni istalgan vaqtda quyidagi aloqa orqali so'rashingiz mumkin; ayrim bron va to'lov yozuvlari qonuniy sabablarga ko'ra saqlanishi kerak bo'lishi mumkin."
+        },
+        {
+          "title": "Cookie va mahalliy xotira",
+          "body": "Brauzer xotirasidan faqat sayt ishlashi uchun kerak narsalarda foydalanamiz: tizimda qolishingiz, til va rejim tanlovingizni eslab qolish. Reklama yoki kuzatuv cookie'lari ishlatilmaydi."
+        },
+        {
+          "title": "O'zgarishlar",
+          "body": "Siyosat o'zgarsa, yangi versiya yangilangan sana bilan shu sahifada e'lon qilinadi."
+        }
+      ]
+    },
+    "terms": {
+      "title": "Foydalanish shartlari",
+      "intro": "Wild Haven'dan foydalanib, shu shartlarga rozilik bildirasiz. Bron qilishdan oldin ularni o'qib chiqing.",
+      "sections": [
+        {
+          "title": "Xizmat haqida",
+          "body": "Wild Haven villalarni ko'rish, bo'sh sanalarni tekshirish va bron so'rash imkonini beradi. Tavsif, rasm va narxlarni villa egasi beradi va ular o'zgarishi mumkin."
+        },
+        {
+          "title": "Hisobingiz",
+          "body": "Bron qilish uchun hisob kerak. Parolingizni sir saqlang va to'g'ri ma'lumot kiriting. Hisobingiz orqali qilingan harakatlar uchun o'zingiz javobgarsiz."
+        },
+        {
+          "title": "Bronlar",
+          "body": "Yangi bron to'lov kutilayotgan paytda siz uchun ushlab turiladi. To'lanmagan bron 12 soatdan keyin avtomatik bekor bo'ladi va sanalari yana bo'sh bo'ladi. To'lov qabul qilinganda yoki ega tasdiqlaganda bron tasdiqlanadi."
+        },
+        {
+          "title": "To'lovlar",
+          "body": "To'lov bank kartasi orqali Stripe'da, AQSh dollarida amalga oshiriladi. Jami summa kechalik narx va kechalar sonidan hisoblanadi. Karta ma'lumotlaringizni biz ko'rmaymiz va saqlamaymiz."
+        },
+        {
+          "title": "Bekor qilish va pulni qaytarish",
+          "body": "Band qilingan sanadan kamida 48 soat oldin bekor qilsangiz, to'lovning 100% qaytariladi. Undan keyin bekor qilinsa, pul qaytarilmaydi. Pul Stripe orqali dastlabki to'lov usuliga qaytariladi va ko'rinishi uchun bir necha ish kuni ketishi mumkin."
+        },
+        {
+          "title": "Sharhlar va kontent",
+          "body": "Sharhni faqat yashab ketgan mehmonlar yoza oladi. Sharhlarni halol va hurmat bilan yozing va faqat o'zingizga tegishli rasmlarni yuklang. Kontent egaligi sizda qoladi, uni saytda ko'rsatishimizga ruxsat berasiz. Haqoratli, yolg'on yoki qonunga zid kontentni o'chirishimiz mumkin."
+        },
+        {
+          "title": "Mas'uliyat",
+          "body": "Sayt ma'lumotlari to'g'ri va doim ishlab turishi uchun harakat qilamiz, lekin uzluksiz va xatosiz ishlashiga kafolat bera olmaymiz. Yashash bo'yicha kelishuv siz va villa egasi o'rtasida."
+        },
+        {
+          "title": "O'zgarishlar",
+          "body": "Shartlarni yangilashimiz mumkin. Joriy versiya doim shu sahifada; saytdan foydalanishni davom ettirsangiz, uni qabul qilgan bo'lasiz."
+        }
+      ]
+    }
   }
 }

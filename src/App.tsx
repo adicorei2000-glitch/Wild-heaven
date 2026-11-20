@@ -15,6 +15,7 @@ const ResetPassword = lazy(() => import("./pages/reset-password"));
 const Admin = lazy(() => import("./pages/admin"));
 const Profile = lazy(() => import("./pages/profile"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const Legal = lazy(() => import("./pages/Legal"));
 
 function PageSkeleton() {
   return (
@@ -47,6 +48,8 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/privacy" element={<Legal kind="privacy" />} />
+        <Route path="/terms" element={<Legal kind="terms" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       </div>
