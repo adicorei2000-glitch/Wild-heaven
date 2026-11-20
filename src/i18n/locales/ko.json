@@ -262,7 +262,17 @@
     "refund": "환불",
     "refunded": "환불 완료",
     "confirmRefund": "손님에게 ${{amount}}이(가) 환불되고 예약이 취소됩니다. 계속할까요?",
-    "refundFailed": "환불할 수 없습니다. Stripe 설정을 확인하세요."
+    "refundFailed": "환불할 수 없습니다. Stripe 설정을 확인하세요.",
+    "stats": {
+      "title": "통계",
+      "revenue": "총 매출",
+      "revenue30": "최근 30일",
+      "refunded": "환불액",
+      "nights": "확정 숙박일",
+      "total": "전체 예약",
+      "top": "가장 많이 예약된 빌라",
+      "bookingsCount_other": "예약 {{count}}건"
+    }
   },
   "reviews": {
     "title": "리뷰",

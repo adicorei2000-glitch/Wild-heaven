@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import AdminStats from "@/components/ui/admin-stats";
 
 type Status = "pending" | "confirmed" | "cancelled";
 
@@ -485,7 +486,7 @@ function VillasTab() {
 function Admin() {
   const { t } = useTranslation();
   const { isAdmin, loading, user } = useAdmin();
-  const [tab, setTab] = useState<"bookings" | "villas">("bookings");
+  const [tab, setTab] = useState<"bookings" | "villas" | "stats">("bookings");
 
   if (loading) {
     return (
@@ -516,8 +517,11 @@ function Admin() {
         <Button variant={tab === "villas" ? "default" : "outline"} onClick={() => setTab("villas")}>
           {t("admin.villas")}
         </Button>
+        <Button variant={tab === "stats" ? "default" : "outline"} onClick={() => setTab("stats")}>
+          {t("admin.stats.title")}
+        </Button>
       </div>
-      {tab === "bookings" ? <BookingsTab /> : <VillasTab />}
+      {tab === "bookings" ? <BookingsTab /> : tab === "villas" ? <VillasTab /> : <AdminStats />}
     </div>
   );
 }

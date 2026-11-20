@@ -268,7 +268,20 @@
     "refund": "Вернуть деньги",
     "refunded": "Деньги возвращены",
     "confirmRefund": "Гостю будет возвращено ${{amount}}, бронирование будет отменено. Продолжить?",
-    "refundFailed": "Не удалось вернуть деньги. Проверьте настройки Stripe."
+    "refundFailed": "Не удалось вернуть деньги. Проверьте настройки Stripe.",
+    "stats": {
+      "title": "Статистика",
+      "revenue": "Общий доход",
+      "revenue30": "За 30 дней",
+      "refunded": "Возвращено",
+      "nights": "Подтверждённые ночи",
+      "total": "Всего бронирований",
+      "top": "Самые бронируемые виллы",
+      "bookingsCount_one": "{{count}} бронирование",
+      "bookingsCount_few": "{{count}} бронирования",
+      "bookingsCount_many": "{{count}} бронирований",
+      "bookingsCount_other": "{{count}} бронирования"
+    }
   },
   "reviews": {
     "title": "Отзывы",

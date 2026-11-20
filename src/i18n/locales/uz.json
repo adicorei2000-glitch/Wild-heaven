@@ -210,7 +210,18 @@
     "refund": "Pulni qaytarish",
     "refunded": "Pul qaytarilgan",
     "confirmRefund": "${{amount}} mehmonga qaytariladi va bron bekor qilinadi. Davom etasizmi?",
-    "refundFailed": "Pulni qaytarib bo'lmadi. Stripe sozlamalarini tekshiring."
+    "refundFailed": "Pulni qaytarib bo'lmadi. Stripe sozlamalarini tekshiring.",
+    "stats": {
+      "title": "Statistika",
+      "revenue": "Jami daromad",
+      "revenue30": "Oxirgi 30 kun",
+      "refunded": "Qaytarilgan",
+      "nights": "Tasdiqlangan tunlar",
+      "total": "Jami bronlar",
+      "top": "Eng ko'p bron qilingan villalar",
+      "bookingsCount_one": "{{count}} bron",
+      "bookingsCount_other": "{{count}} bron"
+    }
   },
   "reviews": {
     "title": "Sharhlar",

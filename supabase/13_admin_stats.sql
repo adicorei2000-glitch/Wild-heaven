@@ -1,0 +1,2 @@
+-- 13: admin_stats() — admin paneldagi statistika (faqat admin). Funksiya matni Supabase'da (migration: admin_stats).
+-- Qaytaradi: total/pending/confirmed/cancelled, revenue, revenue_30d, refunded, nights, top_villas[].

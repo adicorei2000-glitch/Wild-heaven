@@ -267,7 +267,18 @@
     "refund": "Refund",
     "refunded": "Refunded",
     "confirmRefund": "${{amount}} will be refunded to the guest and the booking cancelled. Continue?",
-    "refundFailed": "Could not refund. Check the Stripe settings."
+    "refundFailed": "Could not refund. Check the Stripe settings.",
+    "stats": {
+      "title": "Statistics",
+      "revenue": "Total revenue",
+      "revenue30": "Last 30 days",
+      "refunded": "Refunded",
+      "nights": "Confirmed nights",
+      "total": "Total bookings",
+      "top": "Most booked villas",
+      "bookingsCount_one": "{{count}} booking",
+      "bookingsCount_other": "{{count}} bookings"
+    }
   },
   "reviews": {
     "title": "Reviews",
