@@ -26,6 +26,9 @@ jobs:
       - name: Lint
         run: npx oxlint src
 
+      - name: Tests
+        run: npm test
+
       - name: Type check
         run: npx tsc -b --noEmit
 
