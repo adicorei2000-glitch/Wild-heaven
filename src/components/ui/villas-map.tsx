@@ -33,7 +33,7 @@ function VillasMap({ villas, onOpen }: Props) {
       const icon = L.divIcon({
         className: "",
         iconSize: [0, 0],
-        html: `<div class="-translate-x-1/2 -translate-y-full whitespace-nowrap rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-gray-900 shadow-md ring-1 ring-black/10">$${v.price}</div>`,
+        html: `<div class="w-max -translate-x-1/2 -translate-y-full whitespace-nowrap rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-gray-900 shadow-md ring-1 ring-black/10">$${v.price}</div>`,
       });
 
       // Matnlarni innerHTML bilan emas, textContent bilan qo'yamiz (XSS'dan himoya)
