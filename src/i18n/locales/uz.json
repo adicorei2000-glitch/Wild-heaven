@@ -242,7 +242,10 @@
     "submit": "Sharhni yuborish",
     "failed": "Sharhni yuborib bo'lmadi: {{message}}",
     "confirmDelete": "Sharhingizni o'chirmoqchimisiz?",
-    "guest": "Mehmon"
+    "guest": "Mehmon",
+    "addPhotos": "Rasm qo'shish (ko'pi bilan {{count}} ta)",
+    "removePhoto": "Rasmni olib tashlash",
+    "tooManyPhotos": "Ko'pi bilan {{count}} ta rasm qo'shish mumkin."
   },
   "theme": {
     "light": "Yorug' rejim",

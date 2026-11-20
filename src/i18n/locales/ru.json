@@ -302,7 +302,10 @@
     "submit": "Отправить отзыв",
     "failed": "Не удалось отправить отзыв: {{message}}",
     "confirmDelete": "Удалить ваш отзыв?",
-    "guest": "Гость"
+    "guest": "Гость",
+    "addPhotos": "Добавить фото (до {{count}})",
+    "removePhoto": "Удалить фото",
+    "tooManyPhotos": "Можно добавить не более {{count}} фото."
   },
   "theme": {
     "light": "Светлая тема",

@@ -293,7 +293,10 @@
     "submit": "리뷰 등록",
     "failed": "리뷰를 등록할 수 없습니다: {{message}}",
     "confirmDelete": "리뷰를 삭제하시겠습니까?",
-    "guest": "손님"
+    "guest": "손님",
+    "addPhotos": "사진 추가 (최대 {{count}}장)",
+    "removePhoto": "사진 삭제",
+    "tooManyPhotos": "사진은 최대 {{count}}장까지 추가할 수 있습니다."
   },
   "theme": {
     "light": "라이트 모드",

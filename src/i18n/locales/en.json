@@ -299,7 +299,10 @@
     "submit": "Submit review",
     "failed": "Couldn't submit the review: {{message}}",
     "confirmDelete": "Delete your review?",
-    "guest": "Guest"
+    "guest": "Guest",
+    "addPhotos": "Add photos (up to {{count}})",
+    "removePhoto": "Remove photo",
+    "tooManyPhotos": "You can add up to {{count}} photos."
   },
   "theme": {
     "light": "Light mode",
