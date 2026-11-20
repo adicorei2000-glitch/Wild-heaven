@@ -68,7 +68,7 @@ function Header() {
   );
 
   return (
-    <header className="border-b">
+    <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <div className="container mx-auto flex items-center justify-between gap-2 px-4 py-3 md:py-4">
         <Link to="/" className="text-xl font-bold md:text-2xl">
           Wild Haven

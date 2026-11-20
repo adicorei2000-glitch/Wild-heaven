@@ -9,22 +9,23 @@ interface VillaCardProps {
   villa: Villa;
   favorite?: boolean;
   onToggleFavorite?: (villaId: number) => void;
+  index?: number;
 }
 
-function VillaCard({ villa, favorite = false, onToggleFavorite }: VillaCardProps) {
+function VillaCard({ villa, favorite = false, onToggleFavorite, index = 0 }: VillaCardProps) {
   const { t } = useTranslation();
   const text = villaText(t, villa);
   return (
-    <div className="relative">
+    <div className="relative animate-fade-up" style={{ animationDelay: `${Math.min(index, 8) * 60}ms` }}>
       <Link
         to={`/villa/${villa.id}`}
-        className="group block overflow-hidden rounded-xl border hover:shadow-lg transition-shadow"
+        className="group block overflow-hidden rounded-2xl border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
       >
         <div className="aspect-[4/3] overflow-hidden">
           <img
             src={villa.image}
             alt={text.name}
-            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </div>
         <div className="p-4">

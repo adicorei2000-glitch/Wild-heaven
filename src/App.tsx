@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/ui/header";
 import Home from "./pages/Home";
 const About = lazy(() => import("./pages/About"));
@@ -28,11 +28,13 @@ function PageSkeleton() {
 }
 
 function App() {
+  const { pathname } = useLocation();
   return (
     <>
       <Header />
-      <ErrorBoundary>
+      <ErrorBoundary key={pathname}>
       <Suspense fallback={<PageSkeleton />}>
+      <div className="animate-fade-in">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -47,6 +49,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </div>
       </Suspense>
       </ErrorBoundary>
       <Footer />
