@@ -206,7 +206,11 @@
     "upload": "Rasm yuklash",
     "uploading": "Yuklanmoqda...",
     "uploadFailed": "Rasmni yuklab bo'lmadi: {{message}}",
-    "uploadHint": "JPG, PNG yoki WebP, 5 MB gacha"
+    "uploadHint": "JPG, PNG yoki WebP, 5 MB gacha",
+    "refund": "Pulni qaytarish",
+    "refunded": "Pul qaytarilgan",
+    "confirmRefund": "${{amount}} mehmonga qaytariladi va bron bekor qilinadi. Davom etasizmi?",
+    "refundFailed": "Pulni qaytarib bo'lmadi. Stripe sozlamalarini tekshiring."
   },
   "reviews": {
     "title": "Sharhlar",

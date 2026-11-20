@@ -19,3 +19,11 @@ export async function verifyPayment(bookingId: number): Promise<boolean> {
   });
   return !error && data?.paid === true;
 }
+
+// Admin: to'langan bron pulini to'liq qaytaradi (Stripe) va bronni bekor qiladi
+export async function refundBooking(bookingId: number): Promise<boolean> {
+  const { data, error } = await supabase.functions.invoke("refund-booking", {
+    body: { booking_id: bookingId },
+  });
+  return !error && data?.ok === true;
+}

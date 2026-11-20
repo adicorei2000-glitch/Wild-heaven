@@ -264,7 +264,11 @@
     "upload": "Загрузить фото",
     "uploading": "Загрузка...",
     "uploadFailed": "Не удалось загрузить фото: {{message}}",
-    "uploadHint": "JPG, PNG или WebP, до 5 МБ"
+    "uploadHint": "JPG, PNG или WebP, до 5 МБ",
+    "refund": "Вернуть деньги",
+    "refunded": "Деньги возвращены",
+    "confirmRefund": "Гостю будет возвращено ${{amount}}, бронирование будет отменено. Продолжить?",
+    "refundFailed": "Не удалось вернуть деньги. Проверьте настройки Stripe."
   },
   "reviews": {
     "title": "Отзывы",

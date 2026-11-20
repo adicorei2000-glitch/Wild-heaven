@@ -258,7 +258,11 @@
     "upload": "이미지 업로드",
     "uploading": "업로드 중...",
     "uploadFailed": "이미지를 업로드할 수 없습니다: {{message}}",
-    "uploadHint": "JPG, PNG, WebP, 최대 5MB"
+    "uploadHint": "JPG, PNG, WebP, 최대 5MB",
+    "refund": "환불",
+    "refunded": "환불 완료",
+    "confirmRefund": "손님에게 ${{amount}}이(가) 환불되고 예약이 취소됩니다. 계속할까요?",
+    "refundFailed": "환불할 수 없습니다. Stripe 설정을 확인하세요."
   },
   "reviews": {
     "title": "리뷰",

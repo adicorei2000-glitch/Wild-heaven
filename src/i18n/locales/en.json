@@ -263,7 +263,11 @@
     "upload": "Upload image",
     "uploading": "Uploading...",
     "uploadFailed": "Couldn't upload the image: {{message}}",
-    "uploadHint": "JPG, PNG or WebP, up to 5 MB"
+    "uploadHint": "JPG, PNG or WebP, up to 5 MB",
+    "refund": "Refund",
+    "refunded": "Refunded",
+    "confirmRefund": "${{amount}} will be refunded to the guest and the booking cancelled. Continue?",
+    "refundFailed": "Could not refund. Check the Stripe settings."
   },
   "reviews": {
     "title": "Reviews",

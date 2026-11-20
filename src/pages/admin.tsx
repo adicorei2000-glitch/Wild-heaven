@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { fetchVillas } from "@/lib/villas";
 import { useAdmin } from "@/lib/useAdmin";
 import { notifyBooking } from "@/lib/notify";
+import { refundBooking } from "@/lib/payments";
 import type { Villa } from "@/data/villa";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,6 +39,7 @@ interface AdminBooking {
   status: Status;
   created_at: string;
   paid_at: string | null;
+  refunded_at: string | null;
 }
 
 const BADGE: Record<Status, string> = {
@@ -78,6 +80,17 @@ function BookingsTab() {
     }
     setRows((prev) => prev.map((r) => (r.id === b.id ? { ...r, status } : r)));
     notifyBooking(b.id, "status");
+  };
+
+  const refund = async (b: AdminBooking) => {
+    if (!confirm(t("admin.confirmRefund", { amount: b.total_price }))) return;
+    const ok = await refundBooking(b.id);
+    if (!ok) {
+      alert(t("admin.refundFailed"));
+      return;
+    }
+    notifyBooking(b.id, "status");
+    load();
   };
 
   const shown = rows.filter((r) => filter === "all" || r.status === filter);
@@ -139,6 +152,7 @@ function BookingsTab() {
                 {b.user_email ?? "—"} · {b.check_in} — {b.check_out} ·{" "}
                 {t("bookings.guestsLine", { count: b.guests })} · ${b.total_price}
                 {b.paid_at && <> · {t("pay.paid")}</>}
+                {b.refunded_at && <> · {t("admin.refunded")}</>}
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -152,7 +166,12 @@ function BookingsTab() {
                   {b.status === "pending" ? t("admin.reject") : t("bookings.cancel")}
                 </Button>
               )}
-              {b.status === "cancelled" && (
+              {b.paid_at && !b.refunded_at && (
+                <Button size="sm" variant="destructive" onClick={() => refund(b)}>
+                  {t("admin.refund")}
+                </Button>
+              )}
+              {b.status === "cancelled" && !b.refunded_at && (
                 <Button size="sm" variant="outline" onClick={() => setStatus(b, "pending")}>
                   {t("admin.restore")}
                 </Button>
