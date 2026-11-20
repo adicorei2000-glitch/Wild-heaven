@@ -101,7 +101,13 @@
     "btnSubmitting": "전송 중...",
     "btnPickDates": "날짜를 선택하세요",
     "btnMinNight": "최소 1박을 선택하세요",
-    "btnBook": "예약하기"
+    "btnBook": "예약하기",
+    "openGallery": "사진 전체 화면으로 보기",
+    "closeGallery": "닫기",
+    "prevImage": "이전 사진",
+    "nextImage": "다음 사진",
+    "share": "공유",
+    "linkCopied": "링크가 복사되었습니다"
   },
   "bookings": {
     "title": "내 예약",

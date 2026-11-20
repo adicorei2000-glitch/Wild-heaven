@@ -101,7 +101,13 @@
     "btnSubmitting": "Yuborilmoqda...",
     "btnPickDates": "Sanalarni tanlang",
     "btnMinNight": "Kamida 1 kecha tanlang",
-    "btnBook": "Bron qilish"
+    "btnBook": "Bron qilish",
+    "openGallery": "Rasmlarni to'liq ekranda ochish",
+    "closeGallery": "Yopish",
+    "prevImage": "Oldingi rasm",
+    "nextImage": "Keyingi rasm",
+    "share": "Ulashish",
+    "linkCopied": "Havola nusxalandi"
   },
   "bookings": {
     "title": "Mening bronlarim",

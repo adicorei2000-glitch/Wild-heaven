@@ -4,6 +4,8 @@ import type { Matcher } from "react-day-picker";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import FavoriteButton from "@/components/ui/favorite-button";
+import ShareButton from "@/components/ui/share-button";
+import ImageLightbox from "@/components/ui/image-lightbox";
 import { supabase } from "@/lib/supabase";
 import {
   Popover,
@@ -17,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Star, MapPin, CalendarIcon, Check, Users } from "lucide-react";
+import { Star, MapPin, CalendarIcon, Check, Users, ChevronLeft, ChevronRight } from "lucide-react";
 import { addDays, format } from "date-fns";
 import { fetchBookedRanges, fetchVilla, type BookedRange } from "@/lib/villas";
 import { useFavorites } from "@/lib/useFavorites";
@@ -50,6 +52,7 @@ function VillaDetails() {
   const [loadError, setLoadError] = useState("");
   const [booked, setBooked] = useState<BookedRange[]>([]);
   const [activeImage, setActiveImage] = useState(0);
+  const [galleryOpen, setGalleryOpen] = useState(false);
 
   const [checkIn, setCheckIn] = useState<Date>();
   const [checkOut, setCheckOut] = useState<Date>();
@@ -140,6 +143,9 @@ function VillaDetails() {
     from: r.checkIn,
     to: addDays(r.checkOut, -1),
   }));
+
+  // Band kunlar kalendarda qizil va chizilgan ko'rinadi
+  const bookedClass = { booked: "[&>button]:text-red-500 [&>button]:line-through" };
 
   const checkInDisabled: Matcher[] = [{ before: today }, ...bookedNights];
 
@@ -263,18 +269,54 @@ function VillaDetails() {
     <div className="container mx-auto px-4 py-10">
       {/* Galereya */}
       <div className="mb-8 space-y-3">
-        <div className="relative aspect-[16/7] overflow-hidden rounded-xl">
-          <img
-            src={images[activeImage] ?? villa.image}
-            alt={text.name}
-            className="h-full w-full object-cover"
-          />
+        <div className="group relative aspect-[16/9] overflow-hidden rounded-xl sm:aspect-[16/7]">
+          <button
+            type="button"
+            onClick={() => setGalleryOpen(true)}
+            aria-label={t("villa.openGallery")}
+            className="block h-full w-full cursor-zoom-in"
+          >
+            <img
+              src={images[activeImage] ?? villa.image}
+              alt={text.name}
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            />
+          </button>
+          <ShareButton title={text.name} className="absolute top-4 right-16" />
           <FavoriteButton
             active={favoriteIds.has(villa.id)}
             onToggle={handleFavorite}
             className="absolute top-4 right-4"
           />
+          {images.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={() => setActiveImage((activeImage - 1 + images.length) % images.length)}
+                aria-label={t("villa.prevImage")}
+                className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow hover:bg-white sm:opacity-0 sm:transition-opacity sm:group-hover:opacity-100"
+              >
+                <ChevronLeft className="h-5 w-5 text-gray-700" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveImage((activeImage + 1) % images.length)}
+                aria-label={t("villa.nextImage")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow hover:bg-white sm:opacity-0 sm:transition-opacity sm:group-hover:opacity-100"
+              >
+                <ChevronRight className="h-5 w-5 text-gray-700" />
+              </button>
+            </>
+          )}
         </div>
+        <ImageLightbox
+          images={images}
+          index={activeImage}
+          open={galleryOpen}
+          alt={text.name}
+          onIndexChange={setActiveImage}
+          onOpenChange={setGalleryOpen}
+        />
 
         {images.length > 1 && (
           <div className="flex gap-2 overflow-x-auto">
@@ -378,6 +420,8 @@ function VillaDetails() {
                     selected={checkIn}
                     onSelect={handleCheckIn}
                     disabled={checkInDisabled}
+                    modifiers={{ booked: bookedNights }}
+                    modifiersClassNames={bookedClass}
                   />
                 </PopoverContent>
               </Popover>
@@ -402,6 +446,8 @@ function VillaDetails() {
                     selected={checkOut}
                     onSelect={handleCheckOut}
                     disabled={checkOutDisabled}
+                    modifiers={{ booked: bookedNights }}
+                    modifiersClassNames={bookedClass}
                   />
                 </PopoverContent>
               </Popover>

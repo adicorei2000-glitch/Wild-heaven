@@ -105,7 +105,13 @@
     "btnSubmitting": "Submitting...",
     "btnPickDates": "Select dates",
     "btnMinNight": "Select at least 1 night",
-    "btnBook": "Book"
+    "btnBook": "Book",
+    "openGallery": "Open photos full screen",
+    "closeGallery": "Close",
+    "prevImage": "Previous photo",
+    "nextImage": "Next photo",
+    "share": "Share",
+    "linkCopied": "Link copied"
   },
   "bookings": {
     "title": "My bookings",

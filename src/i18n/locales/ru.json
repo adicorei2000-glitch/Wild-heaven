@@ -107,7 +107,13 @@
     "btnSubmitting": "Отправка...",
     "btnPickDates": "Выберите даты",
     "btnMinNight": "Выберите минимум 1 ночь",
-    "btnBook": "Забронировать"
+    "btnBook": "Забронировать",
+    "openGallery": "Открыть фото на весь экран",
+    "closeGallery": "Закрыть",
+    "prevImage": "Предыдущее фото",
+    "nextImage": "Следующее фото",
+    "share": "Поделиться",
+    "linkCopied": "Ссылка скопирована"
   },
   "bookings": {
     "title": "Мои бронирования",
