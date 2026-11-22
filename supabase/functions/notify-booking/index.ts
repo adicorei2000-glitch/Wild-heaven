@@ -61,6 +61,14 @@ const T: Record<Lang, Record<Kind, [string, string, string]>> = {
   },
 };
 
+// Xabar emaili: [mavzu, sarlavha]
+const MSG: Record<Lang, [string, string]> = {
+  uz: ["Egadan yangi xabar", "Wild Haven egasidan yangi xabar"],
+  en: ["New message from the host", "New message from the Wild Haven host"],
+  ru: ["Новое сообщение от владельца", "Новое сообщение от владельца Wild Haven"],
+  ko: ["호스트의 새 메시지", "Wild Haven 호스트의 새 메시지"],
+};
+
 const LABELS: Record<Lang, [string, string, string]> = {
   uz: ["Sanalar", "Mehmonlar", "Jami"],
   en: ["Dates", "Guests", "Total"],
@@ -112,7 +120,7 @@ Deno.serve(async (req) => {
     return json({ error: "bad json" }, 400);
   }
   const id = Number(body.booking_id);
-  if (!Number.isInteger(id) || (body.event !== "created" && body.event !== "status")) {
+  if (!Number.isInteger(id) || (body.event !== "created" && body.event !== "status" && body.event !== "message")) {
     return json({ error: "bad request" }, 400);
   }
 
@@ -138,6 +146,51 @@ Deno.serve(async (req) => {
     if (user.email) {
       const m = render("received", lang, b);
       results.guest = await send(user.email, m.subject, m.html);
+    }
+  } else if (body.event === "message") {
+    // Eng so'nggi xabar chaqiruvchining o'ziniki va hali emaillanmagan bo'lsa, ikkinchi tomonga xabar beramiz
+    const { data: m } = await supabase
+      .from("booking_messages")
+      .select("id, body, from_admin, sender_id, created_at")
+      .eq("booking_id", id)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (!m || m.sender_id !== user.id) return json({ ok: true, results });
+    const service = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+    const { data: claimed } = await service
+      .from("booking_messages")
+      .update({ emailed_at: new Date().toISOString() })
+      .eq("id", m.id)
+      .is("emailed_at", null)
+      .select("id");
+    if (!claimed || claimed.length === 0) return json({ ok: true, results });
+
+    const wrap = (title: string, villa: string, text: string) =>
+      `<div style="font-family:Arial,sans-serif;max-width:480px;margin:auto"><h2>${esc(title)}</h2>
+<p><b>${esc(villa)}</b></p><blockquote style="border-left:3px solid #ccc;margin:0;padding-left:12px;white-space:pre-wrap">${esc(text)}</blockquote>
+<p style="color:#888;font-size:12px">Wild Haven</p></div>`;
+
+    if (!m.from_admin) {
+      const { data: bk } = await supabase.from("bookings").select("villa_name").eq("id", id).maybeSingle();
+      const admin = Deno.env.get("ADMIN_EMAIL");
+      if (admin && bk) {
+        results.admin = await send(
+          admin,
+          "Wild Haven: Yangi xabar",
+          wrap(`Yangi xabar (${user.email ?? ""})`, bk.villa_name, m.body),
+        );
+      }
+    } else {
+      const { data: isAdmin } = await supabase.rpc("is_admin");
+      if (isAdmin !== true) return json({ error: "forbidden" }, 403);
+      const { data: list } = await supabase.rpc("admin_list_bookings");
+      const b = (list as Booking[] | null)?.find((x) => x.id === id);
+      if (b?.user_email) {
+        const lang: Lang = LANGS.includes(b.lang) ? b.lang : "uz";
+        const [subject, title] = MSG[lang];
+        results.guest = await send(b.user_email, `Wild Haven: ${subject}`, wrap(title, b.villa_name, m.body));
+      }
     }
   } else {
     // Status o'zgarishi: faqat admin

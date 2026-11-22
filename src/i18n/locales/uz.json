@@ -381,5 +381,17 @@
         }
       ]
     }
+  },
+  "messages": {
+    "title": "Xabarlar",
+    "empty": "Hozircha xabar yo'q. Savolingizni yozing.",
+    "placeholder": "Xabar yozing…",
+    "send": "Yuborish",
+    "you": "Siz",
+    "host": "Ega",
+    "guest": "Mehmon",
+    "rateLimit": "Juda ko'p xabar yubordingiz. Birozdan keyin urinib ko'ring.",
+    "failed": "Xabar yuborilmadi.",
+    "toggle": "Xabarlar"
   }
 }

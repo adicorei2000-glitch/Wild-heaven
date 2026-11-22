@@ -438,5 +438,17 @@
         }
       ]
     }
+  },
+  "messages": {
+    "title": "Messages",
+    "empty": "No messages yet. Ask your question.",
+    "placeholder": "Write a message…",
+    "send": "Send",
+    "you": "You",
+    "host": "Host",
+    "guest": "Guest",
+    "rateLimit": "Too many messages. Please try again later.",
+    "failed": "Could not send the message.",
+    "toggle": "Messages"
   }
 }

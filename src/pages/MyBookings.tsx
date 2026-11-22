@@ -8,6 +8,7 @@ import { startCheckout, verifyPayment } from "@/lib/payments";
 import { villaText } from "@/i18n/villa";
 import type { Villa } from "@/data/villa";
 import { Button } from "@/components/ui/button";
+import BookingChat from "@/components/ui/booking-chat";
 import ChangeDatesDialog from "@/components/ui/change-dates-dialog";
 import { cn } from "@/lib/utils";
 
@@ -58,6 +59,7 @@ function MyBookings() {
   const [villaById, setVillaById] = useState<Map<number, Villa>>(new Map());
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<{ id: string } | null>(null);
+  const [chatOpen, setChatOpen] = useState<number | null>(null);
 
   useEffect(() => {
     const load = async () => {
@@ -188,7 +190,7 @@ function MyBookings() {
               <div
                 key={booking.id}
                 className={cn(
-                  "border rounded-xl p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4",
+                  "border rounded-xl p-6 flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-4",
                   isCancelled && "opacity-60",
                 )}
               >
@@ -242,6 +244,14 @@ function MyBookings() {
                     {t("bookings.cancel")}
                   </Button>
                 )}
+                <Button
+                  variant="ghost"
+                  onClick={() => setChatOpen(chatOpen === booking.id ? null : booking.id)}
+                  aria-expanded={chatOpen === booking.id}
+                >
+                  {t("messages.toggle")}
+                </Button>
+                {chatOpen === booking.id && <BookingChat bookingId={booking.id} />}
               </div>
             );
           })}

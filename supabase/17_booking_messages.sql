@@ -1,0 +1,4 @@
+-- Applied via Supabase MCP migration (booking_messages).
+-- Table booking_messages (booking_id, sender_id, from_admin, body 1-1000, created_at, emailed_at),
+-- RLS: select/insert for admin or booking owner; trigger booking_messages_before_insert forces
+-- sender_id=auth.uid(), from_admin=is_admin(), trims body, max 20 messages/hour (errcode 54000).
