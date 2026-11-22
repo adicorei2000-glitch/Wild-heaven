@@ -1,0 +1,4 @@
+-- 16: mehmon bron sanasini o'zgartiradi — change_booking_dates(booking_id, check_in, check_out).
+-- To'lanmagan: sana va narx qayta hisoblanadi, eski Stripe sessiyasi tozalanadi.
+-- To'langan: kechalar soni bir xil bo'lishi va kirishga kamida 48 soat qolishi shart.
+-- Yopiq (blocked_dates) va band sanalarga o'tkazib bo'lmaydi (23P01). To'liq matn: Supabase migration "change_booking_dates".

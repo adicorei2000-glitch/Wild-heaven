@@ -129,7 +129,14 @@
     "cancelFailed": "Couldn't cancel: {{message}}",
     "guestsLine_one": "{{count}} guest",
     "guestsLine_other": "{{count}} guests",
-    "cancel": "Cancel booking"
+    "cancel": "Cancel booking",
+    "change": "Change dates",
+    "changeTitle": "Change booking dates",
+    "changeHelpUnpaid": "Pick the new dates. The price is recalculated for the new number of nights.",
+    "changeHelpPaid": "This booking is paid, so you can only move it to another {{count}}-night period (the price stays the same).",
+    "changeSave": "Save",
+    "changeNotAllowed": "The dates of this booking cannot be changed (a paid booking must keep the same number of nights and be at least 48 hours away).",
+    "changeFailed": "Could not change the dates: {{message}}"
   },
   "auth": {
     "welcome": "Welcome back",

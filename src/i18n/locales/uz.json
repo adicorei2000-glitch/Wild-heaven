@@ -124,7 +124,14 @@
     "confirmCancel": "Bronni bekor qilishni xohlaysizmi?",
     "cancelFailed": "Bekor qilib bo'lmadi: {{message}}",
     "guestsLine": "{{count}} mehmon",
-    "cancel": "Bekor qilish"
+    "cancel": "Bekor qilish",
+    "change": "Sanani o'zgartirish",
+    "changeTitle": "Bron sanasini o'zgartirish",
+    "changeHelpUnpaid": "Yangi sanalarni tanlang. Narx yangi kechalar soniga qarab qayta hisoblanadi.",
+    "changeHelpPaid": "Bu bron to'langan, shuning uchun faqat {{count}} kecha uchun sanani almashtirish mumkin (narx o'zgarmaydi).",
+    "changeSave": "Saqlash",
+    "changeNotAllowed": "Bu bronning sanasini o'zgartirib bo'lmaydi (to'langan bronda kechalar soni bir xil bo'lishi va kirishga kamida 48 soat qolishi kerak).",
+    "changeFailed": "Sanani o'zgartirib bo'lmadi: {{message}}"
   },
   "auth": {
     "welcome": "Xush kelibsiz",
