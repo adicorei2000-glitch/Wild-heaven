@@ -25,6 +25,8 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import AdminStats from "@/components/ui/admin-stats";
+import BookingChat from "@/components/ui/booking-chat";
+import AdminBlocks from "@/components/ui/admin-blocks";
 
 type Status = "pending" | "confirmed" | "cancelled";
 
@@ -51,6 +53,7 @@ const BADGE: Record<Status, string> = {
 
 function BookingsTab() {
   const { t } = useTranslation();
+  const [chatOpen, setChatOpen] = useState<number | null>(null);
   const [rows, setRows] = useState<AdminBooking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -135,7 +138,7 @@ function BookingsTab() {
         {shown.map((b) => (
           <div
             key={b.id}
-            className="border rounded-xl p-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+            className="border rounded-xl p-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:flex-wrap"
           >
             <div className="space-y-1">
               <div className="flex flex-wrap items-center gap-2">
@@ -177,7 +180,16 @@ function BookingsTab() {
                   {t("admin.restore")}
                 </Button>
               )}
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setChatOpen(chatOpen === b.id ? null : b.id)}
+                aria-expanded={chatOpen === b.id}
+              >
+                {t("messages.toggle")}
+              </Button>
             </div>
+            {chatOpen === b.id && <BookingChat bookingId={b.id} asAdmin />}
           </div>
         ))}
       </div>
@@ -486,7 +498,7 @@ function VillasTab() {
 function Admin() {
   const { t } = useTranslation();
   const { isAdmin, loading, user } = useAdmin();
-  const [tab, setTab] = useState<"bookings" | "villas" | "stats">("bookings");
+  const [tab, setTab] = useState<"bookings" | "villas" | "blocks" | "stats">("bookings");
 
   if (loading) {
     return (
@@ -517,11 +529,22 @@ function Admin() {
         <Button variant={tab === "villas" ? "default" : "outline"} onClick={() => setTab("villas")}>
           {t("admin.villas")}
         </Button>
+        <Button variant={tab === "blocks" ? "default" : "outline"} onClick={() => setTab("blocks")}>
+          {t("admin.blocks.tab")}
+        </Button>
         <Button variant={tab === "stats" ? "default" : "outline"} onClick={() => setTab("stats")}>
           {t("admin.stats.title")}
         </Button>
       </div>
-      {tab === "bookings" ? <BookingsTab /> : tab === "villas" ? <VillasTab /> : <AdminStats />}
+      {tab === "bookings" ? (
+        <BookingsTab />
+      ) : tab === "villas" ? (
+        <VillasTab />
+      ) : tab === "blocks" ? (
+        <AdminBlocks />
+      ) : (
+        <AdminStats />
+      )}
     </div>
   );
 }

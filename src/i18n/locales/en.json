@@ -70,7 +70,8 @@
     "privacy": "Privacy policy",
     "privacyText": "Your personal data is used only to process your booking and is not shared with third parties. Data is stored on Supabase servers, passwords are kept encrypted (hashed), and each user can only see their own bookings and favorites.",
     "rights": "© {{year}} Wild Haven. All rights reserved.",
-    "madeWithLove": "Made with love 🌿"
+    "madeWithLove": "Made with love 🌿",
+    "terms": "Terms of use"
   },
   "amenity": {
     "Basseyn": "Pool",
@@ -128,7 +129,14 @@
     "cancelFailed": "Couldn't cancel: {{message}}",
     "guestsLine_one": "{{count}} guest",
     "guestsLine_other": "{{count}} guests",
-    "cancel": "Cancel booking"
+    "cancel": "Cancel booking",
+    "change": "Change dates",
+    "changeTitle": "Change booking dates",
+    "changeHelpUnpaid": "Pick the new dates. The price is recalculated for the new number of nights.",
+    "changeHelpPaid": "This booking is paid, so you can only move it to another {{count}}-night period (the price stays the same).",
+    "changeSave": "Save",
+    "changeNotAllowed": "The dates of this booking cannot be changed (a paid booking must keep the same number of nights and be at least 48 hours away).",
+    "changeFailed": "Could not change the dates: {{message}}"
   },
   "auth": {
     "welcome": "Welcome back",
@@ -287,6 +295,20 @@
       "top": "Most booked villas",
       "bookingsCount_one": "{{count}} booking",
       "bookingsCount_other": "{{count}} bookings"
+    },
+    "blocks": {
+      "tab": "Block dates",
+      "title": "Blocked dates",
+      "help": "Close a villa to bookings for maintenance or personal use. The selected days show as unavailable in the calendar. Dates that already have bookings cannot be blocked.",
+      "villa": "Villa",
+      "pick": "Pick a villa and dates.",
+      "reason": "Reason",
+      "reasonPlaceholder": "Reason (optional, not shown to guests)",
+      "submit": "Block",
+      "empty": "No blocked dates.",
+      "remove": "Unblock",
+      "confirmRemove": "Open these dates for booking again?",
+      "conflict": "There are bookings or other blocked days in this period."
     }
   },
   "reviews": {
@@ -336,5 +358,97 @@
     "crashTitle": "Something went wrong",
     "crashText": "An unexpected error occurred. Try reloading the page.",
     "reload": "Reload"
+  },
+  "legal": {
+    "updated": "Last updated: {{date}}",
+    "contact": "Questions about this page or your data? Write to us:",
+    "privacy": {
+      "title": "Privacy Policy",
+      "intro": "This policy explains what personal data Wild Haven collects when you use the website, why we collect it and who processes it for us.",
+      "sections": [
+        {
+          "title": "What we collect",
+          "body": "Account data (email address, name and a password that is stored only in encrypted/hashed form), your bookings (villa, dates, number of guests, price, payment status), your favorites, and reviews you write, including photos you choose to attach. Your language and theme choices are stored in your browser."
+        },
+        {
+          "title": "Why we use it",
+          "body": "To create and manage your account, process and confirm your bookings, take payments, send you booking emails, show reviews to other visitors and keep the service secure. We do not sell your data and do not use it for advertising."
+        },
+        {
+          "title": "Who processes it",
+          "body": "Supabase hosts our database, sign-in and file storage (servers in Tokyo, Japan). Stripe processes card payments: your card details go directly to Stripe and are never seen or stored by us. Resend delivers booking emails. Map tiles are loaded from OpenStreetMap, which may receive your IP address when you open a map."
+        },
+        {
+          "title": "What other visitors see",
+          "body": "Reviews show your rating, comment, photos, the date and only the first word of your name. Your email address, bookings and favorites are never shown to other users."
+        },
+        {
+          "title": "Storage and security",
+          "body": "Access rules in the database ensure each user can read only their own bookings and favorites. Data is kept while your account exists and as long as needed for booking and payment records."
+        },
+        {
+          "title": "Your rights",
+          "body": "You can view your bookings and reviews in your account and delete your own reviews. You can ask us to correct or delete your account and personal data at any time using the contact below; some booking and payment records may need to be kept for legal reasons."
+        },
+        {
+          "title": "Cookies and local storage",
+          "body": "We use your browser's local storage only for what the site needs: keeping you signed in, remembering your language and theme. We do not use advertising or tracking cookies."
+        },
+        {
+          "title": "Changes",
+          "body": "If we change this policy, the new version will be published on this page with an updated date."
+        }
+      ]
+    },
+    "terms": {
+      "title": "Terms of Use",
+      "intro": "By using Wild Haven you agree to these terms. Please read them before making a booking.",
+      "sections": [
+        {
+          "title": "The service",
+          "body": "Wild Haven lets you browse villas, check availability and request bookings. Descriptions, photos and prices are provided by the villa host and may change."
+        },
+        {
+          "title": "Your account",
+          "body": "You need an account to book. Keep your password secret and give accurate information. You are responsible for activity under your account."
+        },
+        {
+          "title": "Bookings",
+          "body": "A new booking is held for you while it waits for payment. An unpaid booking is automatically cancelled after 12 hours and its dates become available again. A booking is confirmed when payment is received or when the host confirms it."
+        },
+        {
+          "title": "Payments",
+          "body": "Payments are made by bank card through Stripe, in US dollars. The total is calculated from the nightly price and the number of nights. We never see or store your card details."
+        },
+        {
+          "title": "Cancellation and refunds",
+          "body": "If you cancel at least 48 hours before the booked date, 100% of the payment is refunded. Cancellations after that are not refunded. Refunds are returned to the original payment method through Stripe and may take several business days to appear."
+        },
+        {
+          "title": "Reviews and content",
+          "body": "Only guests with a completed stay can write a review. Keep reviews honest and respectful and only upload photos you own. You keep ownership of your content and allow us to display it on the website. We may remove content that is offensive, false or unlawful."
+        },
+        {
+          "title": "Liability",
+          "body": "We work to keep the website accurate and available but cannot guarantee it will always be uninterrupted or error-free. Stay arrangements are between you and the villa host."
+        },
+        {
+          "title": "Changes",
+          "body": "We may update these terms. The current version is always on this page; continuing to use the site means you accept it."
+        }
+      ]
+    }
+  },
+  "messages": {
+    "title": "Messages",
+    "empty": "No messages yet. Ask your question.",
+    "placeholder": "Write a message…",
+    "send": "Send",
+    "you": "You",
+    "host": "Host",
+    "guest": "Guest",
+    "rateLimit": "Too many messages. Please try again later.",
+    "failed": "Could not send the message.",
+    "toggle": "Messages"
   }
 }

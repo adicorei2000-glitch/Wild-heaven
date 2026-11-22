@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { format } from "date-fns";
+import { addDays, format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/lib/supabase";
 import { fetchVillas } from "@/lib/villas";
@@ -8,6 +8,8 @@ import { startCheckout, verifyPayment } from "@/lib/payments";
 import { villaText } from "@/i18n/villa";
 import type { Villa } from "@/data/villa";
 import { Button } from "@/components/ui/button";
+import BookingChat from "@/components/ui/booking-chat";
+import ChangeDatesDialog from "@/components/ui/change-dates-dialog";
 import { cn } from "@/lib/utils";
 
 type Status = "pending" | "confirmed" | "cancelled";
@@ -57,6 +59,7 @@ function MyBookings() {
   const [villaById, setVillaById] = useState<Map<number, Villa>>(new Map());
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<{ id: string } | null>(null);
+  const [chatOpen, setChatOpen] = useState<number | null>(null);
 
   useEffect(() => {
     const load = async () => {
@@ -175,6 +178,9 @@ function MyBookings() {
             const badge = getBadge(booking);
             const isCancelled = booking.status === "cancelled";
             const canCancel = !isCancelled && booking.check_out > today();
+            // To'langan bronni kirishga 48 soat qolganda ham o'zgartirib bo'lmaydi (bazada ham tekshiriladi)
+            const canChange =
+              canCancel && (!booking.paid_at || booking.check_in >= format(addDays(new Date(), 2), "yyyy-MM-dd"));
             const villa = villaById.get(booking.villa_id);
             const villaName = villa
               ? villaText(t, villa).name
@@ -184,7 +190,7 @@ function MyBookings() {
               <div
                 key={booking.id}
                 className={cn(
-                  "border rounded-xl p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4",
+                  "border rounded-xl p-6 flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-4",
                   isCancelled && "opacity-60",
                 )}
               >
@@ -229,6 +235,7 @@ function MyBookings() {
                 {booking.status === "pending" && !booking.paid_at && (
                   <Button onClick={() => handlePay(booking.id)}>{t("pay.payNow")}</Button>
                 )}
+                {canChange && <ChangeDatesDialog booking={booking} onChanged={() => window.location.reload()} />}
                 {canCancel && (
                   <Button
                     variant="outline"
@@ -237,6 +244,14 @@ function MyBookings() {
                     {t("bookings.cancel")}
                   </Button>
                 )}
+                <Button
+                  variant="ghost"
+                  onClick={() => setChatOpen(chatOpen === booking.id ? null : booking.id)}
+                  aria-expanded={chatOpen === booking.id}
+                >
+                  {t("messages.toggle")}
+                </Button>
+                {chatOpen === booking.id && <BookingChat bookingId={booking.id} />}
               </div>
             );
           })}

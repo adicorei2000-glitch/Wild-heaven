@@ -6,7 +6,7 @@ import ko from "./locales/ko.json";
 
 const locales = { uz, en, ru, ko } as const;
 
-type Json = string | { [k: string]: Json };
+type Json = string | Json[] | { [k: string]: Json };
 
 function flatten(obj: Json, prefix = ""): Record<string, string> {
   if (typeof obj === "string") return { [prefix]: obj };

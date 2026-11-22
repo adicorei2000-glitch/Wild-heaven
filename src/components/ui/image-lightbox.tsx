@@ -40,7 +40,7 @@ function ImageLightbox({ images, index, open, alt, onIndexChange, onOpenChange }
       <DialogContent
         showCloseButton={false}
         aria-describedby={undefined}
-        className="top-0 left-0 flex h-dvh w-screen max-w-none translate-x-0 translate-y-0 items-center justify-center rounded-none border-0 bg-black/95 p-0 ring-0 sm:max-w-none"
+        className="top-0 left-0 flex h-dvh w-screen max-w-none translate-x-0 translate-y-0 items-center justify-center rounded-none border-0 bg-black p-0 ring-0 sm:max-w-none"
       >
         <DialogTitle className="sr-only">{alt}</DialogTitle>
 
