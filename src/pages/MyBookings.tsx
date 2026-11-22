@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { supabase } from "@/lib/supabase";
 import { fetchVillas } from "@/lib/villas";
 import { startCheckout, verifyPayment } from "@/lib/payments";
+import { openReceipt } from "@/lib/receipt";
 import { villaText } from "@/i18n/villa";
 import type { Villa } from "@/data/villa";
 import { Button } from "@/components/ui/button";
@@ -58,7 +59,7 @@ function MyBookings() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [villaById, setVillaById] = useState<Map<number, Villa>>(new Map());
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<{ id: string } | null>(null);
+  const [user, setUser] = useState<{ id: string; email?: string } | null>(null);
   const [chatOpen, setChatOpen] = useState<number | null>(null);
 
   useEffect(() => {
@@ -242,6 +243,26 @@ function MyBookings() {
                     onClick={() => handleCancel(booking.id)}
                   >
                     {t("bookings.cancel")}
+                  </Button>
+                )}
+                {booking.status === "confirmed" && (
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      const ok = openReceipt(t, {
+                        id: booking.id,
+                        villaName,
+                        checkIn: booking.check_in,
+                        checkOut: booking.check_out,
+                        guests: booking.guests,
+                        total: booking.total_price,
+                        paidAt: booking.paid_at,
+                        email: user.email ?? null,
+                      });
+                      if (!ok) alert(t("receipt.popup"));
+                    }}
+                  >
+                    {t("receipt.button")}
                   </Button>
                 )}
                 <Button

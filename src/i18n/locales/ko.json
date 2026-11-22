@@ -444,5 +444,22 @@
     "rateLimit": "메시지가 너무 많습니다. 잠시 후 다시 시도해 주세요.",
     "failed": "메시지를 보내지 못했습니다.",
     "toggle": "메시지"
+  },
+  "receipt": {
+    "title": "예약 영수증",
+    "issued": "발급일",
+    "villa": "빌라",
+    "dates": "날짜",
+    "nights_other": "{{count}}박",
+    "guests": "인원",
+    "guest": "투숙객",
+    "status": "상태",
+    "paid": "결제 완료",
+    "confirmedUnpaid": "예약 확정",
+    "total": "합계",
+    "contact": "문의",
+    "print": "인쇄 / PDF로 저장",
+    "button": "영수증 (PDF)",
+    "popup": "영수증 창이 차단되었습니다. 브라우저에서 팝업을 허용해 주세요."
   }
 }

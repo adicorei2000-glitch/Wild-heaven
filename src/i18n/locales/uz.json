@@ -393,5 +393,23 @@
     "rateLimit": "Juda ko'p xabar yubordingiz. Birozdan keyin urinib ko'ring.",
     "failed": "Xabar yuborilmadi.",
     "toggle": "Xabarlar"
+  },
+  "receipt": {
+    "title": "Bron cheki",
+    "issued": "Berilgan sana",
+    "villa": "Villa",
+    "dates": "Sanalar",
+    "nights_one": "{{count}} tun",
+    "nights_other": "{{count}} tun",
+    "guests": "Mehmonlar",
+    "guest": "Mehmon",
+    "status": "Holat",
+    "paid": "To'langan",
+    "confirmedUnpaid": "Tasdiqlangan",
+    "total": "Jami",
+    "contact": "Aloqa",
+    "print": "Chop etish / PDF saqlash",
+    "button": "Chek (PDF)",
+    "popup": "Chek oynasi bloklandi. Brauzerda qalqib chiquvchi oynalarga ruxsat bering."
   }
 }

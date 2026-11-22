@@ -450,5 +450,23 @@
     "rateLimit": "Too many messages. Please try again later.",
     "failed": "Could not send the message.",
     "toggle": "Messages"
+  },
+  "receipt": {
+    "title": "Booking receipt",
+    "issued": "Issued",
+    "villa": "Villa",
+    "dates": "Dates",
+    "nights_one": "{{count}} night",
+    "nights_other": "{{count}} nights",
+    "guests": "Guests",
+    "guest": "Guest",
+    "status": "Status",
+    "paid": "Paid",
+    "confirmedUnpaid": "Confirmed",
+    "total": "Total",
+    "contact": "Contact",
+    "print": "Print / Save as PDF",
+    "button": "Receipt (PDF)",
+    "popup": "The receipt window was blocked. Please allow pop-ups in your browser."
   }
 }
