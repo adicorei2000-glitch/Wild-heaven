@@ -6,5 +6,5 @@ export const LEGAL_UPDATED = "2026-11-20";
 export const CHECK_IN_TIME = "14:00";
 export const CHECK_OUT_TIME = "11:00";
 // Bo'sh qoldirilsa chekda ko'rsatilmaydi
-export const CONTACT_PHONE = "";
+export const CONTACT_PHONE = "+82 10 7283 4422";
 export const CONTACT_TELEGRAM = "";
