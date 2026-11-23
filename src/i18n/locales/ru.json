@@ -489,6 +489,17 @@
     "guestsLine_one": "{{count}} гость",
     "guestsLine_few": "{{count}} гостя",
     "guestsLine_many": "{{count}} гостей",
-    "guestsLine_other": "{{count}} гостя"
+    "guestsLine_other": "{{count}} гостя",
+    "subtotal": "Промежуточный итог",
+    "taxes": "Налоги и сборы",
+    "taxesIncluded": "включены в цену",
+    "checkInAt": "Заезд: с {{time}}",
+    "checkOutAt": "Выезд: до {{time}}",
+    "address": "Адрес",
+    "openMap": "Открыть на карте",
+    "amenities": "Удобства",
+    "rulesTitle": "Правила бронирования",
+    "changeRule": "Даты оплаченного бронирования можно перенести только на то же число ночей и не позднее чем за 48 часов до заезда.",
+    "scanHint": "Сканируйте, чтобы открыть бронирование"
   }
 }

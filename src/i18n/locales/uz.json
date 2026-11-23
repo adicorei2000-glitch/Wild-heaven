@@ -425,6 +425,17 @@
     "note": "Izoh",
     "thanks": "Wild Haven'ni tanlaganingiz uchun rahmat!",
     "guestsLine_one": "{{count}} mehmon",
-    "guestsLine_other": "{{count}} mehmon"
+    "guestsLine_other": "{{count}} mehmon",
+    "subtotal": "Oraliq summa",
+    "taxes": "Soliq va yig'imlar",
+    "taxesIncluded": "narxga kiritilgan",
+    "checkInAt": "Kirish: {{time}} dan",
+    "checkOutAt": "Chiqish: {{time}} gacha",
+    "address": "Manzil",
+    "openMap": "Xaritada ochish",
+    "amenities": "Qulayliklar",
+    "rulesTitle": "Bron qoidalari",
+    "changeRule": "To'langan bronning sanalarini faqat bir xil tunlar soniga va kirishga kamida 48 soat qolganda o'zgartirish mumkin.",
+    "scanHint": "Bronni ochish uchun skanerlang"
   }
 }

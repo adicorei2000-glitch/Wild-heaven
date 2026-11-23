@@ -482,6 +482,17 @@
     "note": "Note",
     "thanks": "Thank you for choosing Wild Haven!",
     "guestsLine_one": "{{count}} guest",
-    "guestsLine_other": "{{count}} guests"
+    "guestsLine_other": "{{count}} guests",
+    "subtotal": "Subtotal",
+    "taxes": "Taxes & fees",
+    "taxesIncluded": "included in price",
+    "checkInAt": "Check-in: from {{time}}",
+    "checkOutAt": "Check-out: by {{time}}",
+    "address": "Address",
+    "openMap": "Open in maps",
+    "amenities": "Amenities",
+    "rulesTitle": "Booking rules",
+    "changeRule": "The dates of a paid booking can only be moved to the same number of nights, at least 48 hours before check-in.",
+    "scanHint": "Scan to open your booking"
   }
 }

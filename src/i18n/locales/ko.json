@@ -474,6 +474,17 @@
     "methodPending": "미결제",
     "note": "비고",
     "thanks": "Wild Haven을 선택해 주셔서 감사합니다!",
-    "guestsLine_other": "{{count}}명"
+    "guestsLine_other": "{{count}}명",
+    "subtotal": "소계",
+    "taxes": "세금 및 수수료",
+    "taxesIncluded": "가격에 포함",
+    "checkInAt": "체크인: {{time}}부터",
+    "checkOutAt": "체크아웃: {{time}}까지",
+    "address": "주소",
+    "openMap": "지도에서 열기",
+    "amenities": "편의시설",
+    "rulesTitle": "예약 규정",
+    "changeRule": "결제된 예약의 날짜는 같은 숙박 일수로, 체크인 48시간 전까지만 변경할 수 있습니다.",
+    "scanHint": "스캔하여 예약 열기"
   }
 }
