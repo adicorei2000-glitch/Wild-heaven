@@ -410,6 +410,21 @@
     "contact": "Aloqa",
     "print": "Chop etish / PDF saqlash",
     "button": "Chek (PDF)",
-    "popup": "Chek oynasi bloklandi. Brauzerda qalqib chiquvchi oynalarga ruxsat bering."
+    "popup": "Chek oynasi bloklandi. Brauzerda qalqib chiquvchi oynalarga ruxsat bering.",
+    "tagline": "Villa bron qilish",
+    "no": "Raqam:",
+    "billedTo": "Mehmon",
+    "from": "Kimdan",
+    "item": "Xizmat",
+    "qty": "Miqdor",
+    "price": "Narx",
+    "amount": "Summa",
+    "method": "To'lov usuli",
+    "methodCard": "Karta (Stripe)",
+    "methodPending": "Hali to'lanmagan",
+    "note": "Izoh",
+    "thanks": "Wild Haven'ni tanlaganingiz uchun rahmat!",
+    "guestsLine_one": "{{count}} mehmon",
+    "guestsLine_other": "{{count}} mehmon"
   }
 }

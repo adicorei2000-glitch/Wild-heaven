@@ -467,6 +467,21 @@
     "contact": "Contact",
     "print": "Print / Save as PDF",
     "button": "Receipt (PDF)",
-    "popup": "The receipt window was blocked. Please allow pop-ups in your browser."
+    "popup": "The receipt window was blocked. Please allow pop-ups in your browser.",
+    "tagline": "Villa bookings",
+    "no": "No.",
+    "billedTo": "Billed to",
+    "from": "From",
+    "item": "Service",
+    "qty": "Qty",
+    "price": "Price",
+    "amount": "Total",
+    "method": "Payment method",
+    "methodCard": "Card (Stripe)",
+    "methodPending": "Not paid yet",
+    "note": "Note",
+    "thanks": "Thank you for choosing Wild Haven!",
+    "guestsLine_one": "{{count}} guest",
+    "guestsLine_other": "{{count}} guests"
   }
 }

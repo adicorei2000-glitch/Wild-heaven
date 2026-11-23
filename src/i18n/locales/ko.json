@@ -460,6 +460,20 @@
     "contact": "문의",
     "print": "인쇄 / PDF로 저장",
     "button": "영수증 (PDF)",
-    "popup": "영수증 창이 차단되었습니다. 브라우저에서 팝업을 허용해 주세요."
+    "popup": "영수증 창이 차단되었습니다. 브라우저에서 팝업을 허용해 주세요.",
+    "tagline": "빌라 예약",
+    "no": "번호",
+    "billedTo": "청구 대상",
+    "from": "발행처",
+    "item": "서비스",
+    "qty": "수량",
+    "price": "단가",
+    "amount": "금액",
+    "method": "결제 수단",
+    "methodCard": "카드 (Stripe)",
+    "methodPending": "미결제",
+    "note": "비고",
+    "thanks": "Wild Haven을 선택해 주셔서 감사합니다!",
+    "guestsLine_other": "{{count}}명"
   }
 }
