@@ -1,4 +1,6 @@
 import { parseISO } from "date-fns";
+import { CHECK_IN_TIME, CHECK_OUT_TIME } from "@/lib/site";
+import { normalizeTime } from "@/lib/time";
 import { supabase } from "@/lib/supabase";
 import type { Villa } from "@/data/villa";
 
@@ -16,6 +18,8 @@ interface VillaRow {
   amenities: string[] | null;
   lat: number | null;
   lng: number | null;
+  check_in_time: string | null;
+  check_out_time: string | null;
 }
 
 function toVilla(row: VillaRow): Villa {
@@ -33,6 +37,8 @@ function toVilla(row: VillaRow): Villa {
     amenities: row.amenities ?? [],
     lat: row.lat,
     lng: row.lng,
+    checkInTime: normalizeTime(row.check_in_time, CHECK_IN_TIME),
+    checkOutTime: normalizeTime(row.check_out_time, CHECK_OUT_TIME),
   };
 }
 

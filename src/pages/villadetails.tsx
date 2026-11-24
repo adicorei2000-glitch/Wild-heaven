@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { formatTime } from "@/lib/time";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import type { Matcher } from "react-day-picker";
 import { Button } from "@/components/ui/button";
@@ -19,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Star, MapPin, CalendarIcon, Check, Users, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star, MapPin, CalendarIcon, Check, Users, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { addDays, format } from "date-fns";
 import { fetchBookedRanges, fetchVilla, type BookedRange } from "@/lib/villas";
 import { useFavorites } from "@/lib/useFavorites";
@@ -360,6 +361,11 @@ function VillaDetails() {
             <p className="flex items-center gap-1">
               <Users className="h-4 w-4" />
               {t("villa.maxGuests", { count: villa.maxGuests })}
+            </p>
+            <p className="flex items-center gap-1">
+              <Clock className="h-4 w-4" />
+              {t("villa.checkInTime", { time: formatTime(villa.checkInTime, i18n.resolvedLanguage ?? "uz") })} ·{" "}
+              {t("villa.checkOutTime", { time: formatTime(villa.checkOutTime, i18n.resolvedLanguage ?? "uz") })}
             </p>
           </div>
 

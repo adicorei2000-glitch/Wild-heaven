@@ -115,7 +115,9 @@
     "prevImage": "Previous photo",
     "nextImage": "Next photo",
     "share": "Share",
-    "linkCopied": "Link copied"
+    "linkCopied": "Link copied",
+    "checkInTime": "Check-in: from {{time}}",
+    "checkOutTime": "Check-out: by {{time}}"
   },
   "bookings": {
     "title": "My bookings",
@@ -313,7 +315,9 @@
       "confirmRemove": "Open these dates for booking again?",
       "conflict": "There are bookings or other blocked days in this period."
     },
-    "imageInvalid": "Only JPG, PNG or WebP images up to 5 MB are allowed."
+    "imageInvalid": "Only JPG, PNG or WebP images up to 5 MB are allowed.",
+    "checkInTime": "Check-in time",
+    "checkOutTime": "Check-out time"
   },
   "reviews": {
     "title": "Reviews",
