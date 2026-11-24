@@ -441,5 +441,20 @@
     "rulesTitle": "Bron qoidalari",
     "changeRule": "To'langan bronning sanalarini faqat bir xil tunlar soniga va kirishga kamida 48 soat qolganda o'zgartirish mumkin.",
     "scanHint": "Bronni ochish uchun skanerlang"
+  },
+  "authErrors": {
+    "same_password": "Yangi parol eskisidan farq qilishi kerak.",
+    "weak_password": "Parol juda oddiy. Kamida 8 belgi, harf va raqam ishlating.",
+    "user_already_exists": "Bu email bilan hisob allaqachon mavjud. Kirishni sinab ko'ring.",
+    "email_exists": "Bu email bilan hisob allaqachon mavjud. Kirishni sinab ko'ring.",
+    "over_request_rate_limit": "Juda ko'p urinish. Birozdan keyin qayta urinib ko'ring.",
+    "over_email_send_rate_limit": "Email juda tez-tez yuborildi. Birozdan keyin qayta urinib ko'ring.",
+    "email_not_confirmed": "Emailingiz hali tasdiqlanmagan. Pochtangizdagi xatni tekshiring.",
+    "invalid_credentials": "Email yoki parol noto'g'ri.",
+    "email_address_invalid": "Email manzili noto'g'ri.",
+    "reauthentication_needed": "Xavfsizlik uchun qayta kiring va yana urinib ko'ring.",
+    "session_expired": "Sessiya tugagan. Qayta kiring.",
+    "session_not_found": "Sessiya tugagan. Qayta kiring.",
+    "signup_disabled": "Hozircha ro'yxatdan o'tish yopiq."
   }
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { authErrorText } from "@/lib/authErrors";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/lib/supabase";
@@ -49,7 +50,7 @@ function Profile() {
     setBusy(false);
     setNameMsg(
       error
-        ? { ok: false, text: error.message }
+        ? { ok: false, text: authErrorText(t, error) }
         : { ok: true, text: t("profile.saved") },
     );
   };
@@ -69,7 +70,7 @@ function Profile() {
     const { error } = await supabase.auth.updateUser({ password });
     setBusy(false);
     if (error) {
-      setPwMsg({ ok: false, text: error.message });
+      setPwMsg({ ok: false, text: authErrorText(t, error) });
       return;
     }
     setPassword("");

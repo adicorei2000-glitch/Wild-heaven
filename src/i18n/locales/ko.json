@@ -490,5 +490,20 @@
     "rulesTitle": "예약 규정",
     "changeRule": "결제된 예약의 날짜는 같은 숙박 일수로, 체크인 48시간 전까지만 변경할 수 있습니다.",
     "scanHint": "스캔하여 예약 열기"
+  },
+  "authErrors": {
+    "same_password": "새 비밀번호는 현재 비밀번호와 달라야 합니다.",
+    "weak_password": "비밀번호가 너무 단순합니다. 8자 이상, 문자와 숫자를 포함해 주세요.",
+    "user_already_exists": "이 이메일로 이미 가입된 계정이 있습니다. 로그인해 보세요.",
+    "email_exists": "이 이메일로 이미 가입된 계정이 있습니다. 로그인해 보세요.",
+    "over_request_rate_limit": "시도 횟수가 너무 많습니다. 잠시 후 다시 시도해 주세요.",
+    "over_email_send_rate_limit": "이메일이 너무 자주 발송되었습니다. 잠시 후 다시 시도해 주세요.",
+    "email_not_confirmed": "이메일이 아직 인증되지 않았습니다. 받은 편지함을 확인해 주세요.",
+    "invalid_credentials": "이메일 또는 비밀번호가 올바르지 않습니다.",
+    "email_address_invalid": "올바르지 않은 이메일 주소입니다.",
+    "reauthentication_needed": "보안을 위해 다시 로그인한 후 시도해 주세요.",
+    "session_expired": "세션이 만료되었습니다. 다시 로그인해 주세요.",
+    "session_not_found": "세션이 만료되었습니다. 다시 로그인해 주세요.",
+    "signup_disabled": "현재 회원가입이 닫혀 있습니다."
   }
 }

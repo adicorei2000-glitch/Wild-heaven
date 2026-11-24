@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { authErrorText } from "@/lib/authErrors";
 import PasswordInput from "@/components/ui/password-input";
 import { isStrongPassword } from "@/lib/password";
 import { Link, useNavigate } from "react-router-dom";
@@ -56,7 +57,7 @@ function ResetPassword() {
     setLoading(false);
 
     if (error) {
-      setError(error.message);
+      setError(authErrorText(t, error));
       return;
     }
 
