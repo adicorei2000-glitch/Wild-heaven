@@ -6,12 +6,19 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 type Lang = "uz" | "en" | "ru" | "ko";
 const LANGS: Lang[] = ["uz", "en", "ru", "ko"];
 
-const cors = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
-const json = (body: unknown, status = 200) =>
-  new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
+// CORS: faqat ruxsat etilgan saytlar (ALLOWED_ORIGINS secret yoki standart ro'yxat)
+const ALLOWED = (
+  Deno.env.get("ALLOWED_ORIGINS") ??
+  "https://adicorei2000-glitch.github.io,http://localhost:5173,http://localhost:4173"
+).split(",").map((s) => s.trim());
+function corsFor(req: Request) {
+  const o = req.headers.get("Origin") ?? "";
+  return {
+    "Access-Control-Allow-Origin": ALLOWED.includes(o) ? o : ALLOWED[0],
+    "Vary": "Origin",
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  };
+}
 
 const esc = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
@@ -46,6 +53,9 @@ async function send(to: string, subject: string, html: string) {
 }
 
 Deno.serve(async (req) => {
+  const cors = corsFor(req);
+  const json = (body: unknown, status = 200) =>
+    new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   if (req.method !== "POST") return json({ error: "method" }, 405);
 
@@ -87,6 +97,11 @@ Deno.serve(async (req) => {
   if (!res.ok) return json({ paid: false, error: "stripe_error" }, 502);
   if (s.payment_status !== "paid" || String(s.metadata?.booking_id) !== String(id)) {
     return json({ paid: false });
+  }
+  // Summa va valyuta bazadagi bron bilan mos bo'lishi shart
+  if (s.currency !== "usd" || s.amount_total !== Math.round(Number(b.total_price) * 100)) {
+    console.warn(`Amount mismatch for booking ${id}: ${s.amount_total} ${s.currency}`);
+    return json({ paid: false, error: "amount_mismatch" }, 409);
   }
 
   const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);

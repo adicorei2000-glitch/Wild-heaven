@@ -166,7 +166,8 @@
     "newPassword": "새 비밀번호",
     "saving": "저장 중...",
     "savePassword": "비밀번호 저장",
-    "passwordUpdated": "비밀번호가 변경되었습니다. 홈으로 이동합니다..."
+    "passwordUpdated": "비밀번호가 변경되었습니다. 홈으로 이동합니다...",
+    "passwordWeak": "비밀번호는 8자 이상이며 문자와 숫자를 포함해야 합니다."
   },
   "favorites": {
     "loginPrompt": "즐겨찾기를 보려면 로그인하세요",
@@ -303,7 +304,8 @@
       "remove": "해제",
       "confirmRemove": "이 날짜를 다시 예약 가능하게 할까요?",
       "conflict": "이 기간에 예약이나 다른 차단된 날짜가 있습니다."
-    }
+    },
+    "imageInvalid": "JPG, PNG, WebP 이미지(최대 5MB)만 업로드할 수 있습니다."
   },
   "reviews": {
     "title": "리뷰",

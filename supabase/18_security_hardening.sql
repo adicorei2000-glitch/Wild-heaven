@@ -1,0 +1,6 @@
+-- Applied via Supabase MCP migration: security_hardening_grants_and_booking_limits
+-- * revoke all table privileges from anon/authenticated, grant back only what the app needs
+--   (villas: anon select; authenticated CRUD via RLS; bookings: select+insert; reviews/favorites: select+insert+delete;
+--    booking_messages: select+insert; admins/blocked_dates: select)
+-- * bookings_before_insert: guests >= 1, check_out > check_in, max 60 nights, check_in <= today+730,
+--   max 5 unpaid pending bookings per user (errcode 54000)

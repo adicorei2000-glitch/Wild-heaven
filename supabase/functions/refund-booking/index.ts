@@ -2,14 +2,24 @@
 // Secrets: STRIPE_SECRET_KEY
 import { createClient } from "npm:@supabase/supabase-js@2";
 
-const cors = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
-const json = (body: unknown, status = 200) =>
-  new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
+// CORS: faqat ruxsat etilgan saytlar (ALLOWED_ORIGINS secret yoki standart ro'yxat)
+const ALLOWED = (
+  Deno.env.get("ALLOWED_ORIGINS") ??
+  "https://adicorei2000-glitch.github.io,http://localhost:5173,http://localhost:4173"
+).split(",").map((s) => s.trim());
+function corsFor(req: Request) {
+  const o = req.headers.get("Origin") ?? "";
+  return {
+    "Access-Control-Allow-Origin": ALLOWED.includes(o) ? o : ALLOWED[0],
+    "Vary": "Origin",
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  };
+}
 
 Deno.serve(async (req) => {
+  const cors = corsFor(req);
+  const json = (body: unknown, status = 200) =>
+    new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   if (req.method !== "POST") return json({ error: "method" }, 405);
 

@@ -286,6 +286,9 @@ function VillasTab() {
 
   // Rasmni Supabase Storage'ga yuklaydi va ochiq URL qaytaradi
   const uploadImage = async (file: File): Promise<string> => {
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type) || file.size > 5 * 1024 * 1024) {
+      throw new Error(t("admin.imageInvalid"));
+    }
     const ext = (file.name.split(".").pop() ?? "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
     const path = `${crypto.randomUUID()}.${ext || "jpg"}`;
     const { error } = await supabase.storage

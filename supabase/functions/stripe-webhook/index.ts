@@ -35,8 +35,10 @@ Deno.serve(async (req) => {
     const id = Number(s?.metadata?.booking_id);
     if (s?.payment_status === "paid" && Number.isInteger(id)) {
       const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-      const { data: b } = await admin.from("bookings").select("id, status, paid_at").eq("id", id).maybeSingle();
-      if (b && !b.paid_at) {
+      const { data: b } = await admin.from("bookings").select("id, status, paid_at, total_price").eq("id", id).maybeSingle();
+      if (b && !b.paid_at && (s.currency !== "usd" || s.amount_total !== Math.round(Number(b.total_price) * 100))) {
+        console.warn(`Amount mismatch for booking ${id}: ${s.amount_total} ${s.currency}`);
+      } else if (b && !b.paid_at) {
         // Bron allaqachon bekor qilingan bo'lsa tiklamaymiz (pul qaytarish qo'lda kerak bo'ladi)
         const patch: Record<string, unknown> = { paid_at: new Date().toISOString(), stripe_session_id: s.id };
         if (b.status === "pending") patch.status = "confirmed";

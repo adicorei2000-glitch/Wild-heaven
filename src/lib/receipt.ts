@@ -92,7 +92,7 @@ function buildHtml(t: TFunction, r: ReceiptData, qr: string, bookingUrl: string)
 
   return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(t("receipt.title"))} #${no}</title><style>${CSS}</style></head><body>
-<div class="actions"><button onclick="window.print()">${esc(t("receipt.print"))}</button></div>
+<div class="actions"><button id="pbtn" type="button">${esc(t("receipt.print"))}</button></div>
 <div class="page">
 ${DECO_TR}${DECO_BL}
 <div class="brand">${LOGO}<div>WILD HAVEN<small>${esc(t("receipt.tagline"))}</small></div></div>
@@ -126,7 +126,6 @@ ${DECO_TR}${DECO_BL}
 <div class="rules"><b>${esc(t("receipt.rulesTitle"))}</b>${esc(t("bookings.cancelPolicyText"))}<br>${esc(t("receipt.changeRule"))}</div>
 ${qr ? `<div class="qr"><div>${esc(t("receipt.scanHint"))}</div><a href="${esc(bookingUrl)}">${qr}</a></div>` : ""}
 </div>
-<script>window.onload=function(){setTimeout(function(){window.print()},500)}</script>
 </body></html>`;
 }
 
@@ -144,6 +143,8 @@ export function openReceipt(t: TFunction, r: ReceiptData) {
     w.document.open();
     w.document.write(buildHtml(t, r, qr, bookingUrl));
     w.document.close();
+    w.document.getElementById("pbtn")?.addEventListener("click", () => w.print());
+    setTimeout(() => w.print(), 500);
   });
   return true;
 }
