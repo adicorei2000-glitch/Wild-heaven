@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { authErrorText } from "@/lib/authErrors";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,7 +27,7 @@ function ForgotPassword() {
     setLoading(false);
 
     if (error) {
-      setError(error.message);
+      setError(authErrorText(t, error));
     } else {
       // Email ro'yxatdan o'tgan-o'tmaganini oshkor qilmaymiz
       setInfo(

@@ -498,5 +498,20 @@
     "rulesTitle": "Booking rules",
     "changeRule": "The dates of a paid booking can only be moved to the same number of nights, at least 48 hours before check-in.",
     "scanHint": "Scan to open your booking"
+  },
+  "authErrors": {
+    "same_password": "The new password must be different from your current one.",
+    "weak_password": "That password is too weak. Use at least 8 characters with a letter and a number.",
+    "user_already_exists": "An account with this email already exists. Try logging in.",
+    "email_exists": "An account with this email already exists. Try logging in.",
+    "over_request_rate_limit": "Too many attempts. Please try again in a little while.",
+    "over_email_send_rate_limit": "Emails were sent too often. Please try again in a little while.",
+    "email_not_confirmed": "Your email isn't confirmed yet. Check your inbox.",
+    "invalid_credentials": "Incorrect email or password.",
+    "email_address_invalid": "The email address is not valid.",
+    "reauthentication_needed": "For security, please log in again and retry.",
+    "session_expired": "Your session has expired. Please log in again.",
+    "session_not_found": "Your session has expired. Please log in again.",
+    "signup_disabled": "Sign-ups are currently closed."
   }
 }

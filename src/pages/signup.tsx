@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { authErrorText } from "@/lib/authErrors";
 import PasswordInput from "@/components/ui/password-input";
 import { isStrongPassword } from "@/lib/password";
 import { Button } from "@/components/ui/button";
@@ -45,7 +46,7 @@ function Signup() {
     setLoading(false);
 
     if (error) {
-      setError(error.message);
+      setError(authErrorText(t, error));
     } else if (!data.session) {
       // Supabase'da email tasdiqlash yoqilgan: foydalanuvchi hali kirmagan
       setInfo(
