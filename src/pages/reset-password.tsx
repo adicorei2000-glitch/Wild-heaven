@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { isStrongPassword } from "@/lib/password";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,6 +43,10 @@ function ResetPassword() {
 
     if (password !== confirmPassword) {
       setError(t("auth.passwordMismatch"));
+      return;
+    }
+    if (!isStrongPassword(password)) {
+      setError(t("auth.passwordWeak"));
       return;
     }
 

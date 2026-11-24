@@ -171,7 +171,8 @@
     "newPassword": "New password",
     "saving": "Saving...",
     "savePassword": "Save password",
-    "passwordUpdated": "Password updated. Redirecting to the home page..."
+    "passwordUpdated": "Password updated. Redirecting to the home page...",
+    "passwordWeak": "Password must be at least 8 characters and include a letter and a number."
   },
   "favorites": {
     "loginPrompt": "Log in to see your favorites",
@@ -309,7 +310,8 @@
       "remove": "Unblock",
       "confirmRemove": "Open these dates for booking again?",
       "conflict": "There are bookings or other blocked days in this period."
-    }
+    },
+    "imageInvalid": "Only JPG, PNG or WebP images up to 5 MB are allowed."
   },
   "reviews": {
     "title": "Reviews",

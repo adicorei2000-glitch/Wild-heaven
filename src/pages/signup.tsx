@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { isStrongPassword } from "@/lib/password";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,6 +24,10 @@ function Signup() {
 
     if (password !== confirmPassword) {
       setError(t("auth.passwordMismatch"));
+      return;
+    }
+    if (!isStrongPassword(password)) {
+      setError(t("auth.passwordWeak"));
       return;
     }
 

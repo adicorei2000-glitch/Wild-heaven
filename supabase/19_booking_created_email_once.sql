@@ -1,0 +1,3 @@
+-- Applied via Supabase MCP migration: booking_created_email_once
+-- bookings.created_emailed_at (timestamptz): the "new booking" email is sent once per booking, only for bookings
+-- created in the last 15 minutes (claimed by notify-booking with a service-role update). Trigger resets it on insert.

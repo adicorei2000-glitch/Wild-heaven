@@ -166,7 +166,8 @@
     "newPassword": "Yangi parol",
     "saving": "Saqlanmoqda...",
     "savePassword": "Parolni saqlash",
-    "passwordUpdated": "Parol yangilandi. Bosh sahifaga o'tilmoqda..."
+    "passwordUpdated": "Parol yangilandi. Bosh sahifaga o'tilmoqda...",
+    "passwordWeak": "Parol kamida 8 belgidan iborat bo'lishi va harf hamda raqam bo'lishi kerak."
   },
   "favorites": {
     "loginPrompt": "Sevimlilarni ko'rish uchun kiring",
@@ -252,7 +253,8 @@
       "remove": "Ochish",
       "confirmRemove": "Bu sanalarni yana bron uchun ochasizmi?",
       "conflict": "Bu sanalarda bron yoki boshqa yopiq kunlar bor."
-    }
+    },
+    "imageInvalid": "Faqat JPG, PNG yoki WebP rasm (5 MB gacha) yuklash mumkin."
   },
   "reviews": {
     "title": "Sharhlar",

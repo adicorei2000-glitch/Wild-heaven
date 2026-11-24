@@ -5,16 +5,20 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 type Lang = "uz" | "en" | "ru" | "ko";
 const LANGS: Lang[] = ["uz", "en", "ru", "ko"];
 
-const cors = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+// CORS: faqat ruxsat etilgan saytlar (ALLOWED_ORIGINS secret yoki standart ro'yxat)
+const ALLOWED = (
+  Deno.env.get("ALLOWED_ORIGINS") ??
+  "https://adicorei2000-glitch.github.io,http://localhost:5173,http://localhost:4173"
+).split(",").map((s) => s.trim());
+function corsFor(req: Request) {
+  const o = req.headers.get("Origin") ?? "";
+  return {
+    "Access-Control-Allow-Origin": ALLOWED.includes(o) ? o : ALLOWED[0],
+    "Vary": "Origin",
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  };
+}
 
-const json = (body: unknown, status = 200) =>
-  new Response(JSON.stringify(body), {
-    status,
-    headers: { ...cors, "Content-Type": "application/json" },
-  });
 
 const esc = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
@@ -102,6 +106,9 @@ async function send(to: string, subject: string, html: string) {
 }
 
 Deno.serve(async (req) => {
+  const cors = corsFor(req);
+  const json = (body: unknown, status = 200) =>
+    new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   if (req.method !== "POST") return json({ error: "method" }, 405);
 
@@ -135,6 +142,16 @@ Deno.serve(async (req) => {
       .eq("user_id", user.id)
       .maybeSingle();
     if (!data) return json({ error: "not found" }, 404);
+    // Email bir bron uchun faqat bir marta va faqat yangi bron uchun yuboriladi (spamga qarshi)
+    const svc = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+    const { data: claim } = await svc
+      .from("bookings")
+      .update({ created_emailed_at: new Date().toISOString() })
+      .eq("id", id)
+      .is("created_emailed_at", null)
+      .gt("created_at", new Date(Date.now() - 15 * 60 * 1000).toISOString())
+      .select("id");
+    if (!claim || claim.length === 0) return json({ ok: true, results });
     const b = { ...data, user_email: user.email ?? null } as Booking;
     const lang: Lang = LANGS.includes(b.lang) ? b.lang : "uz";
 
