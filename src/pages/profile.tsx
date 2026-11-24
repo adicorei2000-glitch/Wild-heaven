@@ -5,6 +5,8 @@ import { supabase } from "@/lib/supabase";
 import { useUser } from "@/lib/useUser";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import PasswordInput from "@/components/ui/password-input";
+import { isStrongPassword } from "@/lib/password";
 
 function Profile() {
   const { t } = useTranslation();
@@ -59,6 +61,10 @@ function Profile() {
       setPwMsg({ ok: false, text: t("auth.passwordMismatch") });
       return;
     }
+    if (!isStrongPassword(password)) {
+      setPwMsg({ ok: false, text: t("auth.passwordWeak") });
+      return;
+    }
     setBusy(true);
     const { error } = await supabase.auth.updateUser({ password });
     setBusy(false);
@@ -103,9 +109,8 @@ function Profile() {
           <label htmlFor="pw" className="text-sm font-medium">
             {t("auth.newPassword")}
           </label>
-          <Input
+          <PasswordInput
             id="pw"
-            type="password"
             minLength={6}
             required
             value={password}
