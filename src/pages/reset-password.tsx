@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PasswordInput from "@/components/ui/password-input";
 import { isStrongPassword } from "@/lib/password";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -96,9 +97,8 @@ function ResetPassword() {
                 <label htmlFor="password" className="text-sm font-medium">
                   {t("auth.newPassword")}
                 </label>
-                <Input
+                <PasswordInput
                   id="password"
-                  type="password"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

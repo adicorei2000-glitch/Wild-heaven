@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PasswordInput from "@/components/ui/password-input";
 import { isStrongPassword } from "@/lib/password";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -99,9 +100,8 @@ function Signup() {
               <label htmlFor="password" className="text-sm font-medium">
                 {t("auth.password")}
               </label>
-              <Input
+              <PasswordInput
                 id="password"
-                type="password"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
