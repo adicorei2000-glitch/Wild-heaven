@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { CONTACT_EMAIL, CONTACT_PHONE } from "@/lib/site";
+import { CONTACT_ADDRESS, CONTACT_EMAIL, CONTACT_PHONE } from "@/lib/site";
 import {
   Dialog,
   DialogContent,
@@ -139,7 +139,7 @@ function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 shrink-0" />
-                Namangan,Toshkent, O'zbekiston
+                {CONTACT_ADDRESS}
               </li>
             </ul>
           </div>

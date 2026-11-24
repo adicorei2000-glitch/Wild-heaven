@@ -211,6 +211,8 @@ interface VillaForm {
   description: string;
   lat: string;
   lng: string;
+  check_in_time: string;
+  check_out_time: string;
 }
 
 const EMPTY: VillaForm = {
@@ -226,6 +228,8 @@ const EMPTY: VillaForm = {
   description: "",
   lat: "",
   lng: "",
+  check_in_time: "14:00",
+  check_out_time: "11:00",
 };
 
 const splitList = (s: string) =>
@@ -277,6 +281,8 @@ function VillasTab() {
       description: v.description,
       lat: v.lat === null ? "" : String(v.lat),
       lng: v.lng === null ? "" : String(v.lng),
+      check_in_time: v.checkInTime,
+      check_out_time: v.checkOutTime,
     });
     setFormError("");
     setEditing(v);
@@ -346,6 +352,8 @@ function VillasTab() {
       description: form.description.trim(),
       lat: form.lat.trim() === "" ? null : Number(form.lat),
       lng: form.lng.trim() === "" ? null : Number(form.lng),
+      check_in_time: /^\d{2}:\d{2}$/.test(form.check_in_time) ? form.check_in_time : "14:00",
+      check_out_time: /^\d{2}:\d{2}$/.test(form.check_out_time) ? form.check_out_time : "11:00",
     };
     setSaving(true);
     const { error } =
@@ -429,6 +437,10 @@ function VillasTab() {
               {field("price", t("admin.price"), { type: "number", min: 1, step: "any", required: true })}
               {field("max_guests", t("admin.maxGuests"), { type: "number", min: 1, required: true })}
               {field("rating", t("admin.rating"), { type: "number", min: 0, max: 5, step: "0.1", required: true })}
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {field("check_in_time", t("admin.checkInTime"), { type: "time", required: true })}
+              {field("check_out_time", t("admin.checkOutTime"), { type: "time", required: true })}
             </div>
             {field("image", t("admin.image"), { type: "url", required: true })}
             <div className="space-y-1">

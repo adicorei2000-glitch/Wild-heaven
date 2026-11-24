@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { CHECK_IN_TIME, CHECK_OUT_TIME } from "@/lib/site";
+import { formatTime } from "@/lib/time";
 import { Link, useSearchParams } from "react-router-dom";
 import { addDays, format } from "date-fns";
 import { useTranslation } from "react-i18next";
@@ -54,7 +56,7 @@ function getBadge(booking: Booking) {
 }
 
 function MyBookings() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [villaById, setVillaById] = useState<Map<number, Villa>>(new Map());
@@ -265,6 +267,8 @@ function MyBookings() {
                             ? `https://www.google.com/maps?q=${villa.lat},${villa.lng}`
                             : null,
                         amenities: villa ? villa.amenities.map((a) => amenityName(t, a)) : [],
+                        checkInTime: formatTime(villa?.checkInTime ?? CHECK_IN_TIME, i18n.resolvedLanguage ?? "uz"),
+                        checkOutTime: formatTime(villa?.checkOutTime ?? CHECK_OUT_TIME, i18n.resolvedLanguage ?? "uz"),
                       });
                       if (!ok) alert(t("receipt.popup"));
                     }}

@@ -8,3 +8,6 @@ export const CHECK_OUT_TIME = "11:00";
 // Bo'sh qoldirilsa chekda ko'rsatilmaydi
 export const CONTACT_PHONE = "+82 10 7283 4422";
 export const CONTACT_TELEGRAM = "";
+
+// Footerda ko'rsatiladigan manzil (uy raqamisiz, faqat tuman va shahar)
+export const CONTACT_ADDRESS = "Dong-gu, Daejeon, South Korea";

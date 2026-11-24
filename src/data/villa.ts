@@ -13,4 +13,6 @@ export interface Villa {
   amenities: string[];
   lat: number | null;
   lng: number | null;
+  checkInTime: string; // "HH:MM"
+  checkOutTime: string; // "HH:MM"
 }

@@ -1,5 +1,5 @@
 import type { TFunction } from "i18next";
-import { CHECK_IN_TIME, CHECK_OUT_TIME, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_TELEGRAM } from "@/lib/site";
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_TELEGRAM } from "@/lib/site";
 
 export interface ReceiptData {
   id: number;
@@ -14,6 +14,8 @@ export interface ReceiptData {
   address?: string;
   mapUrl?: string | null;
   amenities?: string[];
+  checkInTime: string; // allaqachon tilga mos formatlangan
+  checkOutTime: string;
 }
 
 const esc = (s: string) =>
@@ -115,7 +117,7 @@ ${DECO_TR}${DECO_BL}
   <div class="grand"><span>${esc(t("receipt.total")).toUpperCase()}</span><strong>${money(r.total)}</strong></div>
 </div>
 <div class="stay">
-  <div><b>${esc(t("receipt.checkInAt", { time: CHECK_IN_TIME }))}</b><br><b>${esc(t("receipt.checkOutAt", { time: CHECK_OUT_TIME }))}</b></div>
+  <div><b>${esc(t("receipt.checkInAt", { time: r.checkInTime }))}</b><br><b>${esc(t("receipt.checkOutAt", { time: r.checkOutTime }))}</b></div>
   ${address ? `<div><b>${esc(t("receipt.address"))}:</b><br>${address}</div>` : "<div></div>"}
   ${amenities ? `<div style="grid-column:1/-1"><b>${esc(t("receipt.amenities"))}:</b> ${amenities}</div>` : ""}
 </div>
