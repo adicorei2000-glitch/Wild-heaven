@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { compressImage } from "@/lib/reviews";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/lib/supabase";
@@ -289,11 +290,11 @@ function VillasTab() {
     if (!["image/jpeg", "image/png", "image/webp"].includes(file.type) || file.size > 5 * 1024 * 1024) {
       throw new Error(t("admin.imageInvalid"));
     }
-    const ext = (file.name.split(".").pop() ?? "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
-    const path = `${crypto.randomUUID()}.${ext || "jpg"}`;
+    const path = `${crypto.randomUUID()}.jpg`;
+    const blob = await compressImage(file);
     const { error } = await supabase.storage
       .from("villa-images")
-      .upload(path, file, { contentType: file.type, upsert: false });
+      .upload(path, blob, { contentType: "image/jpeg", upsert: false });
     if (error) throw new Error(error.message);
     return supabase.storage.from("villa-images").getPublicUrl(path).data.publicUrl;
   };

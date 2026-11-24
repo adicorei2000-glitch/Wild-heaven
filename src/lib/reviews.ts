@@ -44,7 +44,7 @@ export async function fetchReviewableBookingId(
 }
 
 // Rasmni kichraytirib (eng uzun tomoni 1600px) JPEG qiladi: tez yuklanadi, 3 MB limitga sig'adi
-async function compressImage(file: File): Promise<Blob> {
+export async function compressImage(file: File): Promise<Blob> {
   const bitmap = await createImageBitmap(file, { imageOrientation: "from-image" });
   const scale = Math.min(1, 1600 / Math.max(bitmap.width, bitmap.height));
   const canvas = document.createElement("canvas");

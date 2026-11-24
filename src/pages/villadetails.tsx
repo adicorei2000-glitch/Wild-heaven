@@ -279,6 +279,8 @@ function VillaDetails() {
             <img
               src={images[activeImage] ?? villa.image}
               alt={text.name}
+              fetchPriority="high"
+              decoding="async"
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
             />
           </button>
@@ -333,7 +335,7 @@ function VillaDetails() {
                     : "border-transparent opacity-70 hover:opacity-100",
                 )}
               >
-                <img src={src} alt="" className="h-full w-full object-cover" />
+                <img src={src} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
               </button>
             ))}
           </div>
