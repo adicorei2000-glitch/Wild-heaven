@@ -167,7 +167,9 @@
     "saving": "Saqlanmoqda...",
     "savePassword": "Parolni saqlash",
     "passwordUpdated": "Parol yangilandi. Bosh sahifaga o'tilmoqda...",
-    "passwordWeak": "Parol kamida 8 belgidan iborat bo'lishi va harf hamda raqam bo'lishi kerak."
+    "passwordWeak": "Parol kamida 8 belgidan iborat bo'lishi va harf hamda raqam bo'lishi kerak.",
+    "showPassword": "Parolni ko'rsatish",
+    "hidePassword": "Parolni yashirish"
   },
   "favorites": {
     "loginPrompt": "Sevimlilarni ko'rish uchun kiring",

@@ -172,7 +172,9 @@
     "saving": "Saving...",
     "savePassword": "Save password",
     "passwordUpdated": "Password updated. Redirecting to the home page...",
-    "passwordWeak": "Password must be at least 8 characters and include a letter and a number."
+    "passwordWeak": "Password must be at least 8 characters and include a letter and a number.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
   },
   "favorites": {
     "loginPrompt": "Log in to see your favorites",
