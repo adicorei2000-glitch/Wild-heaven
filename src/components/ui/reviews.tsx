@@ -160,7 +160,7 @@ function Reviews({ villaId, onChanged }: Props) {
           <div className="flex flex-wrap items-center gap-2">
             {previews.map((src, i) => (
               <div key={src} className="relative h-16 w-16 overflow-hidden rounded-lg border">
-                <img src={src} alt="" className="h-full w-full object-cover" />
+                <img src={src} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
                 <button
                   type="button"
                   aria-label={t("reviews.removePhoto")}
