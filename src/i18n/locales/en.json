@@ -110,6 +110,8 @@
     "btnPickDates": "Select dates",
     "btnMinNight": "Select at least 1 night",
     "btnMinNights": "Select at least {{n}} nights",
+    "legendBooked": "Booked",
+    "legendFree": "Available",
     "minNights": "Minimum stay: {{n}} nights",
     "btnBook": "Book",
     "openGallery": "Open photos full screen",

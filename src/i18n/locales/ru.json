@@ -112,6 +112,8 @@
     "btnPickDates": "Выберите даты",
     "btnMinNight": "Выберите минимум 1 ночь",
     "btnMinNights": "Выберите минимум {{n}} ноч.",
+    "legendBooked": "Занято",
+    "legendFree": "Свободно",
     "minNights": "Минимум: {{n}} ноч.",
     "btnBook": "Забронировать",
     "openGallery": "Открыть фото на весь экран",
