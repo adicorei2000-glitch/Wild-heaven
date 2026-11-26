@@ -28,6 +28,7 @@ import { cn } from "@/lib/utils";
 import AdminStats from "@/components/ui/admin-stats";
 import BookingChat from "@/components/ui/booking-chat";
 import AdminBlocks from "@/components/ui/admin-blocks";
+import AdminCalendar from "@/components/ui/admin-calendar";
 
 type Status = "pending" | "confirmed" | "cancelled";
 
@@ -519,7 +520,7 @@ function VillasTab() {
 function Admin() {
   const { t } = useTranslation();
   const { isAdmin, loading, user } = useAdmin();
-  const [tab, setTab] = useState<"bookings" | "villas" | "blocks" | "stats">("bookings");
+  const [tab, setTab] = useState<"bookings" | "calendar" | "villas" | "blocks" | "stats">("bookings");
 
   if (loading) {
     return (
@@ -547,6 +548,9 @@ function Admin() {
         <Button variant={tab === "bookings" ? "default" : "outline"} onClick={() => setTab("bookings")}>
           {t("admin.bookings")}
         </Button>
+        <Button variant={tab === "calendar" ? "default" : "outline"} onClick={() => setTab("calendar")}>
+          {t("admin.cal.tab")}
+        </Button>
         <Button variant={tab === "villas" ? "default" : "outline"} onClick={() => setTab("villas")}>
           {t("admin.villas")}
         </Button>
@@ -559,6 +563,8 @@ function Admin() {
       </div>
       {tab === "bookings" ? (
         <BookingsTab />
+      ) : tab === "calendar" ? (
+        <AdminCalendar />
       ) : tab === "villas" ? (
         <VillasTab />
       ) : tab === "blocks" ? (

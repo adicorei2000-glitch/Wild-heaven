@@ -297,6 +297,20 @@
       "top": "가장 많이 예약된 빌라",
       "bookingsCount_other": "예약 {{count}}건"
     },
+    "cal": {
+      "tab": "캘린더",
+      "villa": "빌라",
+      "prev": "이전 달",
+      "next": "다음 달",
+      "today": "오늘",
+      "confirmed": "확정",
+      "pending": "대기 중",
+      "blocked": "차단됨",
+      "booking": "예약",
+      "guests": "{{n}}명",
+      "free": "비어 있는 날입니다.",
+      "loadFailed": "캘린더를 불러오지 못했습니다."
+    },
     "blocks": {
       "tab": "날짜 차단",
       "title": "차단된 날짜",
