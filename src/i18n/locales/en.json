@@ -109,6 +109,8 @@
     "btnSubmitting": "Submitting...",
     "btnPickDates": "Select dates",
     "btnMinNight": "Select at least 1 night",
+    "btnMinNights": "Select at least {{n}} nights",
+    "minNights": "Minimum stay: {{n}} nights",
     "btnBook": "Book",
     "openGallery": "Open photos full screen",
     "closeGallery": "Close",
@@ -317,6 +319,7 @@
     },
     "imageInvalid": "Only JPG, PNG or WebP images up to 5 MB are allowed.",
     "checkInTime": "Check-in time",
+    "minNights": "Minimum nights",
     "checkOutTime": "Check-out time"
   },
   "reviews": {

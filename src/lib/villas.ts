@@ -20,6 +20,7 @@ interface VillaRow {
   lng: number | null;
   check_in_time: string | null;
   check_out_time: string | null;
+  min_nights: number | null;
 }
 
 function toVilla(row: VillaRow): Villa {
@@ -39,6 +40,7 @@ function toVilla(row: VillaRow): Villa {
     lng: row.lng,
     checkInTime: normalizeTime(row.check_in_time, CHECK_IN_TIME),
     checkOutTime: normalizeTime(row.check_out_time, CHECK_OUT_TIME),
+    minNights: row.min_nights ?? 1,
   };
 }
 

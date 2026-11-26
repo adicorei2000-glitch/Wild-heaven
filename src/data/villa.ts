@@ -15,4 +15,5 @@ export interface Villa {
   lng: number | null;
   checkInTime: string; // "HH:MM"
   checkOutTime: string; // "HH:MM"
+  minNights: number;
 }

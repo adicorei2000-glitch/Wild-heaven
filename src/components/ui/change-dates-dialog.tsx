@@ -25,6 +25,7 @@ function ChangeDatesDialog({ booking, onChanged }: Props) {
   const [booked, setBooked] = useState<BookedRange[]>([]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [minNights, setMinNights] = useState(1);
 
   const ownIn = parseISO(booking.check_in);
   const ownOut = parseISO(booking.check_out);
@@ -35,6 +36,12 @@ function ChangeDatesDialog({ booking, onChanged }: Props) {
     if (!open) return;
     setRange({ from: ownIn, to: ownOut });
     setError("");
+    supabase
+      .from("villas")
+      .select("min_nights")
+      .eq("id", booking.villa_id)
+      .maybeSingle()
+      .then(({ data }) => setMinNights(data?.min_nights ?? 1));
     fetchBookedRanges(booking.villa_id)
       .then((r) =>
         // O'z broningizning sanalari to'siq bo'lmasin
@@ -50,7 +57,7 @@ function ChangeDatesDialog({ booking, onChanged }: Props) {
   ];
 
   const newNights = range?.from && range.to ? differenceInCalendarDays(range.to, range.from) : 0;
-  const nightsOk = newNights >= 1 && (!paid || newNights === nights);
+  const nightsOk = newNights >= 1 && (paid ? newNights === nights : newNights >= minNights);
 
   const save = async () => {
     if (!range?.from || !range.to || !nightsOk) return;
@@ -106,6 +113,9 @@ function ChangeDatesDialog({ booking, onChanged }: Props) {
             locale={calendarLocale(i18n.resolvedLanguage ?? "uz")}
           />
         </div>
+        {!paid && minNights > 1 && (
+          <p className="text-xs text-muted-foreground">{t("villa.minNights", { n: minNights })}</p>
+        )}
         {range?.from && range.to && (
           <p className="text-sm font-medium">
             {iso(range.from)} — {iso(range.to)} · {t("villa.nights", { count: newNights })}
