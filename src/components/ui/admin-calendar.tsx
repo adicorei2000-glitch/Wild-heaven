@@ -14,7 +14,8 @@ interface CalBooking {
   check_out: string;
   guests: number;
   total_price: number;
-  status: "pending" | "confirmed";
+  status: "pending" | "confirmed" | "cancelled";
+  villa_id: number;
   paid_at: string | null;
 }
 
@@ -57,12 +58,8 @@ function AdminCalendar() {
     setError("");
     setPicked(null);
     Promise.all([
-      supabase
-        .from("bookings")
-        .select("id, user_email, check_in, check_out, guests, total_price, status, paid_at")
-        .eq("villa_id", Number(villaId))
-        .neq("status", "cancelled")
-        .order("check_in"),
+      // Mehmon emaili faqat admin RPC orqali keladi (bookings jadvalida email ustuni yo'q)
+      supabase.rpc("admin_list_bookings"),
       supabase
         .from("blocked_dates")
         .select("id, start_date, end_date, reason")
@@ -71,7 +68,11 @@ function AdminCalendar() {
     ]).then(([b, bl]) => {
       if (cancelled) return;
       if (b.error || bl.error) setError(t("admin.cal.loadFailed"));
-      setBookings((b.data ?? []) as CalBooking[]);
+      setBookings(
+        ((b.data ?? []) as CalBooking[])
+          .filter((x) => x.villa_id === Number(villaId) && x.status !== "cancelled")
+          .sort((x, y) => x.check_in.localeCompare(y.check_in)),
+      );
       setBlocks((bl.data ?? []) as CalBlock[]);
       setLoading(false);
     });
