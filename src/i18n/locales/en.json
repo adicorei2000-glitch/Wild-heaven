@@ -303,6 +303,20 @@
       "bookingsCount_one": "{{count}} booking",
       "bookingsCount_other": "{{count}} bookings"
     },
+    "cal": {
+      "tab": "Calendar",
+      "villa": "Villa",
+      "prev": "Previous month",
+      "next": "Next month",
+      "today": "Today",
+      "confirmed": "Confirmed",
+      "pending": "Pending",
+      "blocked": "Blocked",
+      "booking": "Booking",
+      "guests": "{{n}} guests",
+      "free": "This day is free.",
+      "loadFailed": "Could not load the calendar."
+    },
     "blocks": {
       "tab": "Block dates",
       "title": "Blocked dates",

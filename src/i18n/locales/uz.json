@@ -246,6 +246,20 @@
       "bookingsCount_one": "{{count}} bron",
       "bookingsCount_other": "{{count}} bron"
     },
+    "cal": {
+      "tab": "Kalendar",
+      "villa": "Villa",
+      "prev": "Oldingi oy",
+      "next": "Keyingi oy",
+      "today": "Bugun",
+      "confirmed": "Tasdiqlangan",
+      "pending": "Kutilmoqda",
+      "blocked": "Yopilgan",
+      "booking": "Bron",
+      "guests": "{{n}} mehmon",
+      "free": "Bu kun bo'sh.",
+      "loadFailed": "Kalendarni yuklab bo'lmadi."
+    },
     "blocks": {
       "tab": "Sanalarni yopish",
       "title": "Yopilgan sanalar",
