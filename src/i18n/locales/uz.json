@@ -106,6 +106,8 @@
     "btnPickDates": "Sanalarni tanlang",
     "btnMinNight": "Kamida 1 kecha tanlang",
     "btnMinNights": "Kamida {{n}} kecha tanlang",
+    "legendBooked": "Band",
+    "legendFree": "Bo'sh",
     "minNights": "Minimal bron: {{n}} kecha",
     "btnBook": "Bron qilish",
     "openGallery": "Rasmlarni to'liq ekranda ochish",

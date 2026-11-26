@@ -146,7 +146,20 @@ function VillaDetails() {
   }));
 
   // Band kunlar kalendarda qizil va chizilgan ko'rinadi
-  const bookedClass = { booked: "[&>button]:text-red-500 [&>button]:line-through" };
+  const bookedClass = {
+    booked:
+      "[&>button]:bg-red-100 [&>button]:text-red-700 [&>button]:line-through [&>button]:opacity-100! dark:[&>button]:bg-red-950 dark:[&>button]:text-red-300",
+  };
+  const legend = (
+    <div className="flex gap-4 border-t px-3 py-2 text-xs text-muted-foreground">
+      <span className="flex items-center gap-1">
+        <i className="inline-block size-3 rounded bg-red-200 dark:bg-red-900" /> {t("villa.legendBooked")}
+      </span>
+      <span className="flex items-center gap-1">
+        <i className="inline-block size-3 rounded border" /> {t("villa.legendFree")}
+      </span>
+    </div>
+  );
 
   const checkInDisabled: Matcher[] = [{ before: today }, ...bookedNights];
 
@@ -434,6 +447,7 @@ function VillaDetails() {
                     modifiers={{ booked: bookedNights }}
                     modifiersClassNames={bookedClass}
                   />
+                  {legend}
                 </PopoverContent>
               </Popover>
             </div>
@@ -460,6 +474,7 @@ function VillaDetails() {
                     modifiers={{ booked: bookedNights }}
                     modifiersClassNames={bookedClass}
                   />
+                  {legend}
                 </PopoverContent>
               </Popover>
             </div>
