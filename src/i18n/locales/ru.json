@@ -111,6 +111,8 @@
     "btnSubmitting": "Отправка...",
     "btnPickDates": "Выберите даты",
     "btnMinNight": "Выберите минимум 1 ночь",
+    "btnMinNights": "Выберите минимум {{n}} ноч.",
+    "minNights": "Минимум: {{n}} ноч.",
     "btnBook": "Забронировать",
     "openGallery": "Открыть фото на весь экран",
     "closeGallery": "Закрыть",
@@ -320,6 +322,7 @@
     },
     "imageInvalid": "Допускаются только изображения JPG, PNG или WebP до 5 МБ.",
     "checkInTime": "Время заезда",
+    "minNights": "Минимум ночей",
     "checkOutTime": "Время выезда"
   },
   "reviews": {

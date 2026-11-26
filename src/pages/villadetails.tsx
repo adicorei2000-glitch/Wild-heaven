@@ -152,7 +152,7 @@ function VillaDetails() {
 
   const maxCheckOut = checkIn ? nextBookingAfter(checkIn) : undefined;
   const checkOutDisabled: Matcher[] = [
-    { before: addDays(checkIn ?? today, 1) },
+    { before: addDays(checkIn ?? today, villa.minNights) },
     ...(maxCheckOut ? [{ after: maxCheckOut }] : []),
   ];
 
@@ -174,7 +174,7 @@ function VillaDetails() {
 
     if (date && checkOut) {
       const limit = nextBookingAfter(date);
-      if (checkOut <= date || (limit && checkOut > limit)) {
+      if (checkOut < addDays(date, villa.minNights) || (limit && checkOut > limit)) {
         setCheckOut(undefined);
       }
     }
@@ -191,7 +191,7 @@ function VillaDetails() {
   };
 
   const handleBooking = async () => {
-    if (!checkIn || !checkOut || nights < 1) return;
+    if (!checkIn || !checkOut || nights < villa.minNights) return;
 
     setMessage(null);
     setSubmitting(true);
@@ -258,8 +258,8 @@ function VillaDetails() {
     ? t("villa.btnSubmitting")
     : !checkIn || !checkOut
       ? t("villa.btnPickDates")
-      : nights < 1
-        ? t("villa.btnMinNight")
+      : nights < villa.minNights
+        ? t("villa.btnMinNights", { n: villa.minNights })
         : t("villa.btnBook");
 
   const images = villa.images;
@@ -407,6 +407,9 @@ function VillaDetails() {
               {t("common.perNight")}
             </span>
           </p>
+          {villa.minNights > 1 && (
+            <p className="text-sm text-muted-foreground">{t("villa.minNights", { n: villa.minNights })}</p>
+          )}
 
           <div className="grid grid-cols-2 gap-2">
             <div className="space-y-1">
@@ -521,7 +524,7 @@ function VillaDetails() {
           <Button
             className="w-full"
             size="lg"
-            disabled={!checkIn || !checkOut || nights < 1 || submitting}
+            disabled={!checkIn || !checkOut || nights < villa.minNights || submitting}
             onClick={handleBooking}
           >
             {buttonLabel}

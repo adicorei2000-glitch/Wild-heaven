@@ -105,6 +105,8 @@
     "btnSubmitting": "Yuborilmoqda...",
     "btnPickDates": "Sanalarni tanlang",
     "btnMinNight": "Kamida 1 kecha tanlang",
+    "btnMinNights": "Kamida {{n}} kecha tanlang",
+    "minNights": "Minimal bron: {{n}} kecha",
     "btnBook": "Bron qilish",
     "openGallery": "Rasmlarni to'liq ekranda ochish",
     "closeGallery": "Yopish",
@@ -260,6 +262,7 @@
     },
     "imageInvalid": "Faqat JPG, PNG yoki WebP rasm (5 MB gacha) yuklash mumkin.",
     "checkInTime": "Kirish vaqti",
+    "minNights": "Minimal tunlar soni",
     "checkOutTime": "Chiqish vaqti"
   },
   "reviews": {
