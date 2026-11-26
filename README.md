@@ -6,7 +6,10 @@ search villas, see which dates are taken, book and pay for a stay, leave
 reviews, and manage everything from an admin panel. The UI is available in
 Uzbek, English, Russian and Korean.
 
-**🔗 Live demo: https://adicorei2000-glitch.github.io/Wild-heaven/**
+**🔗 Live demo:**
+
+- Vercel: https://wild-heaven-5f7f.vercel.app/
+- GitHub Pages: https://adicorei2000-glitch.github.io/Wild-heaven/
 
 ![Wild Haven villa page](docs/screenshot-villa.jpg)
 
