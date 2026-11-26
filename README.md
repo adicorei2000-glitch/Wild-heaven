@@ -8,8 +8,11 @@ Uzbek, English, Russian and Korean.
 
 **🔗 Live demo:**
 
-- Vercel: https://wild-heaven-5f7f.vercel.app/
-- GitHub Pages: https://adicorei2000-glitch.github.io/Wild-heaven/
+[![Vercel](https://img.shields.io/badge/Live%20demo-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://wild-heaven-5f7f.vercel.app/)
+[![GitHub Pages](https://img.shields.io/badge/Live%20demo-GitHub%20Pages-181717?style=for-the-badge&logo=github&logoColor=white)](https://adicorei2000-glitch.github.io/Wild-heaven/)
+
+- ▲ Vercel: https://wild-heaven-5f7f.vercel.app/
+- 🐙 GitHub Pages: https://adicorei2000-glitch.github.io/Wild-heaven/
 
 ![Wild Haven villa page](docs/screenshot-villa.jpg)
 
